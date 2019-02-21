@@ -88,25 +88,33 @@ created nor destroyed d/”Documents/formula.png” t/Physics t/A-levels`
 Shows a list of all flashcards. +
 Format: `list`
 
-=== Editing a person : `edit`
+=== Editing a flashcard : `edit`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Edits an existing Flashcard +
+Format: ​`edit INDEX [f/FRONT TEXT] [b/BACK TEXT] [d/DIAGRAM] [t/COLLECTION
+TAG]...​`
 
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+* _Edits the flashcard at the specified INDEX. The index refers to the index
+number shown in the list all flashcards command. The index must be a positive
+ integer 1, 2, 3, ...​ (not 0 based)_
+* _When editing the a Collection Tag, the existing tags of the flashcard will
+ be removed i.e. if you want to add a new collection tag you must restate all
+  previous collection tags and add the new one_
+* _If none of the options fields are provided the program simply displays the
+ current information of the flashcard (front text, back text, diagram path
+ and tags)_
+* _You can remove all collection tags associated with a flashcard by typing
+​t/​ without specifying any tags after it * Similarly you can remove a
+diagram associated with a flashcard by typing ​d/_
+* ​_After an edit of one or more fields, the program will display the updated
+ information of the flashcard (front text, back text, diagram path and tags)._
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `edit 2` +
+This will display the current information of the flashcard at index 2
+* `edit 1 f/Halo t/BahasaIndonesia` +
+Flashcard at index 1 will be edited and the updated information will be displayed
 
 === Locating persons by name: `find`
 
