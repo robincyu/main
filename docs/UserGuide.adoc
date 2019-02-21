@@ -69,6 +69,7 @@ Format: `help`
 === Adding a flashcard: `add`
 
 Adds a new Flashcard to a collection
+
 Format: ​add `f/FRONT TEXT b/BACK TEXT [d/DIAGRAM] [t/COLLECTION TAG]​...​`
 
 ****
@@ -88,6 +89,7 @@ created nor destroyed d/”Documents/formula.png” t/Physics t/A-levels`
 === Editing a flashcard : `edit`
 
 Edits an existing Flashcard +
+
 Format: ​`edit INDEX [f/FRONT TEXT] [b/BACK TEXT] [d/DIAGRAM] [t/COLLECTION
 TAG]...​`
 
@@ -118,6 +120,7 @@ Flashcard at index 1 will be edited and the updated information will be displaye
 === Locating a Flashcard by keyword: `find`
 
 Finds flashcards whose names contain any of the given keywords. +
+
 Format: ​`find [KEYWORD]... [f/KEYWORD]... [b/KEYWORD]... [t/KEYWORD]...`
 
 ****
@@ -136,6 +139,7 @@ This will display all flashcards
 === Deleting a flashcard : `delete`
 
 Deletes an existing Flashcard. +
+
 Format: `delete INDEX`
 
 ****
@@ -157,6 +161,7 @@ Deletes the 1st flashcard in the results of the `find` command.
 
 Enter quiz mode. A card will be shown to the user one by one randomly with distribution based
 on accuracy of each flashcard. The user then can self-verify whether he/she correctly guess the other side of the flashcard.
+
 Format: `​quiz [t/TAG] []`
 
 ****
@@ -166,6 +171,20 @@ Format: `​quiz [t/TAG] []`
 Examples:
 
 * `quiz t/chinese`
+
+=== Show progress statistics : s​tats
+Show statistics for the cards with the given tag, or all cards if tag is not specified, including
+accuracy, number of tries, etc.
+
+Format: ​stats [t/TAG]
+
+****
+* Shows the statistics of the cards with the given tag. If no tags are given, statistics of all cards will be shown.
+****
+
+Examples:
+
+* `stats t/physics`
 
 
 === [Coming in version 2.0] Selecting a person : `select`
