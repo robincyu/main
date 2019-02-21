@@ -85,11 +85,6 @@ Examples:
 * `add f/First Law of Thermodynamics b/Energy can neither be
 created nor destroyed d/”Documents/formula.png” t/Physics t/A-levels`
 
-=== Listing all flashcards : `list`
-
-Shows a list of all flashcards. +
-Format: `list`
-
 === Editing a flashcard : `edit`
 
 Edits an existing Flashcard +
@@ -138,25 +133,25 @@ This will display all flashcards with spanish tag
 * `find` +
 This will display all flashcards
 
-=== Deleting a person : `delete`
+=== Deleting a flashcard : `delete`
 
-Deletes the specified person from the address book. +
+Deletes an existing Flashcard. +
 Format: `delete INDEX`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Deletes the flashcard at the specified INDEX.
+* The index refers to the index number shown in the list all flashcards command.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
 Examples:
 
-* `list` +
+* `find` +
 `delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
+Deletes the 2nd flashcard in the list.
+* `find f/Betsy` +
 `delete 1` +
-Deletes the 1st person in the results of the `find` command.
+Deletes the 1st flashcard in the results of the `find` command.
 
 === Selecting a person : `select`
 
