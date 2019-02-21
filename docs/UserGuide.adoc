@@ -12,13 +12,23 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/cs2103-ay1819s2-t12-2/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team T12-2`      Since: `Feb 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+_Acquizition_ is a *desktop app* for easy language acquisition
+and memory retention. By using a Spaced Repetition System (SRS),
+_Acquizition_ cleverly determines which flashcards should be
+tested to maximize recollection.
+
+Additionally, _Acquizition_ provides a user-friendly Graphical
+User Interface (GUI) to create and edit flashcards. It also
+provides a Command-Line Interface (CLI) to streamline the
+experience for more experienced users.
+
+Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -56,18 +66,22 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
-=== Adding a person: `add`
+=== Adding a flashcard: `add`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Adds a new Flashcard to a collection
+Format: ​add `f/FRONT TEXT b/BACK TEXT [d/DIAGRAM] [t/COLLECTION TAG]​...​`
 
-[TIP]
-A person can have any number of tags (including 0)
+* _A Flashcard can have any number of collection tags (including 0). A
+collection tag specifies which collection a specific card belongs to. For
+example “Spanish” tag to specify that the flashcard belongs to a collection of Spanish flashcards. If no tag is specified the flash card belongs to the entire collection of flashcards created (including those with tags)._
+* _A Flashcard can have a single diagram on its back specified by a given
+path (optional)_
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add f/Hola b/Hello t/Spanish`
+* `add f/First Law of Thermodynamics b/Energy can neither be
+created nor destroyed d/”Documents/formula.png” t/Physics t/A-levels`
 
 === Listing all persons : `list`
 
