@@ -83,9 +83,9 @@ Examples:
 * `add f/First Law of Thermodynamics b/Energy can neither be
 created nor destroyed d/”Documents/formula.png” t/Physics t/A-levels`
 
-=== Listing all persons : `list`
+=== Listing all flashcards : `list`
 
-Shows a list of all persons in the address book. +
+Shows a list of all flashcards. +
 Format: `list`
 
 === Editing a person : `edit`
