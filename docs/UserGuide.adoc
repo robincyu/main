@@ -153,6 +153,21 @@ Deletes the 2nd flashcard in the list.
 `delete 1` +
 Deletes the 1st flashcard in the results of the `find` command.
 
+=== Quiz mode : ​`quiz`
+
+Enter quiz mode. A card will be shown to the user one by one randomly with distribution based
+on accuracy of each flashcard. The user then can self-verify whether he/she correctly guess the other side of the flashcard.
+Format: `​quiz [t/TAG] []`
+
+****
+* Enters quiz mode. If no tags are given, all cards can be shown.
+****
+
+Examples:
+
+* `quiz t/chinese`
+
+
 === [Coming in version 2.0] Selecting a person : `select`
 
 Selects the person identified by the index number used in the displayed person list. +
