@@ -71,11 +71,13 @@ Format: `help`
 Adds a new Flashcard to a collection
 Format: ​add `f/FRONT TEXT b/BACK TEXT [d/DIAGRAM] [t/COLLECTION TAG]​...​`
 
-* _A Flashcard can have any number of collection tags (including 0). A
+****
+* A Flashcard can have any number of collection tags (including 0). A
 collection tag specifies which collection a specific card belongs to. For
 example “Spanish” tag to specify that the flashcard belongs to a collection of Spanish flashcards. If no tag is specified the flash card belongs to the entire collection of flashcards created (including those with tags)._
-* _A Flashcard can have a single diagram on its back specified by a given
-path (optional)_
+* A Flashcard can have a single diagram on its back specified by a given
+path (optional)
+****
 
 Examples:
 
@@ -94,20 +96,22 @@ Edits an existing Flashcard +
 Format: ​`edit INDEX [f/FRONT TEXT] [b/BACK TEXT] [d/DIAGRAM] [t/COLLECTION
 TAG]...​`
 
-* _Edits the flashcard at the specified INDEX. The index refers to the index
+****
+* Edits the flashcard at the specified INDEX. The index refers to the index
 number shown in the list all flashcards command. The index must be a positive
- integer 1, 2, 3, ...​ (not 0 based)_
-* _When editing the a Collection Tag, the existing tags of the flashcard will
+ integer 1, 2, 3, ...​ (not 0 based)
+* When editing the a Collection Tag, the existing tags of the flashcard will
  be removed i.e. if you want to add a new collection tag you must restate all
-  previous collection tags and add the new one_
-* _If none of the options fields are provided the program simply displays the
+  previous collection tags and add the new one
+* If none of the options fields are provided the program simply displays the
  current information of the flashcard (front text, back text, diagram path
- and tags)_
-* _You can remove all collection tags associated with a flashcard by typing
+ and tags)
+* You can remove all collection tags associated with a flashcard by typing
 ​t/​ without specifying any tags after it * Similarly you can remove a
-diagram associated with a flashcard by typing ​d/_
-* ​_After an edit of one or more fields, the program will display the updated
- information of the flashcard (front text, back text, diagram path and tags)._
+diagram associated with a flashcard by typing ​d/
+* After an edit of one or more fields, the program will display the updated
+ information of the flashcard (front text, back text, diagram path and tags).
+****
 
 Examples:
 
@@ -116,25 +120,23 @@ This will display the current information of the flashcard at index 2
 * `edit 1 f/Halo t/BahasaIndonesia` +
 Flashcard at index 1 will be edited and the updated information will be displayed
 
-=== Locating persons by name: `find`
+=== Locating a Flashcard by keyword: `find`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Finds flashcards whose names contain any of the given keywords. +
+Format: ​`find [KEYWORD]... [f/KEYWORD]... [b/KEYWORD]... [t/KEYWORD]...`
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Finds the flashcard(s) that contains the given keyword(s)
 ****
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `find f/你好 t/language` +
+This will display flashcards that contains the given keyword in language tag
+* `find t/spanish` +
+This will display all flashcards with spanish tag
+* `find` +
+This will display all flashcards
 
 === Deleting a person : `delete`
 
