@@ -35,8 +35,8 @@ if (JavaVersion.current() == JavaVersion.VERSION_1_10
 // Specifies the entry point of the application
 mainClassName = 'seedu.address.MainApp'
 
-sourceCompatibility = JavaVersion.VERSION_1_9
-targetCompatibility = JavaVersion.VERSION_1_9
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
 
 repositories {
     mavenCentral()
@@ -45,6 +45,10 @@ repositories {
 
 checkstyle {
     toolVersion = '8.1'
+}
+
+jacoco {
+    toolVersion = "0.8.3"
 }
 
 jacocoTestReport {
