@@ -33,7 +33,7 @@ Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+.  Download the latest `acquizition.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -43,9 +43,11 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`find`* : lists all contacts
+* **`add`**`add f/Hola b/Hello t/Spanish` : adds a flash card with `Hola` on
+the front of the card, `Hello` on the back of the card, and `Spanish` as the
+tag.
+* **`delete`**`3` : deletes the 3rd flash card shown in the current list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -95,7 +97,7 @@ TAG]...​`
 
 ****
 * Edits the flashcard at the specified INDEX. The index refers to the index
-number shown in the list all flashcards command. The index must be a positive
+number shown in the list of all flashcards command. The index must be a positive
  integer 1, 2, 3, ...​ (not 0 based)
 * When editing the a Collection Tag, the existing tags of the flashcard will
  be removed i.e. if you want to add a new collection tag you must restate all
@@ -172,7 +174,7 @@ Examples:
 
 * `quiz t/chinese`
 
-=== Show progress statistics : s​tats
+=== Show progress statistics : `s​tats`
 Show statistics for the cards with the given tag, or all cards if tag is not specified, including
 accuracy, number of tries, etc.
 
@@ -221,6 +223,9 @@ Reverses the most recent `undo` command.
 *A*: Install the app in the other computer and overwrite the empty data file
 it creates with the file that contains the data of your previous Aqquizition
 folder.
+
+*Q*: How do I list all of my flash cards? +
+*A*: Use command `find` to list all flash cards.
 
 == Command Summary
 
