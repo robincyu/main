@@ -59,15 +59,15 @@ tag.
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in
- `add f/FRONT b/BACK`, `FRONT` and `BACK` are parameters which can be used as
+ `add f/FRONT TEXT b/BACK TEXT`, `FRONT TEXT` and `BACK TEXT` are parameters which can be used as
  `add f/Hola b/Hello`.
-* Items in square brackets are optional e.g `f/FRONT b/BACK [t/TAG]` can be used
+* Items in square brackets are optional e.g `f/FRONT TEXT b/BACK TEXT [t/TAG]` can be used
  as `f/Hola b/Hello t/Spanish` or as `f/Hola b/Hello`.
 * Items with `…`​ after them can be used multiple times including zero times
 e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/Spanish`,
 `t/language t/Chinese` etc.
-* Parameters can be in any order e.g. if the command specifies `f/FRONT
-b/BACK`, `b/BACK f/FRONT` is also acceptable.
+* Parameters can be in any order e.g. if the command specifies `f/FRONT TEXT
+b/BACK TEXT`, `b/BACK TEXT f/FRONT TEXT` is also acceptable.
 ====
 
 === Viewing help : `help`
