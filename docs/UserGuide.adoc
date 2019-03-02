@@ -187,7 +187,7 @@ Examples:
 * `stats t/physics`
 
 
-=== [Coming in version 2.0] Selecting a person : `select`
+=== "[Coming in v2.0]" Selecting a person : `select`
 
 Selects the person identified by the index number used in the displayed person list. +
 Format: `select INDEX`
@@ -207,7 +207,7 @@ Selects the 2nd person in the address book.
 `select 1` +
 Selects the 1st person in the results of the `find` command.
 
-=== [Coming in version 2.0] Listing entered commands : `history`
+=== "[Coming in v2.0]" Listing entered commands : `history`
 
 Lists all the commands that you have entered in reverse chronological order. +
 Format: `history`
@@ -218,7 +218,7 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 ====
 
 // tag::undoredo[]
-=== [Coming in version 2.0] Undoing previous command : `undo`
+=== "[Coming in v2.0]" Undoing previous command : `undo`
 
 Restores the address book to the state before the previous _undoable_ command was executed. +
 Format: `undo`
@@ -244,7 +244,7 @@ The `undo` command fails as there are no undoable commands executed previously.
 `undo` (reverses the `clear` command) +
 `undo` (reverses the `delete 1` command) +
 
-=== [Coming in version 2.0] Redoing the previously undone command : `redo`
+=== "[Coming in v2.0]" Redoing the previously undone command : `redo`
 
 Reverses the most recent `undo` command. +
 Format: `redo`
