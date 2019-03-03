@@ -54,7 +54,8 @@ public class AddCommandSystemTest extends CardCollectionSystemTest {
 
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 
-        /* Case: add a person without tags to a non-empty card collection, command with leading spaces and trailing spaces
+        /* Case: add a person without tags to a non-empty card collection, command with leading spaces and trailing
+         * spaces
          * -> added
          */
         Person toAdd = AMY;
