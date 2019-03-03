@@ -15,14 +15,14 @@ import seedu.address.model.flashcard.exceptions.PersonNotFoundException;
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
  * A flashCard is considered unique by comparing using {@code FlashCard#isSamePerson(FlashCard)}. As such, adding and updating of
  * persons uses FlashCard#isSamePerson(FlashCard) for equality so as to ensure that the flashCard being added or updated is
- * unique in terms of identity in the UniquePersonList. However, the removal of a flashCard uses FlashCard#equals(Object) so
+ * unique in terms of identity in the UniqueFlashCardList. However, the removal of a flashCard uses FlashCard#equals(Object) so
  * as to ensure that the flashCard with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
  * @see FlashCard#isSamePerson(FlashCard)
  */
-public class UniquePersonList implements Iterable<FlashCard> {
+public class UniqueFlashCardList implements Iterable<FlashCard> {
 
     private final ObservableList<FlashCard> internalList = FXCollections.observableArrayList();
     private final ObservableList<FlashCard> internalUnmodifiableList =
@@ -79,7 +79,7 @@ public class UniquePersonList implements Iterable<FlashCard> {
         }
     }
 
-    public void setPersons(UniquePersonList replacement) {
+    public void setPersons(UniqueFlashCardList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -112,8 +112,8 @@ public class UniquePersonList implements Iterable<FlashCard> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniquePersonList // instanceof handles nulls
-                        && internalList.equals(((UniquePersonList) other).internalList));
+                || (other instanceof UniqueFlashCardList // instanceof handles nulls
+                        && internalList.equals(((UniqueFlashCardList) other).internalList));
     }
 
     @Override
