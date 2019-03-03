@@ -99,7 +99,7 @@ public abstract class AddressBookSystemTest {
     }
 
     public CardListPanelHandle getPersonListPanel() {
-        return mainWindowHandle.getPersonListPanel();
+        return mainWindowHandle.getCardListPanel();
     }
 
     public MainMenuHandle getMainMenu() {
