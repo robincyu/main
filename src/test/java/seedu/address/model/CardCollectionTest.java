@@ -54,7 +54,7 @@ public class CardCollectionTest {
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
         // Two persons with the same identity fields
         Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
+            .build();
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
         CardCollectionStub newData = new CardCollectionStub(newPersons);
 
@@ -83,7 +83,7 @@ public class CardCollectionTest {
     public void hasPerson_personWithSameIdentityFieldsInCardCollection_returnsTrue() {
         cardCollection.addPerson(ALICE);
         Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
+            .build();
         assertTrue(cardCollection.hasPerson(editedAlice));
     }
 

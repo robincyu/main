@@ -86,8 +86,8 @@ public class VersionedCardCollection extends CardCollection {
 
         // state check
         return super.equals(otherVersionedCardCollection)
-                && cardCollectionStateList.equals(otherVersionedCardCollection.cardCollectionStateList)
-                && currentStatePointer == otherVersionedCardCollection.currentStatePointer;
+            && cardCollectionStateList.equals(otherVersionedCardCollection.cardCollectionStateList)
+            && currentStatePointer == otherVersionedCardCollection.currentStatePointer;
     }
 
     /**

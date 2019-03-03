@@ -25,7 +25,7 @@ import seedu.address.model.person.Phone;
 
 public class PersonListPanelTest extends GuiUnitTest {
     private static final ObservableList<Person> TYPICAL_PERSONS =
-            FXCollections.observableList(getTypicalPersons());
+        FXCollections.observableList(getTypicalPersons());
 
     private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 2500;
 
@@ -42,7 +42,7 @@ public class PersonListPanelTest extends GuiUnitTest {
             PersonCardHandle actualCard = personListPanelHandle.getPersonCardHandle(i);
 
             assertCardDisplaysPerson(expectedPerson, actualCard);
-            assertEquals(Integer.toString(i + 1) + ". ", actualCard.getId());
+            assertEquals((i + 1) + ". ", actualCard.getId());
         }
     }
 
@@ -95,10 +95,10 @@ public class PersonListPanelTest extends GuiUnitTest {
      */
     private void initUi(ObservableList<Person> backingList) {
         PersonListPanel personListPanel =
-                new PersonListPanel(backingList, selectedPerson, selectedPerson::set);
+            new PersonListPanel(backingList, selectedPerson, selectedPerson::set);
         uiPartRule.setUiPart(personListPanel);
 
         personListPanelHandle = new PersonListPanelHandle(getChildNode(personListPanel.getRoot(),
-                PersonListPanelHandle.PERSON_LIST_VIEW_ID));
+            PersonListPanelHandle.PERSON_LIST_VIEW_ID));
     }
 }

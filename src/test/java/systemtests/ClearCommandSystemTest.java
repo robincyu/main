@@ -62,6 +62,7 @@ public class ClearCommandSystemTest extends CardCollectionSystemTest {
      * These verifications are done by
      * {@code CardCollectionSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * Also verifies that the command box has the default style class and the status bar's sync status changes.
+     *
      * @see CardCollectionSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(String command) {
@@ -71,6 +72,7 @@ public class ClearCommandSystemTest extends CardCollectionSystemTest {
     /**
      * Performs the same verification as {@code assertCommandSuccess(String)} except that the result box displays
      * {@code expectedResultMessage} and the model related components equal to {@code expectedModel}.
+     *
      * @see ClearCommandSystemTest#assertCommandSuccess(String)
      */
     private void assertCommandSuccess(String command, String expectedResultMessage, Model expectedModel) {
@@ -87,6 +89,7 @@ public class ClearCommandSystemTest extends CardCollectionSystemTest {
      * {@code CardCollectionSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * Also verifies that the browser url, selected card and status bar remain unchanged, and the command box has the
      * error style.
+     *
      * @see CardCollectionSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {

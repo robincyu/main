@@ -25,12 +25,12 @@ public class CardCollection implements ReadOnlyCardCollection {
      *
      * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
      *   among constructors.
-     */
-    {
+     */ {
         persons = new UniquePersonList();
     }
 
-    public CardCollection() {}
+    public CardCollection() {
+    }
 
     /**
      * Creates an CardCollection using the Persons in the {@code toBeCopied}
@@ -134,8 +134,8 @@ public class CardCollection implements ReadOnlyCardCollection {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof CardCollection // instanceof handles nulls
-                && persons.equals(((CardCollection) other).persons));
+            || (other instanceof CardCollection // instanceof handles nulls
+            && persons.equals(((CardCollection) other).persons));
     }
 
     @Override

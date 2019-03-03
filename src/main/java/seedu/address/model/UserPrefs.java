@@ -14,12 +14,13 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path cardCollectionFilePath = Paths.get("data" , "cardcollection.json");
+    private Path cardCollectionFilePath = Paths.get("data", "cardcollection.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
      */
-    public UserPrefs() {}
+    public UserPrefs() {
+    }
 
     /**
      * Creates a {@code UserPrefs} with the prefs in {@code userPrefs}.
@@ -68,7 +69,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && cardCollectionFilePath.equals(o.cardCollectionFilePath);
+            && cardCollectionFilePath.equals(o.cardCollectionFilePath);
     }
 
     @Override

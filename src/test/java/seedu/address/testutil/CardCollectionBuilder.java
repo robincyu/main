@@ -6,7 +6,7 @@ import seedu.address.model.person.Person;
 /**
  * A utility class to help with building CardCollection objects.
  * Example usage: <br>
- *     {@code CardCollection ab = new CardCollectionBuilder().withPerson("John", "Doe").build();}
+ * {@code CardCollection ab = new CardCollectionBuilder().withPerson("John", "Doe").build();}
  */
 public class CardCollectionBuilder {
 

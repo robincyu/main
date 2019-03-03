@@ -41,8 +41,8 @@ public class JsonCardCollectionStorageTest {
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
         return prefsFileInTestDataFolder != null
-                ? TEST_DATA_FOLDER.resolve(prefsFileInTestDataFolder)
-                : null;
+            ? TEST_DATA_FOLDER.resolve(prefsFileInTestDataFolder)
+            : null;
     }
 
     @Test
@@ -110,7 +110,7 @@ public class JsonCardCollectionStorageTest {
     private void saveCardCollection(ReadOnlyCardCollection cardCollection, String filePath) {
         try {
             new JsonCardCollectionStorage(Paths.get(filePath))
-                    .saveCardCollection(cardCollection, addToTestDataPathIfNotNull(filePath));
+                .saveCardCollection(cardCollection, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }

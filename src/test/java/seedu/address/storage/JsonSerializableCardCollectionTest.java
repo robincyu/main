@@ -27,7 +27,7 @@ public class JsonSerializableCardCollectionTest {
     @Test
     public void toModelType_typicalPersonsFile_success() throws Exception {
         JsonSerializableCardCollection dataFromFile = JsonUtil.readJsonFile(TYPICAL_PERSONS_FILE,
-                JsonSerializableCardCollection.class).get();
+            JsonSerializableCardCollection.class).get();
         CardCollection cardCollectionFromFile = dataFromFile.toModelType();
         CardCollection typicalPersonsCardCollection = TypicalPersons.getTypicalCardCollection();
         assertEquals(cardCollectionFromFile, typicalPersonsCardCollection);
@@ -36,7 +36,7 @@ public class JsonSerializableCardCollectionTest {
     @Test
     public void toModelType_invalidPersonFile_throwsIllegalValueException() throws Exception {
         JsonSerializableCardCollection dataFromFile = JsonUtil.readJsonFile(INVALID_PERSON_FILE,
-                JsonSerializableCardCollection.class).get();
+            JsonSerializableCardCollection.class).get();
         thrown.expect(IllegalValueException.class);
         dataFromFile.toModelType();
     }
@@ -44,7 +44,7 @@ public class JsonSerializableCardCollectionTest {
     @Test
     public void toModelType_duplicatePersons_throwsIllegalValueException() throws Exception {
         JsonSerializableCardCollection dataFromFile = JsonUtil.readJsonFile(DUPLICATE_PERSON_FILE,
-                JsonSerializableCardCollection.class).get();
+            JsonSerializableCardCollection.class).get();
         thrown.expect(IllegalValueException.class);
         thrown.expectMessage(JsonSerializableCardCollection.MESSAGE_DUPLICATE_PERSON);
         dataFromFile.toModelType();

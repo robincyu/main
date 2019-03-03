@@ -46,7 +46,7 @@ public class JsonCardCollectionStorage implements CardCollectionStorage {
         requireNonNull(filePath);
 
         Optional<JsonSerializableCardCollection> jsonCardCollection = JsonUtil.readJsonFile(
-                filePath, JsonSerializableCardCollection.class);
+            filePath, JsonSerializableCardCollection.class);
         if (!jsonCardCollection.isPresent()) {
             return Optional.empty();
         }

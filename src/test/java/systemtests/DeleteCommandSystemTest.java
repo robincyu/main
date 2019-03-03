@@ -23,7 +23,7 @@ import seedu.address.model.person.Person;
 public class DeleteCommandSystemTest extends CardCollectionSystemTest {
 
     private static final String MESSAGE_INVALID_DELETE_COMMAND_FORMAT =
-            String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
+        String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
 
     @Test
     public void delete() {
@@ -97,7 +97,7 @@ public class DeleteCommandSystemTest extends CardCollectionSystemTest {
 
         /* Case: invalid index (size + 1) -> rejected */
         Index outOfBoundsIndex = Index.fromOneBased(
-                getModel().getCardCollection().getPersonList().size() + 1);
+            getModel().getCardCollection().getPersonList().size() + 1);
         command = DeleteCommand.COMMAND_WORD + " " + outOfBoundsIndex.getOneBased();
         assertCommandFailure(command, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
@@ -113,6 +113,7 @@ public class DeleteCommandSystemTest extends CardCollectionSystemTest {
 
     /**
      * Removes the {@code Person} at the specified {@code index} in {@code model}'s card collection.
+     *
      * @return the removed person
      */
     private Person removePerson(Model model, Index index) {
@@ -124,6 +125,7 @@ public class DeleteCommandSystemTest extends CardCollectionSystemTest {
     /**
      * Deletes the person at {@code toDelete} by creating a default {@code DeleteCommand} using {@code toDelete} and
      * performs the same verification as {@code assertCommandSuccess(String, Model, String)}.
+     *
      * @see DeleteCommandSystemTest#assertCommandSuccess(String, Model, String)
      */
     private void assertCommandSuccess(Index toDelete) {
@@ -132,7 +134,7 @@ public class DeleteCommandSystemTest extends CardCollectionSystemTest {
         String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
 
         assertCommandSuccess(
-                DeleteCommand.COMMAND_WORD + " " + toDelete.getOneBased(), expectedModel, expectedResultMessage);
+            DeleteCommand.COMMAND_WORD + " " + toDelete.getOneBased(), expectedModel, expectedResultMessage);
     }
 
     /**
@@ -144,6 +146,7 @@ public class DeleteCommandSystemTest extends CardCollectionSystemTest {
      * 5. Asserts that the command box has the default style class.<br>
      * Verifications 1 and 2 are performed by
      * {@code CardCollectionSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.
+     *
      * @see CardCollectionSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
@@ -153,11 +156,12 @@ public class DeleteCommandSystemTest extends CardCollectionSystemTest {
     /**
      * Performs the same verification as {@code assertCommandSuccess(String, Model, String)} except that the browser url
      * and selected card are expected to update accordingly depending on the card at {@code expectedSelectedCardIndex}.
+     *
      * @see DeleteCommandSystemTest#assertCommandSuccess(String, Model, String)
      * @see CardCollectionSystemTest#assertSelectedCardChanged(Index)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
-            Index expectedSelectedCardIndex) {
+                                      Index expectedSelectedCardIndex) {
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
 
@@ -179,6 +183,7 @@ public class DeleteCommandSystemTest extends CardCollectionSystemTest {
      * 4. Asserts that the command box has the error style.<br>
      * Verifications 1 and 2 are performed by
      * {@code CardCollectionSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     *
      * @see CardCollectionSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
