@@ -58,7 +58,8 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyCardCollection> readCardCollection(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyCardCollection> readCardCollection(Path filePath) throws DataConversionException,
+        IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return cardCollectionStorage.readCardCollection(filePath);
     }

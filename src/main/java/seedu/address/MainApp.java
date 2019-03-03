@@ -56,7 +56,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        CardCollectionStorage cardCollectionStorage = new JsonCardCollectionStorage(userPrefs.getCardCollectionFilePath());
+        CardCollectionStorage cardCollectionStorage =
+            new JsonCardCollectionStorage(userPrefs.getCardCollectionFilePath());
         storage = new StorageManager(cardCollectionStorage, userPrefsStorage);
 
         initLogging(config);

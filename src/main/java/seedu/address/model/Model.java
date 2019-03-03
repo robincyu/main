@@ -73,7 +73,8 @@ public interface Model {
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
      * {@code target} must exist in the card collection.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the card collection.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the card
+     * collection.
      */
     void setPerson(Person target, Person editedPerson);
 
