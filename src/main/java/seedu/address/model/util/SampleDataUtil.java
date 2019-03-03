@@ -7,8 +7,8 @@ import java.util.stream.Collectors;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.flashcard.Address;
+import seedu.address.model.flashcard.Card;
 import seedu.address.model.flashcard.Email;
-import seedu.address.model.flashcard.FlashCard;
 import seedu.address.model.flashcard.Name;
 import seedu.address.model.flashcard.Phone;
 import seedu.address.model.tag.Tag;
@@ -17,24 +17,24 @@ import seedu.address.model.tag.Tag;
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
 public class SampleDataUtil {
-    public static FlashCard[] getSamplePersons() {
-        return new FlashCard[] {
-            new FlashCard(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
+    public static Card[] getSamplePersons() {
+        return new Card[] {
+            new Card(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
                 new Address("Blk 30 Geylang Street 29, #06-40"),
                 getTagSet("friends")),
-            new FlashCard(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
+            new Card(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
                 new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
                 getTagSet("colleagues", "friends")),
-            new FlashCard(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
+            new Card(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
                 new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
                 getTagSet("neighbours")),
-            new FlashCard(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
+            new Card(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
                 new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
                 getTagSet("family")),
-            new FlashCard(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
+            new Card(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
                 new Address("Blk 47 Tampines Street 20, #17-35"),
                 getTagSet("classmates")),
-            new FlashCard(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
+            new Card(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
                 new Address("Blk 45 Aljunied Street 85, #11-31"),
                 getTagSet("colleagues"))
         };
@@ -42,8 +42,8 @@ public class SampleDataUtil {
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
-        for (FlashCard sampleFlashCard : getSamplePersons()) {
-            sampleAb.addPerson(sampleFlashCard);
+        for (Card sampleCard : getSamplePersons()) {
+            sampleAb.addPerson(sampleCard);
         }
         return sampleAb;
     }

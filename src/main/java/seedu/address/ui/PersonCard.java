@@ -5,10 +5,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.flashcard.FlashCard;
+import seedu.address.model.flashcard.Card;
 
 /**
- * An UI component that displays information of a {@code FlashCard}.
+ * An UI component that displays information of a {@code Card}.
  */
 public class PersonCard extends UiPart<Region> {
 
@@ -22,7 +22,7 @@ public class PersonCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final FlashCard flashCard;
+    public final Card card;
 
     @FXML
     private HBox cardPane;
@@ -39,15 +39,15 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public PersonCard(FlashCard flashCard, int displayedIndex) {
+    public PersonCard(Card card, int displayedIndex) {
         super(FXML);
-        this.flashCard = flashCard;
+        this.card = card;
         id.setText(displayedIndex + ". ");
-        name.setText(flashCard.getName().fullName);
-        phone.setText(flashCard.getPhone().value);
-        address.setText(flashCard.getAddress().value);
-        email.setText(flashCard.getEmail().value);
-        flashCard.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        name.setText(card.getName().fullName);
+        phone.setText(card.getPhone().value);
+        address.setText(card.getAddress().value);
+        email.setText(card.getEmail().value);
+        card.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
     @Override
@@ -65,6 +65,6 @@ public class PersonCard extends UiPart<Region> {
         // state check
         PersonCard card = (PersonCard) other;
         return id.getText().equals(card.id.getText())
-                && flashCard.equals(card.flashCard);
+                && this.card.equals(card.card);
     }
 }

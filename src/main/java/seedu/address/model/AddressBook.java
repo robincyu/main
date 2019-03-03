@@ -7,8 +7,8 @@ import java.util.List;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
-import seedu.address.model.flashcard.FlashCard;
-import seedu.address.model.flashcard.UniqueFlashCardList;
+import seedu.address.model.flashcard.Card;
+import seedu.address.model.flashcard.UniqueCardList;
 
 /**
  * Wraps all data at the address-book level
@@ -16,7 +16,7 @@ import seedu.address.model.flashcard.UniqueFlashCardList;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-    private final UniqueFlashCardList persons;
+    private final UniqueCardList persons;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /*
@@ -27,7 +27,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
-        persons = new UniqueFlashCardList();
+        persons = new UniqueCardList();
     }
 
     public AddressBook() {}
@@ -43,11 +43,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the flashCard list with {@code flashCards}.
-     * {@code flashCards} must not contain duplicate flashCards.
+     * Replaces the contents of the card list with {@code cards}.
+     * {@code cards} must not contain duplicate cards.
      */
-    public void setPersons(List<FlashCard> flashCards) {
-        this.persons.setFlashCards(flashCards);
+    public void setPersons(List<Card> cards) {
+        this.persons.setCards(cards);
         indicateModified();
     }
 
@@ -57,37 +57,37 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getFlashCardList());
+        setPersons(newData.getCardList());
     }
 
-    //// flashCard-level operations
+    //// card-level operations
 
     /**
-     * Returns true if a flashCard with the same identity as {@code flashCard} exists in the address book.
+     * Returns true if a card with the same identity as {@code card} exists in the address book.
      */
-    public boolean hasPerson(FlashCard flashCard) {
-        requireNonNull(flashCard);
-        return persons.contains(flashCard);
+    public boolean hasPerson(Card card) {
+        requireNonNull(card);
+        return persons.contains(card);
     }
 
     /**
-     * Adds a flashCard to the address book.
-     * The flashCard must not already exist in the address book.
+     * Adds a card to the address book.
+     * The card must not already exist in the address book.
      */
-    public void addPerson(FlashCard p) {
+    public void addPerson(Card p) {
         persons.add(p);
         indicateModified();
     }
 
     /**
-     * Replaces the given flashCard {@code target} in the list with {@code editedFlashCard}.
+     * Replaces the given card {@code target} in the list with {@code editedCard}.
      * {@code target} must exist in the address book.
-     * The flashCard identity of {@code editedFlashCard} must not be the same as another existing flashCard in the address book.
+     * The card identity of {@code editedCard} must not be the same as another existing card in the address book.
      */
-    public void setFlashCard(FlashCard target, FlashCard editedFlashCard) {
-        requireNonNull(editedFlashCard);
+    public void setCard(Card target, Card editedCard) {
+        requireNonNull(editedCard);
 
-        persons.setFlashCard(target, editedFlashCard);
+        persons.setCard(target, editedCard);
         indicateModified();
     }
 
@@ -95,7 +95,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson(FlashCard key) {
+    public void removePerson(Card key) {
         persons.remove(key);
         indicateModified();
     }
@@ -126,7 +126,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public ObservableList<FlashCard> getFlashCardList() {
+    public ObservableList<Card> getCardList() {
         return persons.asUnmodifiableObservableList();
     }
 

@@ -21,8 +21,8 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.flashcard.FlashCard;
-import seedu.address.model.flashcard.exceptions.DuplicateFlashCardException;
+import seedu.address.model.flashcard.Card;
+import seedu.address.model.flashcard.exceptions.DuplicateCardException;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddressBookTest {
@@ -34,7 +34,7 @@ public class AddressBookTest {
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getFlashCardList());
+        assertEquals(Collections.emptyList(), addressBook.getCardList());
     }
 
     @Test
@@ -52,13 +52,13 @@ public class AddressBookTest {
 
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
-        // Two flashCards with the same identity fields
-        FlashCard editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        // Two cards with the same identity fields
+        Card editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        List<FlashCard> newFlashCards = Arrays.asList(ALICE, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newFlashCards);
+        List<Card> newCards = Arrays.asList(ALICE, editedAlice);
+        AddressBookStub newData = new AddressBookStub(newCards);
 
-        thrown.expect(DuplicateFlashCardException.class);
+        thrown.expect(DuplicateCardException.class);
         addressBook.resetData(newData);
     }
 
@@ -82,7 +82,7 @@ public class AddressBookTest {
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
         addressBook.addPerson(ALICE);
-        FlashCard editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Card editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(addressBook.hasPerson(editedAlice));
     }
@@ -90,7 +90,7 @@ public class AddressBookTest {
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        addressBook.getFlashCardList().remove(0);
+        addressBook.getCardList().remove(0);
     }
 
     @Test
@@ -113,18 +113,18 @@ public class AddressBookTest {
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose flashCards list can violate interface constraints.
+     * A stub ReadOnlyAddressBook whose cards list can violate interface constraints.
      */
     private static class AddressBookStub implements ReadOnlyAddressBook {
-        private final ObservableList<FlashCard> flashCards = FXCollections.observableArrayList();
+        private final ObservableList<Card> cards = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<FlashCard> flashCards) {
-            this.flashCards.setAll(flashCards);
+        AddressBookStub(Collection<Card> cards) {
+            this.cards.setAll(cards);
         }
 
         @Override
-        public ObservableList<FlashCard> getFlashCardList() {
-            return flashCards;
+        public ObservableList<Card> getCardList() {
+            return cards;
         }
 
         @Override

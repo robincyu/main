@@ -17,7 +17,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.model.flashcard.FlashCard;
+import seedu.address.model.flashcard.Card;
 import seedu.address.model.flashcard.NameContainsKeywordsPredicate;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
@@ -102,7 +102,7 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book, filtered flashCard list and selected flashCard in {@code actualModel} remain unchanged <br>
+     * - the address book, filtered card list and selected card in {@code actualModel} remain unchanged <br>
      * - {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,
@@ -110,8 +110,8 @@ public class CommandTestUtil {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
-        List<FlashCard> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
-        FlashCard expectedSelectedFlashCard = actualModel.getSelectedPerson();
+        List<Card> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
+        Card expectedSelectedCard = actualModel.getSelectedPerson();
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
@@ -122,31 +122,31 @@ public class CommandTestUtil {
             assertEquals(expectedMessage, e.getMessage());
             assertEquals(expectedAddressBook, actualModel.getAddressBook());
             assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
-            assertEquals(expectedSelectedFlashCard, actualModel.getSelectedPerson());
+            assertEquals(expectedSelectedCard, actualModel.getSelectedPerson());
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }
     }
 
     /**
-     * Updates {@code model}'s filtered list to show only the flashCard at the given {@code targetIndex} in the
+     * Updates {@code model}'s filtered list to show only the card at the given {@code targetIndex} in the
      * {@code model}'s address book.
      */
     public static void showPersonAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
 
-        FlashCard flashCard = model.getFilteredPersonList().get(targetIndex.getZeroBased());
-        final String[] splitName = flashCard.getName().fullName.split("\\s+");
+        Card card = model.getFilteredPersonList().get(targetIndex.getZeroBased());
+        final String[] splitName = card.getName().fullName.split("\\s+");
         model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredPersonList().size());
     }
 
     /**
-     * Deletes the first flashCard in {@code model}'s filtered list from {@code model}'s address book.
+     * Deletes the first card in {@code model}'s filtered list from {@code model}'s address book.
      */
     public static void deleteFirstPerson(Model model) {
-        FlashCard firstFlashCard = model.getFilteredPersonList().get(0);
-        model.deletePerson(firstFlashCard);
+        Card firstCard = model.getFilteredPersonList().get(0);
+        model.deletePerson(firstCard);
         model.commitAddressBook();
     }
 

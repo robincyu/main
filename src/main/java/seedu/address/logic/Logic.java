@@ -9,7 +9,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.flashcard.FlashCard;
+import seedu.address.model.flashcard.Card;
 
 /**
  * API of the Logic component
@@ -32,7 +32,7 @@ public interface Logic {
     ReadOnlyAddressBook getAddressBook();
 
     /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<FlashCard> getFilteredPersonList();
+    ObservableList<Card> getFilteredPersonList();
 
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.
@@ -56,17 +56,17 @@ public interface Logic {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Selected flashCard in the filtered flashCard list.
-     * null if no flashCard is selected.
+     * Selected card in the filtered card list.
+     * null if no card is selected.
      *
      * @see seedu.address.model.Model#selectedPersonProperty()
      */
-    ReadOnlyProperty<FlashCard> selectedPersonProperty();
+    ReadOnlyProperty<Card> selectedPersonProperty();
 
     /**
-     * Sets the selected flashCard in the filtered flashCard list.
+     * Sets the selected card in the filtered card list.
      *
-     * @see seedu.address.model.Model#setSelectedPerson(FlashCard)
+     * @see seedu.address.model.Model#setSelectedPerson(Card)
      */
-    void setSelectedPerson(FlashCard flashCard);
+    void setSelectedPerson(Card card);
 }

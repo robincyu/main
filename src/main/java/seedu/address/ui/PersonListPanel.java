@@ -11,7 +11,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.flashcard.FlashCard;
+import seedu.address.model.flashcard.Card;
 
 /**
  * Panel containing the list of persons.
@@ -21,21 +21,21 @@ public class PersonListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
 
     @FXML
-    private ListView<FlashCard> personListView;
+    private ListView<Card> personListView;
 
-    public PersonListPanel(ObservableList<FlashCard> flashCardList, ObservableValue<FlashCard> selectedPerson,
-                           Consumer<FlashCard> onSelectedPersonChange) {
+    public PersonListPanel(ObservableList<Card> cardList, ObservableValue<Card> selectedPerson,
+                           Consumer<Card> onSelectedPersonChange) {
         super(FXML);
-        personListView.setItems(flashCardList);
+        personListView.setItems(cardList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
         personListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            logger.fine("Selection in flashCard list panel changed to : '" + newValue + "'");
+            logger.fine("Selection in card list panel changed to : '" + newValue + "'");
             onSelectedPersonChange.accept(newValue);
         });
         selectedPerson.addListener((observable, oldValue, newValue) -> {
-            logger.fine("Selected flashCard changed to: " + newValue);
+            logger.fine("Selected card changed to: " + newValue);
 
-            // Don't modify selection if we are already selecting the selected flashCard,
+            // Don't modify selection if we are already selecting the selected card,
             // otherwise we would have an infinite loop.
             if (Objects.equals(personListView.getSelectionModel().getSelectedItem(), newValue)) {
                 return;
@@ -52,18 +52,18 @@ public class PersonListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code FlashCard} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Card} using a {@code PersonCard}.
      */
-    class PersonListViewCell extends ListCell<FlashCard> {
+    class PersonListViewCell extends ListCell<Card> {
         @Override
-        protected void updateItem(FlashCard flashCard, boolean empty) {
-            super.updateItem(flashCard, empty);
+        protected void updateItem(Card card, boolean empty) {
+            super.updateItem(card, empty);
 
-            if (empty || flashCard == null) {
+            if (empty || card == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(flashCard, getIndex() + 1).getRoot());
+                setGraphic(new PersonCard(card, getIndex() + 1).getRoot());
             }
         }
     }

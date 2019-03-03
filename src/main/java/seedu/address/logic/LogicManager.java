@@ -15,7 +15,7 @@ import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.flashcard.FlashCard;
+import seedu.address.model.flashcard.Card;
 import seedu.address.storage.Storage;
 
 /**
@@ -72,7 +72,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<FlashCard> getFilteredPersonList() {
+    public ObservableList<Card> getFilteredPersonList() {
         return model.getFilteredPersonList();
     }
 
@@ -97,12 +97,12 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyProperty<FlashCard> selectedPersonProperty() {
+    public ReadOnlyProperty<Card> selectedPersonProperty() {
         return model.selectedPersonProperty();
     }
 
     @Override
-    public void setSelectedPerson(FlashCard flashCard) {
-        model.setSelectedPerson(flashCard);
+    public void setSelectedPerson(Card card) {
+        model.setSelectedPerson(card);
     }
 }

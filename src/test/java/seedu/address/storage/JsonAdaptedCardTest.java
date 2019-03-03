@@ -17,7 +17,7 @@ import seedu.address.model.flashcard.Name;
 import seedu.address.model.flashcard.Phone;
 import seedu.address.testutil.Assert;
 
-public class JsonAdaptedFlashCardTest {
+public class JsonAdaptedCardTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_ADDRESS = " ";

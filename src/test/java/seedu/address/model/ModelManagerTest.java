@@ -19,9 +19,9 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.flashcard.Card;
 import seedu.address.model.flashcard.NameContainsKeywordsPredicate;
-import seedu.address.model.flashcard.FlashCard;
-import seedu.address.model.flashcard.exceptions.FlashCardNotFoundException;
+import seedu.address.model.flashcard.exceptions.CardNotFoundException;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.PersonBuilder;
 
@@ -124,7 +124,7 @@ public class ModelManagerTest {
     public void setPerson_personIsSelected_selectedPersonUpdated() {
         modelManager.addPerson(ALICE);
         modelManager.setSelectedPerson(ALICE);
-        FlashCard updatedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
+        Card updatedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
         modelManager.setPerson(ALICE, updatedAlice);
         assertEquals(updatedAlice, modelManager.getSelectedPerson());
     }
@@ -137,7 +137,7 @@ public class ModelManagerTest {
 
     @Test
     public void setSelectedPerson_personNotInFilteredPersonList_throwsPersonNotFoundException() {
-        thrown.expect(FlashCardNotFoundException.class);
+        thrown.expect(CardNotFoundException.class);
         modelManager.setSelectedPerson(ALICE);
     }
 

@@ -15,7 +15,7 @@ import org.junit.Test;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
-public class EditFlashCardDescriptorTest {
+public class EditCardDescriptorTest {
 
     @Test
     public void equals() {

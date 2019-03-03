@@ -40,8 +40,8 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.flashcard.Address;
+import seedu.address.model.flashcard.Card;
 import seedu.address.model.flashcard.Email;
-import seedu.address.model.flashcard.FlashCard;
 import seedu.address.model.flashcard.Name;
 import seedu.address.model.flashcard.Phone;
 import seedu.address.model.tag.Tag;
@@ -62,72 +62,72 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         Index index = INDEX_FIRST_PERSON;
         String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
                 + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + ADDRESS_DESC_BOB + " " + TAG_DESC_HUSBAND + " ";
-        FlashCard editedFlashCard = new PersonBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
-        assertCommandSuccess(command, index, editedFlashCard);
+        Card editedCard = new PersonBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
+        assertCommandSuccess(command, index, editedCard);
 
-        /* Case: undo editing the last flashCard in the list -> last flashCard restored */
+        /* Case: undo editing the last card in the list -> last card restored */
         command = UndoCommand.COMMAND_WORD;
         String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, model, expectedResultMessage);
 
-        /* Case: redo editing the last flashCard in the list -> last flashCard edited again */
+        /* Case: redo editing the last card in the list -> last card edited again */
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
-        model.setPerson(getModel().getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()), editedFlashCard);
+        model.setPerson(getModel().getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()), editedCard);
         assertCommandSuccess(command, model, expectedResultMessage);
 
-        /* Case: edit a flashCard with new values same as existing values -> edited */
+        /* Case: edit a card with new values same as existing values -> edited */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandSuccess(command, index, BOB);
 
-        /* Case: edit a flashCard with new values same as another flashCard's values but with different name -> edited */
-        assertTrue(getModel().getAddressBook().getFlashCardList().contains(BOB));
+        /* Case: edit a card with new values same as another card's values but with different name -> edited */
+        assertTrue(getModel().getAddressBook().getCardList().contains(BOB));
         index = INDEX_SECOND_PERSON;
         assertNotEquals(getModel().getFilteredPersonList().get(index.getZeroBased()), BOB);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        editedFlashCard = new PersonBuilder(BOB).withName(VALID_NAME_AMY).build();
-        assertCommandSuccess(command, index, editedFlashCard);
+        editedCard = new PersonBuilder(BOB).withName(VALID_NAME_AMY).build();
+        assertCommandSuccess(command, index, editedCard);
 
-        /* Case: edit a flashCard with new values same as another flashCard's values but with different phone and email
+        /* Case: edit a card with new values same as another card's values but with different phone and email
          * -> edited
          */
         index = INDEX_SECOND_PERSON;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        editedFlashCard = new PersonBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).build();
-        assertCommandSuccess(command, index, editedFlashCard);
+        editedCard = new PersonBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).build();
+        assertCommandSuccess(command, index, editedCard);
 
         /* Case: clear tags -> cleared */
         index = INDEX_FIRST_PERSON;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_TAG.getPrefix();
-        FlashCard flashCardToEdit = getModel().getFilteredPersonList().get(index.getZeroBased());
-        editedFlashCard = new PersonBuilder(flashCardToEdit).withTags().build();
-        assertCommandSuccess(command, index, editedFlashCard);
+        Card cardToEdit = getModel().getFilteredPersonList().get(index.getZeroBased());
+        editedCard = new PersonBuilder(cardToEdit).withTags().build();
+        assertCommandSuccess(command, index, editedCard);
 
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
-        /* Case: filtered flashCard list, edit index within bounds of address book and flashCard list -> edited */
+        /* Case: filtered card list, edit index within bounds of address book and card list -> edited */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         index = INDEX_FIRST_PERSON;
         assertTrue(index.getZeroBased() < getModel().getFilteredPersonList().size());
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_BOB;
-        flashCardToEdit = getModel().getFilteredPersonList().get(index.getZeroBased());
-        editedFlashCard = new PersonBuilder(flashCardToEdit).withName(VALID_NAME_BOB).build();
-        assertCommandSuccess(command, index, editedFlashCard);
+        cardToEdit = getModel().getFilteredPersonList().get(index.getZeroBased());
+        editedCard = new PersonBuilder(cardToEdit).withName(VALID_NAME_BOB).build();
+        assertCommandSuccess(command, index, editedCard);
 
-        /* Case: filtered flashCard list, edit index within bounds of address book but out of bounds of flashCard list
+        /* Case: filtered card list, edit index within bounds of address book but out of bounds of card list
          * -> rejected
          */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
-        int invalidIndex = getModel().getAddressBook().getFlashCardList().size();
+        int invalidIndex = getModel().getAddressBook().getCardList().size();
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
-        /* --------------------- Performing edit operation while a flashCard card is selected -------------------------- */
+        /* --------------------- Performing edit operation while a card card is selected -------------------------- */
 
-        /* Case: selects first card in the flashCard list, edit a flashCard -> edited, card selection remains unchanged but
+        /* Case: selects first card in the card list, edit a card -> edited, card selection remains unchanged but
          * browser url changes
          */
         showAllPersons();
@@ -136,7 +136,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
                 + ADDRESS_DESC_AMY + TAG_DESC_FRIEND;
         // this can be misleading: card selection actually remains unchanged but the
-        // browser's url is updated to reflect the new flashCard's name
+        // browser's url is updated to reflect the new card's name
         assertCommandSuccess(command, index, AMY, index);
 
         /* --------------------------------- Performing invalid edit operation -------------------------------------- */
@@ -182,62 +182,62 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_TAG_DESC,
                 Tag.MESSAGE_CONSTRAINTS);
 
-        /* Case: edit a flashCard with new values same as another flashCard's values -> rejected */
+        /* Case: edit a card with new values same as another card's values -> rejected */
         executeCommand(PersonUtil.getAddCommand(BOB));
-        assertTrue(getModel().getAddressBook().getFlashCardList().contains(BOB));
+        assertTrue(getModel().getAddressBook().getCardList().contains(BOB));
         index = INDEX_FIRST_PERSON;
         assertFalse(getModel().getFilteredPersonList().get(index.getZeroBased()).equals(BOB));
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
 
-        /* Case: edit a flashCard with new values same as another flashCard's values but with different tags -> rejected */
+        /* Case: edit a card with new values same as another card's values but with different tags -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
 
-        /* Case: edit a flashCard with new values same as another flashCard's values but with different address -> rejected */
+        /* Case: edit a card with new values same as another card's values but with different address -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
 
-        /* Case: edit a flashCard with new values same as another flashCard's values but with different phone -> rejected */
+        /* Case: edit a card with new values same as another card's values but with different phone -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
 
-        /* Case: edit a flashCard with new values same as another flashCard's values but with different email -> rejected */
+        /* Case: edit a card with new values same as another card's values but with different email -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
     /**
-     * Performs the same verification as {@code assertCommandSuccess(String, Index, FlashCard, Index)} except that
+     * Performs the same verification as {@code assertCommandSuccess(String, Index, Card, Index)} except that
      * the browser url and selected card remain unchanged.
      * @param toEdit the index of the current model's filtered list
-     * @see EditCommandSystemTest#assertCommandSuccess(String, Index, FlashCard, Index)
+     * @see EditCommandSystemTest#assertCommandSuccess(String, Index, Card, Index)
      */
-    private void assertCommandSuccess(String command, Index toEdit, FlashCard editedFlashCard) {
-        assertCommandSuccess(command, toEdit, editedFlashCard, null);
+    private void assertCommandSuccess(String command, Index toEdit, Card editedCard) {
+        assertCommandSuccess(command, toEdit, editedCard, null);
     }
 
     /**
      * Performs the same verification as {@code assertCommandSuccess(String, Model, String, Index)} and in addition,<br>
      * 1. Asserts that result display box displays the success message of executing {@code EditCommand}.<br>
-     * 2. Asserts that the model related components are updated to reflect the flashCard at index {@code toEdit} being
-     * updated to values specified {@code editedFlashCard}.<br>
+     * 2. Asserts that the model related components are updated to reflect the card at index {@code toEdit} being
+     * updated to values specified {@code editedCard}.<br>
      * @param toEdit the index of the current model's filtered list.
      * @see EditCommandSystemTest#assertCommandSuccess(String, Model, String, Index)
      */
-    private void assertCommandSuccess(String command, Index toEdit, FlashCard editedFlashCard,
+    private void assertCommandSuccess(String command, Index toEdit, Card editedCard,
             Index expectedSelectedCardIndex) {
         Model expectedModel = getModel();
-        expectedModel.setPerson(expectedModel.getFilteredPersonList().get(toEdit.getZeroBased()), editedFlashCard);
+        expectedModel.setPerson(expectedModel.getFilteredPersonList().get(toEdit.getZeroBased()), editedCard);
         expectedModel.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
         assertCommandSuccess(command, expectedModel,
-                String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedFlashCard), expectedSelectedCardIndex);
+                String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedCard), expectedSelectedCardIndex);
     }
 
     /**

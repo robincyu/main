@@ -11,10 +11,10 @@ import org.junit.Test;
 
 import guitests.guihandles.BrowserPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
-import seedu.address.model.flashcard.FlashCard;
+import seedu.address.model.flashcard.Card;
 
 public class BrowserPanelTest extends GuiUnitTest {
-    private SimpleObjectProperty<FlashCard> selectedPerson = new SimpleObjectProperty<>();
+    private SimpleObjectProperty<Card> selectedPerson = new SimpleObjectProperty<>();
     private BrowserPanel browserPanel;
     private BrowserPanelHandle browserPanelHandle;
 
@@ -31,7 +31,7 @@ public class BrowserPanelTest extends GuiUnitTest {
         // default web page
         assertEquals(BrowserPanel.DEFAULT_PAGE, browserPanelHandle.getLoadedUrl());
 
-        // associated web page of a flashCard
+        // associated web page of a card
         guiRobot.interact(() -> selectedPerson.set(ALICE));
         URL expectedPersonUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + ALICE.getName().fullName.replaceAll(" ", "%20"));
 

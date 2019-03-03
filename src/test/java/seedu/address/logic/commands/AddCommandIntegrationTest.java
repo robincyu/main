@@ -11,7 +11,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.flashcard.FlashCard;
+import seedu.address.model.flashcard.Card;
 import seedu.address.testutil.PersonBuilder;
 
 /**
@@ -29,20 +29,20 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_newPerson_success() {
-        FlashCard validFlashCard = new PersonBuilder().build();
+        Card validCard = new PersonBuilder().build();
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.addPerson(validFlashCard);
+        expectedModel.addPerson(validCard);
         expectedModel.commitAddressBook();
 
-        assertCommandSuccess(new AddCommand(validFlashCard), model, commandHistory,
-                String.format(AddCommand.MESSAGE_SUCCESS, validFlashCard), expectedModel);
+        assertCommandSuccess(new AddCommand(validCard), model, commandHistory,
+                String.format(AddCommand.MESSAGE_SUCCESS, validCard), expectedModel);
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        FlashCard flashCardInList = model.getAddressBook().getFlashCardList().get(0);
-        assertCommandFailure(new AddCommand(flashCardInList), model, commandHistory,
+        Card cardInList = model.getAddressBook().getCardList().get(0);
+        assertCommandFailure(new AddCommand(cardInList), model, commandHistory,
                 AddCommand.MESSAGE_DUPLICATE_PERSON);
     }
 

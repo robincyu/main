@@ -4,15 +4,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.flashcard.Address;
+import seedu.address.model.flashcard.Card;
 import seedu.address.model.flashcard.Email;
-import seedu.address.model.flashcard.FlashCard;
 import seedu.address.model.flashcard.Name;
 import seedu.address.model.flashcard.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
- * A utility class to help with building FlashCard objects.
+ * A utility class to help with building Card objects.
  */
 public class PersonBuilder {
 
@@ -36,18 +36,18 @@ public class PersonBuilder {
     }
 
     /**
-     * Initializes the PersonBuilder with the data of {@code flashCardToCopy}.
+     * Initializes the PersonBuilder with the data of {@code cardToCopy}.
      */
-    public PersonBuilder(FlashCard flashCardToCopy) {
-        name = flashCardToCopy.getName();
-        phone = flashCardToCopy.getPhone();
-        email = flashCardToCopy.getEmail();
-        address = flashCardToCopy.getAddress();
-        tags = new HashSet<>(flashCardToCopy.getTags());
+    public PersonBuilder(Card cardToCopy) {
+        name = cardToCopy.getName();
+        phone = cardToCopy.getPhone();
+        email = cardToCopy.getEmail();
+        address = cardToCopy.getAddress();
+        tags = new HashSet<>(cardToCopy.getTags());
     }
 
     /**
-     * Sets the {@code Name} of the {@code FlashCard} that we are building.
+     * Sets the {@code Name} of the {@code Card} that we are building.
      */
     public PersonBuilder withName(String name) {
         this.name = new Name(name);
@@ -55,7 +55,7 @@ public class PersonBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code FlashCard} that we are building.
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Card} that we are building.
      */
     public PersonBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
@@ -63,7 +63,7 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Address} of the {@code FlashCard} that we are building.
+     * Sets the {@code Address} of the {@code Card} that we are building.
      */
     public PersonBuilder withAddress(String address) {
         this.address = new Address(address);
@@ -71,7 +71,7 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code FlashCard} that we are building.
+     * Sets the {@code Phone} of the {@code Card} that we are building.
      */
     public PersonBuilder withPhone(String phone) {
         this.phone = new Phone(phone);
@@ -79,15 +79,15 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Email} of the {@code FlashCard} that we are building.
+     * Sets the {@code Email} of the {@code Card} that we are building.
      */
     public PersonBuilder withEmail(String email) {
         this.email = new Email(email);
         return this;
     }
 
-    public FlashCard build() {
-        return new FlashCard(name, phone, email, address, tags);
+    public Card build() {
+        return new Card(name, phone, email, address, tags);
     }
 
 }

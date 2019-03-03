@@ -33,9 +33,9 @@ import org.junit.Test;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.model.flashcard.Address;
+import seedu.address.model.flashcard.Card;
 import seedu.address.model.flashcard.Email;
 import seedu.address.model.flashcard.Name;
-import seedu.address.model.flashcard.FlashCard;
 import seedu.address.model.flashcard.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
@@ -45,41 +45,41 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        FlashCard expectedFlashCard = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
+        Card expectedCard = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedFlashCard));
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedCard));
 
         // multiple names - last name accepted
         assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedFlashCard));
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedCard));
 
         // multiple phones - last phone accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedFlashCard));
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedCard));
 
         // multiple emails - last email accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedFlashCard));
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedCard));
 
         // multiple addresses - last address accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_AMY
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedFlashCard));
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedCard));
 
         // multiple tags - all accepted
-        FlashCard expectedFlashCardMultipleTags = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+        Card expectedCardMultipleTags = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddCommand(expectedFlashCardMultipleTags));
+                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddCommand(expectedCardMultipleTags));
     }
 
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        FlashCard expectedFlashCard = new PersonBuilder(AMY).withTags().build();
+        Card expectedCard = new PersonBuilder(AMY).withTags().build();
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY,
-                new AddCommand(expectedFlashCard));
+                new AddCommand(expectedCard));
     }
 
     @Test

@@ -15,8 +15,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.flashcard.FlashCard;
-import seedu.address.model.flashcard.exceptions.FlashCardNotFoundException;
+import seedu.address.model.flashcard.Card;
+import seedu.address.model.flashcard.exceptions.CardNotFoundException;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -26,8 +26,8 @@ public class ModelManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final UserPrefs userPrefs;
-    private final FilteredList<FlashCard> filteredFlashCards;
-    private final SimpleObjectProperty<FlashCard> selectedPerson = new SimpleObjectProperty<>();
+    private final FilteredList<Card> filteredCards;
+    private final SimpleObjectProperty<Card> selectedPerson = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -40,8 +40,8 @@ public class ModelManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredFlashCards = new FilteredList<>(versionedAddressBook.getFlashCardList());
-        filteredFlashCards.addListener(this::ensureSelectedPersonIsValid);
+        filteredCards = new FilteredList<>(versionedAddressBook.getCardList());
+        filteredCards.addListener(this::ensureSelectedPersonIsValid);
     }
 
     public ModelManager() {
@@ -96,44 +96,44 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasPerson(FlashCard flashCard) {
-        requireNonNull(flashCard);
-        return versionedAddressBook.hasPerson(flashCard);
+    public boolean hasPerson(Card card) {
+        requireNonNull(card);
+        return versionedAddressBook.hasPerson(card);
     }
 
     @Override
-    public void deletePerson(FlashCard target) {
+    public void deletePerson(Card target) {
         versionedAddressBook.removePerson(target);
     }
 
     @Override
-    public void addPerson(FlashCard flashCard) {
-        versionedAddressBook.addPerson(flashCard);
+    public void addPerson(Card card) {
+        versionedAddressBook.addPerson(card);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
-    public void setPerson(FlashCard target, FlashCard editedFlashCard) {
-        requireAllNonNull(target, editedFlashCard);
+    public void setPerson(Card target, Card editedCard) {
+        requireAllNonNull(target, editedCard);
 
-        versionedAddressBook.setFlashCard(target, editedFlashCard);
+        versionedAddressBook.setCard(target, editedCard);
     }
 
-    //=========== Filtered FlashCard List Accessors =============================================================
+    //=========== Filtered Card List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code FlashCard} backed by the internal list of
+     * Returns an unmodifiable view of the list of {@code Card} backed by the internal list of
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<FlashCard> getFilteredPersonList() {
-        return filteredFlashCards;
+    public ObservableList<Card> getFilteredPersonList() {
+        return filteredCards;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<FlashCard> predicate) {
+    public void updateFilteredPersonList(Predicate<Card> predicate) {
         requireNonNull(predicate);
-        filteredFlashCards.setPredicate(predicate);
+        filteredCards.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================
@@ -163,33 +163,33 @@ public class ModelManager implements Model {
         versionedAddressBook.commit();
     }
 
-    //=========== Selected flashCard ===========================================================================
+    //=========== Selected card ===========================================================================
 
     @Override
-    public ReadOnlyProperty<FlashCard> selectedPersonProperty() {
+    public ReadOnlyProperty<Card> selectedPersonProperty() {
         return selectedPerson;
     }
 
     @Override
-    public FlashCard getSelectedPerson() {
+    public Card getSelectedPerson() {
         return selectedPerson.getValue();
     }
 
     @Override
-    public void setSelectedPerson(FlashCard flashCard) {
-        if (flashCard != null && !filteredFlashCards.contains(flashCard)) {
-            throw new FlashCardNotFoundException();
+    public void setSelectedPerson(Card card) {
+        if (card != null && !filteredCards.contains(card)) {
+            throw new CardNotFoundException();
         }
-        selectedPerson.setValue(flashCard);
+        selectedPerson.setValue(card);
     }
 
     /**
-     * Ensures {@code selectedPerson} is a valid flashCard in {@code filteredFlashCards}.
+     * Ensures {@code selectedPerson} is a valid card in {@code filteredCards}.
      */
-    private void ensureSelectedPersonIsValid(ListChangeListener.Change<? extends FlashCard> change) {
+    private void ensureSelectedPersonIsValid(ListChangeListener.Change<? extends Card> change) {
         while (change.next()) {
             if (selectedPerson.getValue() == null) {
-                // null is always a valid selected flashCard, so we do not need to check that it is valid anymore.
+                // null is always a valid selected card, so we do not need to check that it is valid anymore.
                 return;
             }
 
@@ -203,10 +203,10 @@ public class ModelManager implements Model {
             }
 
             boolean wasSelectedPersonRemoved = change.getRemoved().stream()
-                    .anyMatch(removedPerson -> selectedPerson.getValue().isSameFlashCard(removedPerson));
+                    .anyMatch(removedPerson -> selectedPerson.getValue().isSameCard(removedPerson));
             if (wasSelectedPersonRemoved) {
-                // Select the flashCard that came before it in the list,
-                // or clear the selection if there is no such flashCard.
+                // Select the card that came before it in the list,
+                // or clear the selection if there is no such card.
                 selectedPerson.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
             }
         }
@@ -228,7 +228,7 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return versionedAddressBook.equals(other.versionedAddressBook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredFlashCards.equals(other.filteredFlashCards)
+                && filteredCards.equals(other.filteredCards)
                 && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
     }
 

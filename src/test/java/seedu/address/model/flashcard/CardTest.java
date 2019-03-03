@@ -16,52 +16,52 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.testutil.PersonBuilder;
 
-public class FlashCardTest {
+public class CardTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
-        FlashCard flashCard = new PersonBuilder().build();
+        Card card = new PersonBuilder().build();
         thrown.expect(UnsupportedOperationException.class);
-        flashCard.getTags().remove(0);
+        card.getTags().remove(0);
     }
 
     @Test
     public void isSamePerson() {
         // same object -> returns true
-        assertTrue(ALICE.isSameFlashCard(ALICE));
+        assertTrue(ALICE.isSameCard(ALICE));
 
         // null -> returns false
-        assertFalse(ALICE.isSameFlashCard(null));
+        assertFalse(ALICE.isSameCard(null));
 
         // different phone and email -> returns false
-        FlashCard editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
-        assertFalse(ALICE.isSameFlashCard(editedAlice));
+        Card editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
+        assertFalse(ALICE.isSameCard(editedAlice));
 
         // different name -> returns false
         editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.isSameFlashCard(editedAlice));
+        assertFalse(ALICE.isSameCard(editedAlice));
 
         // same name, same phone, different attributes -> returns true
         editedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameFlashCard(editedAlice));
+        assertTrue(ALICE.isSameCard(editedAlice));
 
         // same name, same email, different attributes -> returns true
         editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameFlashCard(editedAlice));
+        assertTrue(ALICE.isSameCard(editedAlice));
 
         // same name, same phone, same email, different attributes -> returns true
         editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameFlashCard(editedAlice));
+        assertTrue(ALICE.isSameCard(editedAlice));
     }
 
     @Test
     public void equals() {
         // same values -> returns true
-        FlashCard aliceCopy = new PersonBuilder(ALICE).build();
+        Card aliceCopy = new PersonBuilder(ALICE).build();
         assertTrue(ALICE.equals(aliceCopy));
 
         // same object -> returns true
@@ -73,11 +73,11 @@ public class FlashCardTest {
         // different type -> returns false
         assertFalse(ALICE.equals(5));
 
-        // different flashCard -> returns false
+        // different card -> returns false
         assertFalse(ALICE.equals(BOB));
 
         // different name -> returns false
-        FlashCard editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
+        Card editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different phone -> returns false

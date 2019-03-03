@@ -21,21 +21,21 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.flashcard.Address;
+import seedu.address.model.flashcard.Card;
 import seedu.address.model.flashcard.Email;
-import seedu.address.model.flashcard.FlashCard;
 import seedu.address.model.flashcard.Name;
 import seedu.address.model.flashcard.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
- * Edits the details of an existing flashCard in the address book.
+ * Edits the details of an existing card in the address book.
  */
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the flashCard identified "
-            + "by the index number used in the displayed flashCard list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the card identified "
+            + "by the index number used in the displayed card list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
@@ -47,16 +47,16 @@ public class EditCommand extends Command {
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited FlashCard: %1$s";
+    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Card: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This flashCard already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This card already exists in the address book.";
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
 
     /**
-     * @param index of the flashCard in the filtered flashCard list to edit
-     * @param editPersonDescriptor details to edit the flashCard with
+     * @param index of the card in the filtered card list to edit
+     * @param editPersonDescriptor details to edit the card with
      */
     public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
         requireNonNull(index);
@@ -69,39 +69,39 @@ public class EditCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<FlashCard> lastShownList = model.getFilteredPersonList();
+        List<Card> lastShownList = model.getFilteredPersonList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        FlashCard flashCardToEdit = lastShownList.get(index.getZeroBased());
-        FlashCard editedFlashCard = createEditedPerson(flashCardToEdit, editPersonDescriptor);
+        Card cardToEdit = lastShownList.get(index.getZeroBased());
+        Card editedCard = createEditedPerson(cardToEdit, editPersonDescriptor);
 
-        if (!flashCardToEdit.isSameFlashCard(editedFlashCard) && model.hasPerson(editedFlashCard)) {
+        if (!cardToEdit.isSameCard(editedCard) && model.hasPerson(editedCard)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.setPerson(flashCardToEdit, editedFlashCard);
+        model.setPerson(cardToEdit, editedCard);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedFlashCard));
+        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedCard));
     }
 
     /**
-     * Creates and returns a {@code FlashCard} with the details of {@code flashCardToEdit}
+     * Creates and returns a {@code Card} with the details of {@code cardToEdit}
      * edited with {@code editPersonDescriptor}.
      */
-    private static FlashCard createEditedPerson(FlashCard flashCardToEdit, EditPersonDescriptor editPersonDescriptor) {
-        assert flashCardToEdit != null;
+    private static Card createEditedPerson(Card cardToEdit, EditPersonDescriptor editPersonDescriptor) {
+        assert cardToEdit != null;
 
-        Name updatedName = editPersonDescriptor.getName().orElse(flashCardToEdit.getName());
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(flashCardToEdit.getPhone());
-        Email updatedEmail = editPersonDescriptor.getEmail().orElse(flashCardToEdit.getEmail());
-        Address updatedAddress = editPersonDescriptor.getAddress().orElse(flashCardToEdit.getAddress());
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(flashCardToEdit.getTags());
+        Name updatedName = editPersonDescriptor.getName().orElse(cardToEdit.getName());
+        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(cardToEdit.getPhone());
+        Email updatedEmail = editPersonDescriptor.getEmail().orElse(cardToEdit.getEmail());
+        Address updatedAddress = editPersonDescriptor.getAddress().orElse(cardToEdit.getAddress());
+        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(cardToEdit.getTags());
 
-        return new FlashCard(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Card(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
     }
 
     @Override
@@ -123,8 +123,8 @@ public class EditCommand extends Command {
     }
 
     /**
-     * Stores the details to edit the flashCard with. Each non-empty field value will replace the
-     * corresponding field value of the flashCard.
+     * Stores the details to edit the card with. Each non-empty field value will replace the
+     * corresponding field value of the card.
      */
     public static class EditPersonDescriptor {
         private Name name;

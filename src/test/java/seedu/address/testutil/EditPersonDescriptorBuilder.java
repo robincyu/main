@@ -6,9 +6,9 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.model.flashcard.Address;
+import seedu.address.model.flashcard.Card;
 import seedu.address.model.flashcard.Email;
 import seedu.address.model.flashcard.Name;
-import seedu.address.model.flashcard.FlashCard;
 import seedu.address.model.flashcard.Phone;
 import seedu.address.model.tag.Tag;
 
@@ -28,15 +28,15 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     * Returns an {@code EditPersonDescriptor} with fields containing {@code flashCard}'s details
+     * Returns an {@code EditPersonDescriptor} with fields containing {@code card}'s details
      */
-    public EditPersonDescriptorBuilder(FlashCard flashCard) {
+    public EditPersonDescriptorBuilder(Card card) {
         descriptor = new EditPersonDescriptor();
-        descriptor.setName(flashCard.getName());
-        descriptor.setPhone(flashCard.getPhone());
-        descriptor.setEmail(flashCard.getEmail());
-        descriptor.setAddress(flashCard.getAddress());
-        descriptor.setTags(flashCard.getTags());
+        descriptor.setName(card.getName());
+        descriptor.setPhone(card.getPhone());
+        descriptor.setEmail(card.getEmail());
+        descriptor.setAddress(card.getAddress());
+        descriptor.setTags(card.getTags());
     }
 
     /**

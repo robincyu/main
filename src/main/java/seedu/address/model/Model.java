@@ -6,14 +6,14 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.flashcard.FlashCard;
+import seedu.address.model.flashcard.Card;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<FlashCard> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Card> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -54,37 +54,37 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
-     * Returns true if a flashCard with the same identity as {@code flashCard} exists in the address book.
+     * Returns true if a card with the same identity as {@code card} exists in the address book.
      */
-    boolean hasPerson(FlashCard flashCard);
+    boolean hasPerson(Card card);
 
     /**
-     * Deletes the given flashCard.
-     * The flashCard must exist in the address book.
+     * Deletes the given card.
+     * The card must exist in the address book.
      */
-    void deletePerson(FlashCard target);
+    void deletePerson(Card target);
 
     /**
-     * Adds the given flashCard.
-     * {@code flashCard} must not already exist in the address book.
+     * Adds the given card.
+     * {@code card} must not already exist in the address book.
      */
-    void addPerson(FlashCard flashCard);
+    void addPerson(Card card);
 
     /**
-     * Replaces the given flashCard {@code target} with {@code editedFlashCard}.
+     * Replaces the given card {@code target} with {@code editedCard}.
      * {@code target} must exist in the address book.
-     * The flashCard identity of {@code editedFlashCard} must not be the same as another existing flashCard in the address book.
+     * The card identity of {@code editedCard} must not be the same as another existing card in the address book.
      */
-    void setPerson(FlashCard target, FlashCard editedFlashCard);
+    void setPerson(Card target, Card editedCard);
 
-    /** Returns an unmodifiable view of the filtered flashCard list */
-    ObservableList<FlashCard> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered card list */
+    ObservableList<Card> getFilteredPersonList();
 
     /**
-     * Updates the filter of the filtered flashCard list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered card list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<FlashCard> predicate);
+    void updateFilteredPersonList(Predicate<Card> predicate);
 
     /**
      * Returns true if the model has previous address book states to restore.
@@ -112,19 +112,19 @@ public interface Model {
     void commitAddressBook();
 
     /**
-     * Selected flashCard in the filtered flashCard list.
-     * null if no flashCard is selected.
+     * Selected card in the filtered card list.
+     * null if no card is selected.
      */
-    ReadOnlyProperty<FlashCard> selectedPersonProperty();
+    ReadOnlyProperty<Card> selectedPersonProperty();
 
     /**
-     * Returns the selected flashCard in the filtered flashCard list.
-     * null if no flashCard is selected.
+     * Returns the selected card in the filtered card list.
+     * null if no card is selected.
      */
-    FlashCard getSelectedPerson();
+    Card getSelectedPerson();
 
     /**
-     * Sets the selected flashCard in the filtered flashCard list.
+     * Sets the selected card in the filtered card list.
      */
-    void setSelectedPerson(FlashCard flashCard);
+    void setSelectedPerson(Card card);
 }

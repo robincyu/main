@@ -10,31 +10,31 @@ import java.util.Set;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.model.flashcard.FlashCard;
+import seedu.address.model.flashcard.Card;
 import seedu.address.model.tag.Tag;
 
 /**
- * A utility class for FlashCard.
+ * A utility class for Card.
  */
 public class PersonUtil {
 
     /**
-     * Returns an add command string for adding the {@code flashCard}.
+     * Returns an add command string for adding the {@code card}.
      */
-    public static String getAddCommand(FlashCard flashCard) {
-        return AddCommand.COMMAND_WORD + " " + getPersonDetails(flashCard);
+    public static String getAddCommand(Card card) {
+        return AddCommand.COMMAND_WORD + " " + getPersonDetails(card);
     }
 
     /**
-     * Returns the part of command string for the given {@code flashCard}'s details.
+     * Returns the part of command string for the given {@code card}'s details.
      */
-    public static String getPersonDetails(FlashCard flashCard) {
+    public static String getPersonDetails(Card card) {
         StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_NAME + flashCard.getName().fullName + " ");
-        sb.append(PREFIX_PHONE + flashCard.getPhone().value + " ");
-        sb.append(PREFIX_EMAIL + flashCard.getEmail().value + " ");
-        sb.append(PREFIX_ADDRESS + flashCard.getAddress().value + " ");
-        flashCard.getTags().stream().forEach(
+        sb.append(PREFIX_NAME + card.getName().fullName + " ");
+        sb.append(PREFIX_PHONE + card.getPhone().value + " ");
+        sb.append(PREFIX_EMAIL + card.getEmail().value + " ");
+        sb.append(PREFIX_ADDRESS + card.getAddress().value + " ");
+        card.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
         return sb.toString();

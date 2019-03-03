@@ -58,7 +58,7 @@ public class SelectCommandTest {
 
         Index outOfBoundsIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundsIndex.getZeroBased() < model.getAddressBook().getFlashCardList().size());
+        assertTrue(outOfBoundsIndex.getZeroBased() < model.getAddressBook().getCardList().size());
 
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
@@ -81,13 +81,13 @@ public class SelectCommandTest {
         // null -> returns false
         assertFalse(selectFirstCommand.equals(null));
 
-        // different flashCard -> returns false
+        // different card -> returns false
         assertFalse(selectFirstCommand.equals(selectSecondCommand));
     }
 
     /**
      * Executes a {@code SelectCommand} with the given {@code index},
-     * and checks that the model's selected flashCard is set to the flashCard at {@code index} in the filtered flashCard list.
+     * and checks that the model's selected card is set to the card at {@code index} in the filtered card list.
      */
     private void assertExecutionSuccess(Index index) {
         SelectCommand selectCommand = new SelectCommand(index);

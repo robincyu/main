@@ -38,9 +38,9 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.flashcard.Address;
+import seedu.address.model.flashcard.Card;
 import seedu.address.model.flashcard.Email;
 import seedu.address.model.flashcard.Name;
-import seedu.address.model.flashcard.FlashCard;
 import seedu.address.model.flashcard.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
@@ -54,10 +54,10 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 
-        /* Case: add a flashCard without tags to a non-empty address book, command with leading spaces and trailing spaces
+        /* Case: add a card without tags to a non-empty address book, command with leading spaces and trailing spaces
          * -> added
          */
-        FlashCard toAdd = AMY;
+        Card toAdd = AMY;
         String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + PHONE_DESC_AMY + " "
                 + EMAIL_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   " + TAG_DESC_FRIEND + " ";
         assertCommandSuccess(command, toAdd);
@@ -73,13 +73,13 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, model, expectedResultMessage);
 
-        /* Case: add a flashCard with all fields same as another flashCard in the address book except name -> added */
+        /* Case: add a card with all fields same as another card in the address book except name -> added */
         toAdd = new PersonBuilder(AMY).withName(VALID_NAME_BOB).build();
         command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
                 + TAG_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
 
-        /* Case: add a flashCard with all fields same as another flashCard in the address book except phone and email
+        /* Case: add a card with all fields same as another card in the address book except phone and email
          * -> added
          */
         toAdd = new PersonBuilder(AMY).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
@@ -90,49 +90,49 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         deleteAllPersons();
         assertCommandSuccess(ALICE);
 
-        /* Case: add a flashCard with tags, command with parameters in random order -> added */
+        /* Case: add a card with tags, command with parameters in random order -> added */
         toAdd = BOB;
         command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + PHONE_DESC_BOB + ADDRESS_DESC_BOB + NAME_DESC_BOB
                 + TAG_DESC_HUSBAND + EMAIL_DESC_BOB;
         assertCommandSuccess(command, toAdd);
 
-        /* Case: add a flashCard, missing tags -> added */
+        /* Case: add a card, missing tags -> added */
         assertCommandSuccess(HOON);
 
         /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
 
-        /* Case: filters the flashCard list before adding -> added */
+        /* Case: filters the card list before adding -> added */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         assertCommandSuccess(IDA);
 
-        /* ------------------------ Perform add operation while a flashCard card is selected --------------------------- */
+        /* ------------------------ Perform add operation while a card card is selected --------------------------- */
 
-        /* Case: selects first card in the flashCard list, add a flashCard -> added, card selection remains unchanged */
+        /* Case: selects first card in the card list, add a card -> added, card selection remains unchanged */
         selectPerson(Index.fromOneBased(1));
         assertCommandSuccess(CARL);
 
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */
 
-        /* Case: add a duplicate flashCard -> rejected */
+        /* Case: add a duplicate card -> rejected */
         command = PersonUtil.getAddCommand(HOON);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
-        /* Case: add a duplicate flashCard except with different phone -> rejected */
+        /* Case: add a duplicate card except with different phone -> rejected */
         toAdd = new PersonBuilder(HOON).withPhone(VALID_PHONE_BOB).build();
         command = PersonUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
-        /* Case: add a duplicate flashCard except with different email -> rejected */
+        /* Case: add a duplicate card except with different email -> rejected */
         toAdd = new PersonBuilder(HOON).withEmail(VALID_EMAIL_BOB).build();
         command = PersonUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
-        /* Case: add a duplicate flashCard except with different address -> rejected */
+        /* Case: add a duplicate card except with different address -> rejected */
         toAdd = new PersonBuilder(HOON).withAddress(VALID_ADDRESS_BOB).build();
         command = PersonUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
-        /* Case: add a duplicate flashCard except with different tags -> rejected */
+        /* Case: add a duplicate card except with different tags -> rejected */
         command = PersonUtil.getAddCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "friends";
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
@@ -192,16 +192,16 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
-    private void assertCommandSuccess(FlashCard toAdd) {
+    private void assertCommandSuccess(Card toAdd) {
         assertCommandSuccess(PersonUtil.getAddCommand(toAdd), toAdd);
     }
 
     /**
-     * Performs the same verification as {@code assertCommandSuccess(FlashCard)}. Executes {@code command}
+     * Performs the same verification as {@code assertCommandSuccess(Card)}. Executes {@code command}
      * instead.
-     * @see AddCommandSystemTest#assertCommandSuccess(FlashCard)
+     * @see AddCommandSystemTest#assertCommandSuccess(Card)
      */
-    private void assertCommandSuccess(String command, FlashCard toAdd) {
+    private void assertCommandSuccess(String command, Card toAdd) {
         Model expectedModel = getModel();
         expectedModel.addPerson(toAdd);
         String expectedResultMessage = String.format(AddCommand.MESSAGE_SUCCESS, toAdd);
@@ -210,12 +210,12 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
     }
 
     /**
-     * Performs the same verification as {@code assertCommandSuccess(String, FlashCard)} except asserts that
+     * Performs the same verification as {@code assertCommandSuccess(String, Card)} except asserts that
      * the,<br>
      * 1. Result display box displays {@code expectedResultMessage}.<br>
      * 2. {@code Storage} and {@code PersonListPanel} equal to the corresponding components in
      * {@code expectedModel}.<br>
-     * @see AddCommandSystemTest#assertCommandSuccess(String, FlashCard)
+     * @see AddCommandSystemTest#assertCommandSuccess(String, Card)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
         executeCommand(command);

@@ -52,7 +52,7 @@ public class FindCommandTest {
         // null -> returns false
         assertFalse(findFirstCommand.equals(null));
 
-        // different flashCard -> returns false
+        // different card -> returns false
         assertFalse(findFirstCommand.equals(findSecondCommand));
     }
 

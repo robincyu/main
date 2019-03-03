@@ -8,12 +8,12 @@ import com.google.common.collect.ImmutableMultiset;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
-import seedu.address.model.flashcard.FlashCard;
+import seedu.address.model.flashcard.Card;
 
 /**
- * Provides a handle to a flashCard card in the flashCard list panel.
+ * Provides a handle to a card card in the card list panel.
  */
-public class PersonCardHandle extends NodeHandle<Node> {
+public class CardCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
     private static final String NAME_FIELD_ID = "#name";
     private static final String ADDRESS_FIELD_ID = "#address";
@@ -28,7 +28,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
     private final Label emailLabel;
     private final List<Label> tagLabels;
 
-    public PersonCardHandle(Node cardNode) {
+    public CardCardHandle(Node cardNode) {
         super(cardNode);
 
         idLabel = getChildNode(ID_FIELD_ID);
@@ -73,14 +73,14 @@ public class PersonCardHandle extends NodeHandle<Node> {
     }
 
     /**
-     * Returns true if this handle contains {@code flashCard}.
+     * Returns true if this handle contains {@code card}.
      */
-    public boolean equals(FlashCard flashCard) {
-        return getName().equals(flashCard.getName().fullName)
-                && getAddress().equals(flashCard.getAddress().value)
-                && getPhone().equals(flashCard.getPhone().value)
-                && getEmail().equals(flashCard.getEmail().value)
-                && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(flashCard.getTags().stream()
+    public boolean equals(Card card) {
+        return getName().equals(card.getName().fullName)
+                && getAddress().equals(card.getAddress().value)
+                && getPhone().equals(card.getPhone().value)
+                && getEmail().equals(card.getEmail().value)
+                && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(card.getTags().stream()
                         .map(tag -> tag.tagName)
                         .collect(Collectors.toList())));
     }

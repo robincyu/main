@@ -23,7 +23,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.flashcard.FlashCard;
+import seedu.address.model.flashcard.Card;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -44,20 +44,20 @@ public class AddCommandTest {
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        FlashCard validFlashCard = new PersonBuilder().build();
+        Card validCard = new PersonBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validFlashCard).execute(modelStub, commandHistory);
+        CommandResult commandResult = new AddCommand(validCard).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validFlashCard), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validFlashCard), modelStub.personsAdded);
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validCard), commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validCard), modelStub.personsAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() throws Exception {
-        FlashCard validFlashCard = new PersonBuilder().build();
-        AddCommand addCommand = new AddCommand(validFlashCard);
-        ModelStub modelStub = new ModelStubWithPerson(validFlashCard);
+        Card validCard = new PersonBuilder().build();
+        AddCommand addCommand = new AddCommand(validCard);
+        ModelStub modelStub = new ModelStubWithPerson(validCard);
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
@@ -66,8 +66,8 @@ public class AddCommandTest {
 
     @Test
     public void equals() {
-        FlashCard alice = new PersonBuilder().withName("Alice").build();
-        FlashCard bob = new PersonBuilder().withName("Bob").build();
+        Card alice = new PersonBuilder().withName("Alice").build();
+        Card bob = new PersonBuilder().withName("Bob").build();
         AddCommand addAliceCommand = new AddCommand(alice);
         AddCommand addBobCommand = new AddCommand(bob);
 
@@ -84,7 +84,7 @@ public class AddCommandTest {
         // null -> returns false
         assertFalse(addAliceCommand.equals(null));
 
-        // different flashCard -> returns false
+        // different card -> returns false
         assertFalse(addAliceCommand.equals(addBobCommand));
     }
 
@@ -123,7 +123,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addPerson(FlashCard flashCard) {
+        public void addPerson(Card card) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -138,27 +138,27 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasPerson(FlashCard flashCard) {
+        public boolean hasPerson(Card card) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deletePerson(FlashCard target) {
+        public void deletePerson(Card target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setPerson(FlashCard target, FlashCard editedFlashCard) {
+        public void setPerson(Card target, Card editedCard) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<FlashCard> getFilteredPersonList() {
+        public ObservableList<Card> getFilteredPersonList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<FlashCard> predicate) {
+        public void updateFilteredPersonList(Predicate<Card> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -188,55 +188,55 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyProperty<FlashCard> selectedPersonProperty() {
+        public ReadOnlyProperty<Card> selectedPersonProperty() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public FlashCard getSelectedPerson() {
+        public Card getSelectedPerson() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setSelectedPerson(FlashCard flashCard) {
+        public void setSelectedPerson(Card card) {
             throw new AssertionError("This method should not be called.");
         }
     }
 
     /**
-     * A Model stub that contains a single flashCard.
+     * A Model stub that contains a single card.
      */
     private class ModelStubWithPerson extends ModelStub {
-        private final FlashCard flashCard;
+        private final Card card;
 
-        ModelStubWithPerson(FlashCard flashCard) {
-            requireNonNull(flashCard);
-            this.flashCard = flashCard;
+        ModelStubWithPerson(Card card) {
+            requireNonNull(card);
+            this.card = card;
         }
 
         @Override
-        public boolean hasPerson(FlashCard flashCard) {
-            requireNonNull(flashCard);
-            return this.flashCard.isSameFlashCard(flashCard);
+        public boolean hasPerson(Card card) {
+            requireNonNull(card);
+            return this.card.isSameCard(card);
         }
     }
 
     /**
-     * A Model stub that always accept the flashCard being added.
+     * A Model stub that always accept the card being added.
      */
     private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<FlashCard> personsAdded = new ArrayList<>();
+        final ArrayList<Card> personsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(FlashCard flashCard) {
-            requireNonNull(flashCard);
-            return personsAdded.stream().anyMatch(flashCard::isSameFlashCard);
+        public boolean hasPerson(Card card) {
+            requireNonNull(card);
+            return personsAdded.stream().anyMatch(card::isSameCard);
         }
 
         @Override
-        public void addPerson(FlashCard flashCard) {
-            requireNonNull(flashCard);
-            personsAdded.add(flashCard);
+        public void addPerson(Card card) {
+            requireNonNull(card);
+            personsAdded.add(card);
         }
 
         @Override

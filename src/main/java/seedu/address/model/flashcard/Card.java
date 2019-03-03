@@ -10,10 +10,10 @@ import java.util.Set;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a FlashCard in the address book.
+ * Represents a Card in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class FlashCard {
+public class Card {
 
     // Identity fields
     private final Name name;
@@ -27,7 +27,7 @@ public class FlashCard {
     /**
      * Every field must be present and not null.
      */
-    public FlashCard(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+    public Card(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
@@ -64,14 +64,14 @@ public class FlashCard {
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
      */
-    public boolean isSameFlashCard(FlashCard otherFlashCard) {
-        if (otherFlashCard == this) {
+    public boolean isSameCard(Card otherCard) {
+        if (otherCard == this) {
             return true;
         }
 
-        return otherFlashCard != null
-                && otherFlashCard.getName().equals(getName())
-                && (otherFlashCard.getPhone().equals(getPhone()) || otherFlashCard.getEmail().equals(getEmail()));
+        return otherCard != null
+                && otherCard.getName().equals(getName())
+                && (otherCard.getPhone().equals(getPhone()) || otherCard.getEmail().equals(getEmail()));
     }
 
     /**
@@ -84,16 +84,16 @@ public class FlashCard {
             return true;
         }
 
-        if (!(other instanceof FlashCard)) {
+        if (!(other instanceof Card)) {
             return false;
         }
 
-        FlashCard otherFlashCard = (FlashCard) other;
-        return otherFlashCard.getName().equals(getName())
-                && otherFlashCard.getPhone().equals(getPhone())
-                && otherFlashCard.getEmail().equals(getEmail())
-                && otherFlashCard.getAddress().equals(getAddress())
-                && otherFlashCard.getTags().equals(getTags());
+        Card otherCard = (Card) other;
+        return otherCard.getName().equals(getName())
+                && otherCard.getPhone().equals(getPhone())
+                && otherCard.getEmail().equals(getEmail())
+                && otherCard.getAddress().equals(getAddress())
+                && otherCard.getTags().equals(getTags());
     }
 
     @Override
