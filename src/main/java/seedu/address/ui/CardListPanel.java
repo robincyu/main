@@ -16,15 +16,15 @@ import seedu.address.model.flashcard.Card;
 /**
  * Panel containing the list of persons.
  */
-public class PersonListPanel extends UiPart<Region> {
-    private static final String FXML = "PersonListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+public class CardListPanel extends UiPart<Region> {
+    private static final String FXML = "CardListPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(CardListPanel.class);
 
     @FXML
     private ListView<Card> personListView;
 
-    public PersonListPanel(ObservableList<Card> cardList, ObservableValue<Card> selectedPerson,
-                           Consumer<Card> onSelectedPersonChange) {
+    public CardListPanel(ObservableList<Card> cardList, ObservableValue<Card> selectedPerson,
+                         Consumer<Card> onSelectedPersonChange) {
         super(FXML);
         personListView.setItems(cardList);
         personListView.setCellFactory(listView -> new PersonListViewCell());

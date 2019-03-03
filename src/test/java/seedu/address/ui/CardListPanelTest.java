@@ -59,7 +59,7 @@ public class CardListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Verifies that creating and deleting large number of persons in {@code PersonListPanel} requires lesser than
+     * Verifies that creating and deleting large number of persons in {@code CardListPanel} requires lesser than
      * {@code CARD_CREATION_AND_DELETION_TIMEOUT} milliseconds to execute.
      */
     @Test
@@ -74,7 +74,7 @@ public class CardListPanelTest extends GuiUnitTest {
 
     /**
      * Returns a list of persons containing {@code personCount} persons that is used to populate the
-     * {@code PersonListPanel}.
+     * {@code CardListPanel}.
      */
     private ObservableList<Card> createBackingList(int personCount) {
         ObservableList<Card> backingList = FXCollections.observableArrayList();
@@ -90,15 +90,15 @@ public class CardListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Initializes {@code cardListPanelHandle} with a {@code PersonListPanel} backed by {@code backingList}.
-     * Also shows the {@code Stage} that displays only {@code PersonListPanel}.
+     * Initializes {@code cardListPanelHandle} with a {@code CardListPanel} backed by {@code backingList}.
+     * Also shows the {@code Stage} that displays only {@code CardListPanel}.
      */
     private void initUi(ObservableList<Card> backingList) {
-        PersonListPanel personListPanel =
-                new PersonListPanel(backingList, selectedPerson, selectedPerson::set);
-        uiPartRule.setUiPart(personListPanel);
+        CardListPanel cardListPanel =
+                new CardListPanel(backingList, selectedPerson, selectedPerson::set);
+        uiPartRule.setUiPart(cardListPanel);
 
-        cardListPanelHandle = new CardListPanelHandle(getChildNode(personListPanel.getRoot(),
+        cardListPanelHandle = new CardListPanelHandle(getChildNode(cardListPanel.getRoot(),
                 CardListPanelHandle.PERSON_LIST_VIEW_ID));
     }
 }

@@ -32,7 +32,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
-    private PersonListPanel personListPanel;
+    private CardListPanel cardListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -114,9 +114,9 @@ public class MainWindow extends UiPart<Stage> {
         browserPanel = new BrowserPanel(logic.selectedPersonProperty());
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
+        cardListPanel = new CardListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
                 logic::setSelectedPerson);
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        personListPanelPlaceholder.getChildren().add(cardListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -168,8 +168,8 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    public CardListPanel getCardListPanel() {
+        return cardListPanel;
     }
 
     /**
