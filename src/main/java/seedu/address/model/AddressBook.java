@@ -7,8 +7,8 @@ import java.util.List;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.flashcard.FlashCard;
+import seedu.address.model.flashcard.UniquePersonList;
 
 /**
  * Wraps all data at the address-book level
@@ -43,11 +43,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the flashCard list with {@code flashCards}.
+     * {@code flashCards} must not contain duplicate flashCards.
      */
-    public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
+    public void setPersons(List<FlashCard> flashCards) {
+        this.persons.setPersons(flashCards);
         indicateModified();
     }
 
@@ -60,34 +60,34 @@ public class AddressBook implements ReadOnlyAddressBook {
         setPersons(newData.getPersonList());
     }
 
-    //// person-level operations
+    //// flashCard-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a flashCard with the same identity as {@code flashCard} exists in the address book.
      */
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return persons.contains(person);
+    public boolean hasPerson(FlashCard flashCard) {
+        requireNonNull(flashCard);
+        return persons.contains(flashCard);
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds a flashCard to the address book.
+     * The flashCard must not already exist in the address book.
      */
-    public void addPerson(Person p) {
+    public void addPerson(FlashCard p) {
         persons.add(p);
         indicateModified();
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * Replaces the given flashCard {@code target} in the list with {@code editedFlashCard}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The flashCard identity of {@code editedFlashCard} must not be the same as another existing flashCard in the address book.
      */
-    public void setPerson(Person target, Person editedPerson) {
-        requireNonNull(editedPerson);
+    public void setPerson(FlashCard target, FlashCard editedFlashCard) {
+        requireNonNull(editedFlashCard);
 
-        persons.setPerson(target, editedPerson);
+        persons.setPerson(target, editedFlashCard);
         indicateModified();
     }
 
@@ -95,7 +95,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson(Person key) {
+    public void removePerson(FlashCard key) {
         persons.remove(key);
         indicateModified();
     }
@@ -126,7 +126,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public ObservableList<Person> getPersonList() {
+    public ObservableList<FlashCard> getPersonList() {
         return persons.asUnmodifiableObservableList();
     }
 
