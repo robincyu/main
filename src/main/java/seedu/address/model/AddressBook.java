@@ -16,7 +16,7 @@ import seedu.address.model.flashcard.UniqueCardList;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-    private final UniqueCardList persons;
+    private final UniqueCardList cards;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /*
@@ -27,7 +27,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
-        persons = new UniqueCardList();
+        cards = new UniqueCardList();
     }
 
     public AddressBook() {}
@@ -46,8 +46,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Replaces the contents of the card list with {@code cards}.
      * {@code cards} must not contain duplicate cards.
      */
-    public void setPersons(List<Card> cards) {
-        this.persons.setCards(cards);
+    public void setCards(List<Card> cards) {
+        this.cards.setCards(cards);
         indicateModified();
     }
 
@@ -57,7 +57,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getCardList());
+        setCards(newData.getCardList());
     }
 
     //// card-level operations
@@ -67,7 +67,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public boolean hasPerson(Card card) {
         requireNonNull(card);
-        return persons.contains(card);
+        return cards.contains(card);
     }
 
     /**
@@ -75,7 +75,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * The card must not already exist in the address book.
      */
     public void addPerson(Card p) {
-        persons.add(p);
+        cards.add(p);
         indicateModified();
     }
 
@@ -87,7 +87,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setCard(Card target, Card editedCard) {
         requireNonNull(editedCard);
 
-        persons.setCard(target, editedCard);
+        cards.setCard(target, editedCard);
         indicateModified();
     }
 
@@ -96,7 +96,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code key} must exist in the address book.
      */
     public void removePerson(Card key) {
-        persons.remove(key);
+        cards.remove(key);
         indicateModified();
     }
 
@@ -121,24 +121,24 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        return cards.asUnmodifiableObservableList().size() + " cards";
         // TODO: refine later
     }
 
     @Override
     public ObservableList<Card> getCardList() {
-        return persons.asUnmodifiableObservableList();
+        return cards.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                && cards.equals(((AddressBook) other).cards));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return cards.hashCode();
     }
 }
