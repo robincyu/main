@@ -49,7 +49,8 @@ public class LogicManagerTest {
 
     @Before
     public void setUp() throws Exception {
-        JsonCardCollectionStorage cardCollectionStorage = new JsonCardCollectionStorage(temporaryFolder.newFile().toPath());
+        JsonCardCollectionStorage cardCollectionStorage =
+            new JsonCardCollectionStorage(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
         StorageManager storage = new StorageManager(cardCollectionStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);

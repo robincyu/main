@@ -36,7 +36,8 @@ public class JsonCardCollectionStorageTest {
     }
 
     private java.util.Optional<ReadOnlyCardCollection> readCardCollection(String filePath) throws Exception {
-        return new JsonCardCollectionStorage(Paths.get(filePath)).readCardCollection(addToTestDataPathIfNotNull(filePath));
+        return new JsonCardCollectionStorage(Paths.get(filePath))
+            .readCardCollection(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {

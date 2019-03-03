@@ -209,7 +209,8 @@ public class VersionedCardCollectionTest {
 
     @Test
     public void equals() {
-        VersionedCardCollection versionedCardCollection = prepareCardCollectionList(cardCollectionWithAmy, cardCollectionWithBob);
+        VersionedCardCollection versionedCardCollection = prepareCardCollectionList(cardCollectionWithAmy,
+            cardCollectionWithBob);
 
         // same values -> returns true
         VersionedCardCollection copy = prepareCardCollectionList(cardCollectionWithAmy, cardCollectionWithBob);
@@ -225,7 +226,8 @@ public class VersionedCardCollectionTest {
         assertFalse(versionedCardCollection.equals(1));
 
         // different state list -> returns false
-        VersionedCardCollection differentCardCollectionList = prepareCardCollectionList(cardCollectionWithBob, cardCollectionWithCarl);
+        VersionedCardCollection differentCardCollectionList = prepareCardCollectionList(cardCollectionWithBob,
+            cardCollectionWithCarl);
         assertFalse(versionedCardCollection.equals(differentCardCollectionList));
 
         // different current pointer index -> returns false
@@ -237,8 +239,10 @@ public class VersionedCardCollectionTest {
 
     /**
      * Asserts that {@code versionedCardCollection} is currently pointing at {@code expectedCurrentState},
-     * states before {@code versionedCardCollection#currentStatePointer} is equal to {@code expectedStatesBeforePointer},
-     * and states after {@code versionedCardCollection#currentStatePointer} is equal to {@code expectedStatesAfterPointer}.
+     * states before {@code versionedCardCollection#currentStatePointer} is equal to {@code
+     * expectedStatesBeforePointer},
+     * and states after {@code versionedCardCollection#currentStatePointer} is equal to {@code
+     * expectedStatesAfterPointer}.
      */
     private void assertCardCollectionListStatus(VersionedCardCollection versionedCardCollection,
                                                 List<ReadOnlyCardCollection> expectedStatesBeforePointer,
@@ -272,7 +276,8 @@ public class VersionedCardCollectionTest {
     }
 
     /**
-     * Creates and returns a {@code VersionedCardCollection} with the {@code cardCollectionStates} added into it, and the
+     * Creates and returns a {@code VersionedCardCollection} with the {@code cardCollectionStates} added into it, and
+     * the
      * {@code VersionedCardCollection#currentStatePointer} at the end of list.
      */
     private VersionedCardCollection prepareCardCollectionList(ReadOnlyCardCollection... cardCollectionStates) {
