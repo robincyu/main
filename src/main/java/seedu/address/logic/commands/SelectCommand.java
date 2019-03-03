@@ -12,7 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
 /**
- * Selects a person identified using it's displayed index from the address book.
+ * Selects a person identified using it's displayed index from the card collection.
  */
 public class SelectCommand extends Command {
 

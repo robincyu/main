@@ -3,11 +3,11 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.AddressBook;
+import seedu.address.model.CardCollection;
 import seedu.address.model.Model;
 
 /**
- * Clears the address book.
+ * Clears the card collection.
  */
 public class ClearCommand extends Command {
 
@@ -18,8 +18,8 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.setAddressBook(new AddressBook());
-        model.commitAddressBook();
+        model.setCardCollection(new CardCollection());
+        model.commitCardCollection();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

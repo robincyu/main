@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalCardCollection;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -25,29 +25,29 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.testutil.PersonBuilder;
 
-public class AddressBookTest {
+public class CardCollectionTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final AddressBook addressBook = new AddressBook();
+    private final CardCollection cardCollection = new CardCollection();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getPersonList());
+        assertEquals(Collections.emptyList(), cardCollection.getPersonList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        addressBook.resetData(null);
+        cardCollection.resetData(null);
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        AddressBook newData = getTypicalAddressBook();
-        addressBook.resetData(newData);
-        assertEquals(newData, addressBook);
+    public void resetData_withValidReadOnlyCardCollection_replacesData() {
+        CardCollection newData = getTypicalCardCollection();
+        cardCollection.resetData(newData);
+        assertEquals(newData, cardCollection);
     }
 
     @Test
@@ -56,49 +56,49 @@ public class AddressBookTest {
         Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newPersons);
+        CardCollectionStub newData = new CardCollectionStub(newPersons);
 
         thrown.expect(DuplicatePersonException.class);
-        addressBook.resetData(newData);
+        cardCollection.resetData(newData);
     }
 
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        addressBook.hasPerson(null);
+        cardCollection.hasPerson(null);
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasPerson(ALICE));
+    public void hasPerson_personNotInCardCollection_returnsFalse() {
+        assertFalse(cardCollection.hasPerson(ALICE));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
-        assertTrue(addressBook.hasPerson(ALICE));
+    public void hasPerson_personInCardCollection_returnsTrue() {
+        cardCollection.addPerson(ALICE);
+        assertTrue(cardCollection.hasPerson(ALICE));
     }
 
     @Test
-    public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
+    public void hasPerson_personWithSameIdentityFieldsInCardCollection_returnsTrue() {
+        cardCollection.addPerson(ALICE);
         Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(addressBook.hasPerson(editedAlice));
+        assertTrue(cardCollection.hasPerson(editedAlice));
     }
 
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        addressBook.getPersonList().remove(0);
+        cardCollection.getPersonList().remove(0);
     }
 
     @Test
     public void addListener_withInvalidationListener_listenerAdded() {
         SimpleIntegerProperty counter = new SimpleIntegerProperty();
         InvalidationListener listener = observable -> counter.set(counter.get() + 1);
-        addressBook.addListener(listener);
-        addressBook.addPerson(ALICE);
+        cardCollection.addListener(listener);
+        cardCollection.addPerson(ALICE);
         assertEquals(1, counter.get());
     }
 
@@ -106,19 +106,19 @@ public class AddressBookTest {
     public void removeListener_withInvalidationListener_listenerRemoved() {
         SimpleIntegerProperty counter = new SimpleIntegerProperty();
         InvalidationListener listener = observable -> counter.set(counter.get() + 1);
-        addressBook.addListener(listener);
-        addressBook.removeListener(listener);
-        addressBook.addPerson(ALICE);
+        cardCollection.addListener(listener);
+        cardCollection.removeListener(listener);
+        cardCollection.addPerson(ALICE);
         assertEquals(0, counter.get());
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
+     * A stub ReadOnlyCardCollection whose persons list can violate interface constraints.
      */
-    private static class AddressBookStub implements ReadOnlyAddressBook {
+    private static class CardCollectionStub implements ReadOnlyCardCollection {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Person> persons) {
+        CardCollectionStub(Collection<Person> persons) {
             this.persons.setAll(persons);
         }
 
