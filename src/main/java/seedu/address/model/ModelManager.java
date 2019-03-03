@@ -40,7 +40,7 @@ public class ModelManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredFlashCards = new FilteredList<>(versionedAddressBook.getPersonList());
+        filteredFlashCards = new FilteredList<>(versionedAddressBook.getFlashCardList());
         filteredFlashCards.addListener(this::ensureSelectedPersonIsValid);
     }
 
@@ -116,7 +116,7 @@ public class ModelManager implements Model {
     public void setPerson(FlashCard target, FlashCard editedFlashCard) {
         requireAllNonNull(target, editedFlashCard);
 
-        versionedAddressBook.setPerson(target, editedFlashCard);
+        versionedAddressBook.setFlashCard(target, editedFlashCard);
     }
 
     //=========== Filtered FlashCard List Accessors =============================================================
@@ -203,7 +203,7 @@ public class ModelManager implements Model {
             }
 
             boolean wasSelectedPersonRemoved = change.getRemoved().stream()
-                    .anyMatch(removedPerson -> selectedPerson.getValue().isSamePerson(removedPerson));
+                    .anyMatch(removedPerson -> selectedPerson.getValue().isSameFlashCard(removedPerson));
             if (wasSelectedPersonRemoved) {
                 // Select the flashCard that came before it in the list,
                 // or clear the selection if there is no such flashCard.

@@ -34,7 +34,7 @@ public class AddressBookTest {
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getPersonList());
+        assertEquals(Collections.emptyList(), addressBook.getFlashCardList());
     }
 
     @Test
@@ -90,7 +90,7 @@ public class AddressBookTest {
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        addressBook.getPersonList().remove(0);
+        addressBook.getFlashCardList().remove(0);
     }
 
     @Test
@@ -123,7 +123,7 @@ public class AddressBookTest {
         }
 
         @Override
-        public ObservableList<FlashCard> getPersonList() {
+        public ObservableList<FlashCard> getFlashCardList() {
             return flashCards;
         }
 

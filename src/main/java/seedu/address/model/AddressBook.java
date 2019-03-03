@@ -57,7 +57,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
+        setPersons(newData.getFlashCardList());
     }
 
     //// flashCard-level operations
@@ -84,7 +84,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code target} must exist in the address book.
      * The flashCard identity of {@code editedFlashCard} must not be the same as another existing flashCard in the address book.
      */
-    public void setPerson(FlashCard target, FlashCard editedFlashCard) {
+    public void setFlashCard(FlashCard target, FlashCard editedFlashCard) {
         requireNonNull(editedFlashCard);
 
         persons.setFlashCard(target, editedFlashCard);
@@ -126,7 +126,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public ObservableList<FlashCard> getPersonList() {
+    public ObservableList<FlashCard> getFlashCardList() {
         return persons.asUnmodifiableObservableList();
     }
 
