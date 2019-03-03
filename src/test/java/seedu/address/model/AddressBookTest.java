@@ -22,7 +22,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.flashcard.FlashCard;
-import seedu.address.model.flashcard.exceptions.DuplicatePersonException;
+import seedu.address.model.flashcard.exceptions.DuplicateFlashCardException;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddressBookTest {
@@ -58,7 +58,7 @@ public class AddressBookTest {
         List<FlashCard> newFlashCards = Arrays.asList(ALICE, editedAlice);
         AddressBookStub newData = new AddressBookStub(newFlashCards);
 
-        thrown.expect(DuplicatePersonException.class);
+        thrown.expect(DuplicateFlashCardException.class);
         addressBook.resetData(newData);
     }
 

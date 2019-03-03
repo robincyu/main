@@ -16,8 +16,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.model.flashcard.exceptions.DuplicatePersonException;
-import seedu.address.model.flashcard.exceptions.PersonNotFoundException;
+import seedu.address.model.flashcard.exceptions.DuplicateFlashCardException;
+import seedu.address.model.flashcard.exceptions.FlashCardNotFoundException;
 import seedu.address.testutil.PersonBuilder;
 
 public class UniqueFlashCardListTest {
@@ -60,32 +60,32 @@ public class UniqueFlashCardListTest {
     @Test
     public void add_duplicatePerson_throwsDuplicatePersonException() {
         uniquePersonList.add(ALICE);
-        thrown.expect(DuplicatePersonException.class);
+        thrown.expect(DuplicateFlashCardException.class);
         uniquePersonList.add(ALICE);
     }
 
     @Test
     public void setPerson_nullTargetPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        uniquePersonList.setPerson(null, ALICE);
+        uniquePersonList.setFlashCard(null, ALICE);
     }
 
     @Test
     public void setPerson_nullEditedPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        uniquePersonList.setPerson(ALICE, null);
+        uniquePersonList.setFlashCard(ALICE, null);
     }
 
     @Test
     public void setPerson_targetPersonNotInList_throwsPersonNotFoundException() {
-        thrown.expect(PersonNotFoundException.class);
-        uniquePersonList.setPerson(ALICE, ALICE);
+        thrown.expect(FlashCardNotFoundException.class);
+        uniquePersonList.setFlashCard(ALICE, ALICE);
     }
 
     @Test
     public void setPerson_editedPersonIsSamePerson_success() {
         uniquePersonList.add(ALICE);
-        uniquePersonList.setPerson(ALICE, ALICE);
+        uniquePersonList.setFlashCard(ALICE, ALICE);
         UniqueFlashCardList expectedUniquePersonList = new UniqueFlashCardList();
         expectedUniquePersonList.add(ALICE);
         assertEquals(expectedUniquePersonList, uniquePersonList);
@@ -96,7 +96,7 @@ public class UniqueFlashCardListTest {
         uniquePersonList.add(ALICE);
         FlashCard editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        uniquePersonList.setPerson(ALICE, editedAlice);
+        uniquePersonList.setFlashCard(ALICE, editedAlice);
         UniqueFlashCardList expectedUniquePersonList = new UniqueFlashCardList();
         expectedUniquePersonList.add(editedAlice);
         assertEquals(expectedUniquePersonList, uniquePersonList);
@@ -105,7 +105,7 @@ public class UniqueFlashCardListTest {
     @Test
     public void setPerson_editedPersonHasDifferentIdentity_success() {
         uniquePersonList.add(ALICE);
-        uniquePersonList.setPerson(ALICE, BOB);
+        uniquePersonList.setFlashCard(ALICE, BOB);
         UniqueFlashCardList expectedUniquePersonList = new UniqueFlashCardList();
         expectedUniquePersonList.add(BOB);
         assertEquals(expectedUniquePersonList, uniquePersonList);
@@ -115,8 +115,8 @@ public class UniqueFlashCardListTest {
     public void setPerson_editedPersonHasNonUniqueIdentity_throwsDuplicatePersonException() {
         uniquePersonList.add(ALICE);
         uniquePersonList.add(BOB);
-        thrown.expect(DuplicatePersonException.class);
-        uniquePersonList.setPerson(ALICE, BOB);
+        thrown.expect(DuplicateFlashCardException.class);
+        uniquePersonList.setFlashCard(ALICE, BOB);
     }
 
     @Test
@@ -127,7 +127,7 @@ public class UniqueFlashCardListTest {
 
     @Test
     public void remove_personDoesNotExist_throwsPersonNotFoundException() {
-        thrown.expect(PersonNotFoundException.class);
+        thrown.expect(FlashCardNotFoundException.class);
         uniquePersonList.remove(ALICE);
     }
 
@@ -142,7 +142,7 @@ public class UniqueFlashCardListTest {
     @Test
     public void setPersons_nullUniquePersonList_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        uniquePersonList.setPersons((UniqueFlashCardList) null);
+        uniquePersonList.setFlashCards((UniqueFlashCardList) null);
     }
 
     @Test
@@ -150,21 +150,21 @@ public class UniqueFlashCardListTest {
         uniquePersonList.add(ALICE);
         UniqueFlashCardList expectedUniquePersonList = new UniqueFlashCardList();
         expectedUniquePersonList.add(BOB);
-        uniquePersonList.setPersons(expectedUniquePersonList);
+        uniquePersonList.setFlashCards(expectedUniquePersonList);
         assertEquals(expectedUniquePersonList, uniquePersonList);
     }
 
     @Test
     public void setPersons_nullList_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        uniquePersonList.setPersons((List<FlashCard>) null);
+        uniquePersonList.setFlashCards((List<FlashCard>) null);
     }
 
     @Test
     public void setPersons_list_replacesOwnListWithProvidedList() {
         uniquePersonList.add(ALICE);
         List<FlashCard> flashCardList = Collections.singletonList(BOB);
-        uniquePersonList.setPersons(flashCardList);
+        uniquePersonList.setFlashCards(flashCardList);
         UniqueFlashCardList expectedUniquePersonList = new UniqueFlashCardList();
         expectedUniquePersonList.add(BOB);
         assertEquals(expectedUniquePersonList, uniquePersonList);
@@ -173,8 +173,8 @@ public class UniqueFlashCardListTest {
     @Test
     public void setPersons_listWithDuplicatePersons_throwsDuplicatePersonException() {
         List<FlashCard> listWithDuplicateFlashCards = Arrays.asList(ALICE, ALICE);
-        thrown.expect(DuplicatePersonException.class);
-        uniquePersonList.setPersons(listWithDuplicateFlashCards);
+        thrown.expect(DuplicateFlashCardException.class);
+        uniquePersonList.setFlashCards(listWithDuplicateFlashCards);
     }
 
     @Test

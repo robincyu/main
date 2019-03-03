@@ -47,7 +47,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code flashCards} must not contain duplicate flashCards.
      */
     public void setPersons(List<FlashCard> flashCards) {
-        this.persons.setPersons(flashCards);
+        this.persons.setFlashCards(flashCards);
         indicateModified();
     }
 
@@ -87,7 +87,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setPerson(FlashCard target, FlashCard editedFlashCard) {
         requireNonNull(editedFlashCard);
 
-        persons.setPerson(target, editedFlashCard);
+        persons.setFlashCard(target, editedFlashCard);
         indicateModified();
     }
 

@@ -16,7 +16,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.flashcard.FlashCard;
-import seedu.address.model.flashcard.exceptions.PersonNotFoundException;
+import seedu.address.model.flashcard.exceptions.FlashCardNotFoundException;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -178,7 +178,7 @@ public class ModelManager implements Model {
     @Override
     public void setSelectedPerson(FlashCard flashCard) {
         if (flashCard != null && !filteredFlashCards.contains(flashCard)) {
-            throw new PersonNotFoundException();
+            throw new FlashCardNotFoundException();
         }
         selectedPerson.setValue(flashCard);
     }
