@@ -6,8 +6,10 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.Person;
 
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Enters quiz mode
@@ -28,7 +30,11 @@ public class QuizCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        model.updateFilteredPersonList(predicate);
+
+        List<Person> filteredPersonList = model.getFilteredPersonList();
+        Person randomPerson = filteredPersonList.get((int) Math.floor(Math.random() * filteredPersonList.size()));
+//        model.updateFilteredPersonList(predicate);
+        model.setSelectedPerson(randomPerson);
         return new CommandResult(MESSAGE_QUIZ_START);
     }
 }
