@@ -26,6 +26,7 @@ import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.StatsCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
@@ -125,6 +126,12 @@ public class AddressBookParserTest {
     public void parseCommand_undoCommandWord_returnsUndoCommand() throws Exception {
         assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD) instanceof UndoCommand);
         assertTrue(parser.parseCommand("undo 3") instanceof UndoCommand);
+    }
+
+    @Test
+    public void parseCommand_statsCommandWord_returnsStatsCommand() throws Exception {
+        assertTrue(parser.parseCommand(StatsCommand.COMMAND_WORD) instanceof StatsCommand);
+        assertTrue(parser.parseCommand("stats") instanceof StatsCommand);
     }
 
     @Test
