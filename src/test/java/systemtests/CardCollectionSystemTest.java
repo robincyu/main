@@ -36,7 +36,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.CardCollection;
 import seedu.address.model.Model;
-import seedu.address.testutil.TypicalPersons;
+import seedu.address.testutil.TypicalFlashcards;
 import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
 
@@ -80,7 +80,7 @@ public abstract class CardCollectionSystemTest {
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
     protected CardCollection getInitialData() {
-        return TypicalPersons.getTypicalCardCollection();
+        return TypicalFlashcards.getTypicalCardCollection();
     }
 
     /**

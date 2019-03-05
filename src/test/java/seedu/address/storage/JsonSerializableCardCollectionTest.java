@@ -12,7 +12,7 @@ import org.junit.rules.ExpectedException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.CardCollection;
-import seedu.address.testutil.TypicalPersons;
+import seedu.address.testutil.TypicalFlashcards;
 
 public class JsonSerializableCardCollectionTest {
 
@@ -29,7 +29,7 @@ public class JsonSerializableCardCollectionTest {
         JsonSerializableCardCollection dataFromFile = JsonUtil.readJsonFile(TYPICAL_PERSONS_FILE,
             JsonSerializableCardCollection.class).get();
         CardCollection cardCollectionFromFile = dataFromFile.toModelType();
-        CardCollection typicalPersonsCardCollection = TypicalPersons.getTypicalCardCollection();
+        CardCollection typicalPersonsCardCollection = TypicalFlashcards.getTypicalCardCollection();
         assertEquals(cardCollectionFromFile, typicalPersonsCardCollection);
     }
 
@@ -46,7 +46,7 @@ public class JsonSerializableCardCollectionTest {
         JsonSerializableCardCollection dataFromFile = JsonUtil.readJsonFile(DUPLICATE_PERSON_FILE,
             JsonSerializableCardCollection.class).get();
         thrown.expect(IllegalValueException.class);
-        thrown.expectMessage(JsonSerializableCardCollection.MESSAGE_DUPLICATE_PERSON);
+        thrown.expectMessage(JsonSerializableCardCollection.MESSAGE_DUPLICATE_FLASHCARD);
         dataFromFile.toModelType();
     }
 

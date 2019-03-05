@@ -7,8 +7,8 @@ import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_FLASHCAR
 import static seedu.address.testutil.TestUtil.getLastIndex;
 import static seedu.address.testutil.TestUtil.getMidIndex;
 import static seedu.address.testutil.TestUtil.getPerson;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_FLASHCARD;
+import static seedu.address.testutil.TypicalFlashcards.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 
@@ -31,8 +31,8 @@ public class DeleteCommandSystemTest extends CardCollectionSystemTest {
 
         /* Case: delete the first flashcard in the list, command with leading spaces and trailing spaces -> deleted */
         Model expectedModel = getModel();
-        String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_PERSON.getOneBased() + "       ";
-        Flashcard deletedFlashcard = removePerson(expectedModel, INDEX_FIRST_PERSON);
+        String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_FLASHCARD.getOneBased() + "       ";
+        Flashcard deletedFlashcard = removePerson(expectedModel, INDEX_FIRST_FLASHCARD);
         String expectedResultMessage = String.format(MESSAGE_DELETE_FLASHCARD_SUCCESS, deletedFlashcard);
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
 
@@ -60,7 +60,7 @@ public class DeleteCommandSystemTest extends CardCollectionSystemTest {
 
         /* Case: filtered flashcard list, delete index within bounds of card collection and flashcard list -> deleted */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
-        Index index = INDEX_FIRST_PERSON;
+        Index index = INDEX_FIRST_FLASHCARD;
         assertTrue(index.getZeroBased() < getModel().getFilteredFlashcardList().size());
         assertCommandSuccess(index);
 

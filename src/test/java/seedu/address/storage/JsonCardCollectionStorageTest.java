@@ -2,10 +2,10 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.HOON;
-import static seedu.address.testutil.TypicalPersons.IDA;
-import static seedu.address.testutil.TypicalPersons.getTypicalCardCollection;
+import static seedu.address.testutil.TypicalFlashcards.ALICE;
+import static seedu.address.testutil.TypicalFlashcards.HOON;
+import static seedu.address.testutil.TypicalFlashcards.IDA;
+import static seedu.address.testutil.TypicalFlashcards.getTypicalCardCollection;
 
 import java.io.IOException;
 import java.nio.file.Path;

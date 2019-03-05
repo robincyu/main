@@ -45,7 +45,7 @@ public class SampleDataTest extends CardCollectionSystemTest {
 
     @Test
     public void cardCollection_dataFileDoesNotExist_loadSampleData() {
-        Flashcard[] expectedList = SampleDataUtil.getSamplePersons();
+        Flashcard[] expectedList = SampleDataUtil.getSampleFlashcards();
         assertListMatching(getPersonListPanel(), expectedList);
     }
 }

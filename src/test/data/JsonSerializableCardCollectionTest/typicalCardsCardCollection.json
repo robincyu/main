@@ -1,6 +1,6 @@
 {
-  "_comment": "CardCollection save file which contains the same Person values as in TypicalPersons#getTypicalCardCollection()",
-  "persons": [
+  "_comment": "CardCollection save file which contains the same Flashcard values as in TypicalFlashcards#getTypicalCardCollection()",
+  "flashcards": [
     {
       "name": "Alice Pauline",
       "phone": "94351253",

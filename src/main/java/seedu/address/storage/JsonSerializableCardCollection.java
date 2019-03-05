@@ -19,16 +19,16 @@ import seedu.address.model.flashcard.Flashcard;
 @JsonRootName(value = "cardcollection")
 class JsonSerializableCardCollection {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate flashcard(s).";
+    public static final String MESSAGE_DUPLICATE_FLASHCARD = "Flashcards list contains duplicate flashcard(s).";
 
-    private final List<JsonAdaptedPerson> persons = new ArrayList<>();
+    private final List<JsonAdaptedFlashcard> flashcards = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableCardCollection} with the given persons.
+     * Constructs a {@code JsonSerializableCardCollection} with the given flashcards.
      */
     @JsonCreator
-    public JsonSerializableCardCollection(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
-        this.persons.addAll(persons);
+    public JsonSerializableCardCollection(@JsonProperty("flashcards") List<JsonAdaptedFlashcard> flashcards) {
+        this.flashcards.addAll(flashcards);
     }
 
     /**
@@ -37,7 +37,7 @@ class JsonSerializableCardCollection {
      * @param source future changes to this will not affect the created {@code JsonSerializableCardCollection}.
      */
     public JsonSerializableCardCollection(ReadOnlyCardCollection source) {
-        persons.addAll(source.getFlashcardList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+        flashcards.addAll(source.getFlashcardList().stream().map(JsonAdaptedFlashcard::new).collect(Collectors.toList()));
     }
 
     /**
@@ -47,10 +47,10 @@ class JsonSerializableCardCollection {
      */
     public CardCollection toModelType() throws IllegalValueException {
         CardCollection cardCollection = new CardCollection();
-        for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
-            Flashcard flashcard = jsonAdaptedPerson.toModelType();
+        for (JsonAdaptedFlashcard jsonAdaptedFlashcard : flashcards) {
+            Flashcard flashcard = jsonAdaptedFlashcard.toModelType();
             if (cardCollection.hasFlashcard(flashcard)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+                throw new IllegalValueException(MESSAGE_DUPLICATE_FLASHCARD);
             }
             cardCollection.addFlashcard(flashcard);
         }

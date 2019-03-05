@@ -21,7 +21,7 @@ import seedu.address.model.flashcard.Flashcard;
 /**
  * A utility class containing a list of {@code Flashcard} objects to be used in tests.
  */
-public class TypicalPersons {
+public class TypicalFlashcards {
 
     public static final Flashcard ALICE = new PersonBuilder().withName("Alice Pauline")
         .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
@@ -57,7 +57,7 @@ public class TypicalPersons {
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
-    private TypicalPersons() {
+    private TypicalFlashcards() {
     } // prevents instantiation
 
     /**
