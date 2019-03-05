@@ -43,7 +43,7 @@ public class SampleDataUtil {
     public static ReadOnlyCardCollection getSampleCardCollection() {
         CardCollection sampleAb = new CardCollection();
         for (Flashcard sampleFlashcard : getSamplePersons()) {
-            sampleAb.addPerson(sampleFlashcard);
+            sampleAb.addFlashcard(sampleFlashcard);
         }
         return sampleAb;
     }

@@ -33,9 +33,9 @@ public interface Logic {
     ReadOnlyCardCollection getCardCollection();
 
     /**
-     * Returns an unmodifiable view of the filtered list of persons
+     * Returns an unmodifiable view of the filtered list of flashcards
      */
-    ObservableList<Flashcard> getFilteredPersonList();
+    ObservableList<Flashcard> getFilteredFlashcardList();
 
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.
@@ -62,14 +62,14 @@ public interface Logic {
      * Selected flashcard in the filtered flashcard list.
      * null if no flashcard is selected.
      *
-     * @see seedu.address.model.Model#selectedPersonProperty()
+     * @see seedu.address.model.Model#selectedFlashcardProperty()
      */
-    ReadOnlyProperty<Flashcard> selectedPersonProperty();
+    ReadOnlyProperty<Flashcard> selectedFlashcardProperty();
 
     /**
      * Sets the selected flashcard in the filtered flashcard list.
      *
-     * @see seedu.address.model.Model#setSelectedPerson(Flashcard)
+     * @see seedu.address.model.Model#setSelectedFlashcard(Flashcard)
      */
-    void setSelectedPerson(Flashcard flashcard);
+    void setSelectedFlashcard(Flashcard flashcard);
 }

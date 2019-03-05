@@ -24,7 +24,7 @@ public class CardCollectionBuilder {
      * Adds a new {@code Flashcard} to the {@code CardCollection} that we are building.
      */
     public CardCollectionBuilder withPerson(Flashcard flashcard) {
-        cardCollection.addPerson(flashcard);
+        cardCollection.addFlashcard(flashcard);
         return this;
     }
 

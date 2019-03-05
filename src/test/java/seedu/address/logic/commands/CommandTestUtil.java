@@ -57,8 +57,8 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditPersonDescriptor DESC_AMY;
-    public static final EditCommand.EditPersonDescriptor DESC_BOB;
+    public static final EditCommand.EditFlashcardDescriptor DESC_AMY;
+    public static final EditCommand.EditFlashcardDescriptor DESC_BOB;
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
@@ -110,8 +110,8 @@ public class CommandTestUtil {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         CardCollection expectedCardCollection = new CardCollection(actualModel.getCardCollection());
-        List<Flashcard> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
-        Flashcard expectedSelectedFlashcard = actualModel.getSelectedPerson();
+        List<Flashcard> expectedFilteredList = new ArrayList<>(actualModel.getFilteredFlashcardList());
+        Flashcard expectedSelectedFlashcard = actualModel.getSelectedFlashcard();
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
@@ -121,8 +121,8 @@ public class CommandTestUtil {
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
             assertEquals(expectedCardCollection, actualModel.getCardCollection());
-            assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
-            assertEquals(expectedSelectedFlashcard, actualModel.getSelectedPerson());
+            assertEquals(expectedFilteredList, actualModel.getFilteredFlashcardList());
+            assertEquals(expectedSelectedFlashcard, actualModel.getSelectedFlashcard());
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }
     }
@@ -132,21 +132,21 @@ public class CommandTestUtil {
      * {@code model}'s card collection.
      */
     public static void showPersonAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredFlashcardList().size());
 
-        Flashcard flashcard = model.getFilteredPersonList().get(targetIndex.getZeroBased());
+        Flashcard flashcard = model.getFilteredFlashcardList().get(targetIndex.getZeroBased());
         final String[] splitName = flashcard.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredFlashcardList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
-        assertEquals(1, model.getFilteredPersonList().size());
+        assertEquals(1, model.getFilteredFlashcardList().size());
     }
 
     /**
      * Deletes the first flashcard in {@code model}'s filtered list from {@code model}'s card collection.
      */
     public static void deleteFirstPerson(Model model) {
-        Flashcard firstFlashcard = model.getFilteredPersonList().get(0);
-        model.deletePerson(firstFlashcard);
+        Flashcard firstFlashcard = model.getFilteredFlashcardList().get(0);
+        model.deleteFlashcard(firstFlashcard);
         model.commitCardCollection();
     }
 

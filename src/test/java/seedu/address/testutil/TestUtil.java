@@ -36,20 +36,20 @@ public class TestUtil {
      * Returns the middle index of the flashcard in the {@code model}'s flashcard list.
      */
     public static Index getMidIndex(Model model) {
-        return Index.fromOneBased(model.getFilteredPersonList().size() / 2);
+        return Index.fromOneBased(model.getFilteredFlashcardList().size() / 2);
     }
 
     /**
      * Returns the last index of the flashcard in the {@code model}'s flashcard list.
      */
     public static Index getLastIndex(Model model) {
-        return Index.fromOneBased(model.getFilteredPersonList().size());
+        return Index.fromOneBased(model.getFilteredFlashcardList().size());
     }
 
     /**
      * Returns the flashcard in the {@code model}'s flashcard list at {@code index}.
      */
     public static Flashcard getPerson(Model model, Index index) {
-        return model.getFilteredPersonList().get(index.getZeroBased());
+        return model.getFilteredFlashcardList().get(index.getZeroBased());
     }
 }

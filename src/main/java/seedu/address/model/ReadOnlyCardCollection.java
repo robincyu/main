@@ -10,9 +10,9 @@ import seedu.address.model.flashcard.Flashcard;
 public interface ReadOnlyCardCollection extends Observable {
 
     /**
-     * Returns an unmodifiable view of the persons list.
-     * This list will not contain any duplicate persons.
+     * Returns an unmodifiable view of the flashcards list.
+     * This list will not contain any duplicate flashcards.
      */
-    ObservableList<Flashcard> getPersonList();
+    ObservableList<Flashcard> getFlashcardList();
 
 }

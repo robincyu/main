@@ -53,7 +53,7 @@ public class UniqueFlashcardList implements Iterable<Flashcard> {
      * {@code target} must exist in the list.
      * The flashcard identity of {@code editedFlashcard} must not be the same as another existing flashcard in the list.
      */
-    public void setPerson(Flashcard target, Flashcard editedFlashcard) {
+    public void setFlashcard(Flashcard target, Flashcard editedFlashcard) {
         requireAllNonNull(target, editedFlashcard);
 
         int index = internalList.indexOf(target);

@@ -24,7 +24,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_FLASHCARDS;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.AMY;
@@ -73,7 +73,7 @@ public class EditCommandSystemTest extends CardCollectionSystemTest {
         /* Case: redo editing the last flashcard in the list -> last flashcard edited again */
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
-        model.setPerson(getModel().getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()), editedFlashcard);
+        model.setFlashcard(getModel().getFilteredFlashcardList().get(INDEX_FIRST_PERSON.getZeroBased()), editedFlashcard);
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: edit a flashcard with new values same as existing values -> edited */
@@ -82,9 +82,9 @@ public class EditCommandSystemTest extends CardCollectionSystemTest {
         assertCommandSuccess(command, index, BOB);
 
         /* Case: edit a flashcard with new values same as another flashcard's values but with different name -> edited */
-        assertTrue(getModel().getCardCollection().getPersonList().contains(BOB));
+        assertTrue(getModel().getCardCollection().getFlashcardList().contains(BOB));
         index = INDEX_SECOND_PERSON;
-        assertNotEquals(getModel().getFilteredPersonList().get(index.getZeroBased()), BOB);
+        assertNotEquals(getModel().getFilteredFlashcardList().get(index.getZeroBased()), BOB);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
             + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         editedFlashcard = new PersonBuilder(BOB).withName(VALID_NAME_AMY).build();
@@ -102,7 +102,7 @@ public class EditCommandSystemTest extends CardCollectionSystemTest {
         /* Case: clear tags -> cleared */
         index = INDEX_FIRST_PERSON;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_TAG.getPrefix();
-        Flashcard flashcardToEdit = getModel().getFilteredPersonList().get(index.getZeroBased());
+        Flashcard flashcardToEdit = getModel().getFilteredFlashcardList().get(index.getZeroBased());
         editedFlashcard = new PersonBuilder(flashcardToEdit).withTags().build();
         assertCommandSuccess(command, index, editedFlashcard);
 
@@ -111,9 +111,9 @@ public class EditCommandSystemTest extends CardCollectionSystemTest {
         /* Case: filtered flashcard list, edit index within bounds of card collection and flashcard list -> edited */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         index = INDEX_FIRST_PERSON;
-        assertTrue(index.getZeroBased() < getModel().getFilteredPersonList().size());
+        assertTrue(index.getZeroBased() < getModel().getFilteredFlashcardList().size());
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_BOB;
-        flashcardToEdit = getModel().getFilteredPersonList().get(index.getZeroBased());
+        flashcardToEdit = getModel().getFilteredFlashcardList().get(index.getZeroBased());
         editedFlashcard = new PersonBuilder(flashcardToEdit).withName(VALID_NAME_BOB).build();
         assertCommandSuccess(command, index, editedFlashcard);
 
@@ -121,9 +121,9 @@ public class EditCommandSystemTest extends CardCollectionSystemTest {
          * -> rejected
          */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
-        int invalidIndex = getModel().getCardCollection().getPersonList().size();
+        int invalidIndex = getModel().getCardCollection().getFlashcardList().size();
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
-            Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            Messages.MESSAGE_INVALID_FLASHCARD_DISPLAYED_INDEX);
 
         /* --------------------- Performing edit operation while a flashcard card is selected -------------------------- */
 
@@ -150,9 +150,9 @@ public class EditCommandSystemTest extends CardCollectionSystemTest {
             String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         /* Case: invalid index (size + 1) -> rejected */
-        invalidIndex = getModel().getFilteredPersonList().size() + 1;
+        invalidIndex = getModel().getFilteredFlashcardList().size() + 1;
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
-            Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            Messages.MESSAGE_INVALID_FLASHCARD_DISPLAYED_INDEX);
 
         /* Case: missing index -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + NAME_DESC_BOB,
@@ -184,32 +184,32 @@ public class EditCommandSystemTest extends CardCollectionSystemTest {
 
         /* Case: edit a flashcard with new values same as another flashcard's values -> rejected */
         executeCommand(PersonUtil.getAddCommand(BOB));
-        assertTrue(getModel().getCardCollection().getPersonList().contains(BOB));
+        assertTrue(getModel().getCardCollection().getFlashcardList().contains(BOB));
         index = INDEX_FIRST_PERSON;
-        assertFalse(getModel().getFilteredPersonList().get(index.getZeroBased()).equals(BOB));
+        assertFalse(getModel().getFilteredFlashcardList().get(index.getZeroBased()).equals(BOB));
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
             + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_FLASHCARD);
 
         /* Case: edit a flashcard with new values same as another flashcard's values but with different tags -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
             + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_FLASHCARD);
 
         /* Case: edit a flashcard with new values same as another flashcard's values but with different address -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
             + ADDRESS_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_FLASHCARD);
 
         /* Case: edit a flashcard with new values same as another flashcard's values but with different phone -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_BOB
             + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_FLASHCARD);
 
         /* Case: edit a flashcard with new values same as another flashcard's values but with different email -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY
             + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_FLASHCARD);
     }
 
     /**
@@ -235,11 +235,11 @@ public class EditCommandSystemTest extends CardCollectionSystemTest {
     private void assertCommandSuccess(String command, Index toEdit, Flashcard editedFlashcard,
                                       Index expectedSelectedCardIndex) {
         Model expectedModel = getModel();
-        expectedModel.setPerson(expectedModel.getFilteredPersonList().get(toEdit.getZeroBased()), editedFlashcard);
-        expectedModel.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        expectedModel.setFlashcard(expectedModel.getFilteredFlashcardList().get(toEdit.getZeroBased()), editedFlashcard);
+        expectedModel.updateFilteredFlashcardList(PREDICATE_SHOW_ALL_FLASHCARDS);
 
         assertCommandSuccess(command, expectedModel,
-            String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedFlashcard), expectedSelectedCardIndex);
+            String.format(EditCommand.MESSAGE_EDIT_FLASHCARD_SUCCESS, editedFlashcard), expectedSelectedCardIndex);
     }
 
     /**
@@ -269,7 +269,7 @@ public class EditCommandSystemTest extends CardCollectionSystemTest {
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
                                       Index expectedSelectedCardIndex) {
         executeCommand(command);
-        expectedModel.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        expectedModel.updateFilteredFlashcardList(PREDICATE_SHOW_ALL_FLASHCARDS);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
         assertCommandBoxShowsDefaultStyle();
         if (expectedSelectedCardIndex != null) {

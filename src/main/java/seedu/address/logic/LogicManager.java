@@ -72,8 +72,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Flashcard> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+    public ObservableList<Flashcard> getFilteredFlashcardList() {
+        return model.getFilteredFlashcardList();
     }
 
     @Override
@@ -97,12 +97,12 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyProperty<Flashcard> selectedPersonProperty() {
-        return model.selectedPersonProperty();
+    public ReadOnlyProperty<Flashcard> selectedFlashcardProperty() {
+        return model.selectedFlashcardProperty();
     }
 
     @Override
-    public void setSelectedPerson(Flashcard flashcard) {
-        model.setSelectedPerson(flashcard);
+    public void setSelectedFlashcard(Flashcard flashcard) {
+        model.setSelectedFlashcard(flashcard);
     }
 }

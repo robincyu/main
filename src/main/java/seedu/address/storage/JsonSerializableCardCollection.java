@@ -37,7 +37,7 @@ class JsonSerializableCardCollection {
      * @param source future changes to this will not affect the created {@code JsonSerializableCardCollection}.
      */
     public JsonSerializableCardCollection(ReadOnlyCardCollection source) {
-        persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+        persons.addAll(source.getFlashcardList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
     }
 
     /**
@@ -49,10 +49,10 @@ class JsonSerializableCardCollection {
         CardCollection cardCollection = new CardCollection();
         for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
             Flashcard flashcard = jsonAdaptedPerson.toModelType();
-            if (cardCollection.hasPerson(flashcard)) {
+            if (cardCollection.hasFlashcard(flashcard)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            cardCollection.addPerson(flashcard);
+            cardCollection.addFlashcard(flashcard);
         }
         return cardCollection;
     }

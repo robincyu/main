@@ -85,14 +85,14 @@ public class JsonCardCollectionStorageTest {
         assertEquals(original, new CardCollection(readBack));
 
         // Modify data, overwrite exiting file, and read back
-        original.addPerson(HOON);
-        original.removePerson(ALICE);
+        original.addFlashcard(HOON);
+        original.removeFlashcard(ALICE);
         jsonCardCollectionStorage.saveCardCollection(original, filePath);
         readBack = jsonCardCollectionStorage.readCardCollection(filePath).get();
         assertEquals(original, new CardCollection(readBack));
 
         // Save and read without specifying file path
-        original.addPerson(IDA);
+        original.addFlashcard(IDA);
         jsonCardCollectionStorage.saveCardCollection(original); // file path not specified
         readBack = jsonCardCollectionStorage.readCardCollection().get(); // file path not specified
         assertEquals(original, new CardCollection(readBack));

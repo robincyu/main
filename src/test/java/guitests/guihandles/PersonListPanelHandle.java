@@ -9,7 +9,7 @@ import javafx.scene.control.ListView;
 import seedu.address.model.flashcard.Flashcard;
 
 /**
- * Provides a handle for {@code PersonListPanel} containing the list of {@code PersonCard}.
+ * Provides a handle for {@code FlashcardListPanel} containing the list of {@code PersonCard}.
  */
 public class PersonListPanelHandle extends NodeHandle<ListView<Flashcard>> {
     public static final String PERSON_LIST_VIEW_ID = "#personListView";

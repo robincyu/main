@@ -23,7 +23,7 @@ public class SelectCommand extends Command {
         + "Parameters: INDEX (must be a positive integer)\n"
         + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SELECT_PERSON_SUCCESS = "Selected Flashcard: %1$s";
+    public static final String MESSAGE_SELECT_FLASHCARD_SUCCESS = "Selected Flashcard: %1$s";
 
     private final Index targetIndex;
 
@@ -35,14 +35,14 @@ public class SelectCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        List<Flashcard> filteredFlashcardList = model.getFilteredPersonList();
+        List<Flashcard> filteredFlashcardList = model.getFilteredFlashcardList();
 
         if (targetIndex.getZeroBased() >= filteredFlashcardList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_FLASHCARD_DISPLAYED_INDEX);
         }
 
-        model.setSelectedPerson(filteredFlashcardList.get(targetIndex.getZeroBased()));
-        return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, targetIndex.getOneBased()));
+        model.setSelectedFlashcard(filteredFlashcardList.get(targetIndex.getZeroBased()));
+        return new CommandResult(String.format(MESSAGE_SELECT_FLASHCARD_SUCCESS, targetIndex.getOneBased()));
 
     }
 

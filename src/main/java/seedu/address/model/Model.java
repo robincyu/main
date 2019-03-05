@@ -15,7 +15,7 @@ public interface Model {
     /**
      * {@code Predicate} that always evaluate to true
      */
-    Predicate<Flashcard> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Flashcard> PREDICATE_SHOW_ALL_FLASHCARDS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -60,19 +60,19 @@ public interface Model {
     /**
      * Returns true if a flashcard with the same identity as {@code flashcard} exists in the card collection.
      */
-    boolean hasPerson(Flashcard flashcard);
+    boolean hasFlashcard(Flashcard flashcard);
 
     /**
      * Deletes the given flashcard.
      * The flashcard must exist in the card collection.
      */
-    void deletePerson(Flashcard target);
+    void deleteFlashcard(Flashcard target);
 
     /**
      * Adds the given flashcard.
      * {@code flashcard} must not already exist in the card collection.
      */
-    void addPerson(Flashcard flashcard);
+    void addFlashcard(Flashcard flashcard);
 
     /**
      * Replaces the given flashcard {@code target} with {@code editedFlashcard}.
@@ -80,19 +80,19 @@ public interface Model {
      * The flashcard identity of {@code editedFlashcard} must not be the same as another existing flashcard in the card
      * collection.
      */
-    void setPerson(Flashcard target, Flashcard editedFlashcard);
+    void setFlashcard(Flashcard target, Flashcard editedFlashcard);
 
     /**
      * Returns an unmodifiable view of the filtered flashcard list
      */
-    ObservableList<Flashcard> getFilteredPersonList();
+    ObservableList<Flashcard> getFilteredFlashcardList();
 
     /**
      * Updates the filter of the filtered flashcard list to filter by the given {@code predicate}.
      *
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Flashcard> predicate);
+    void updateFilteredFlashcardList(Predicate<Flashcard> predicate);
 
     /**
      * Returns true if the model has previous card collection states to restore.
@@ -123,16 +123,16 @@ public interface Model {
      * Selected flashcard in the filtered flashcard list.
      * null if no flashcard is selected.
      */
-    ReadOnlyProperty<Flashcard> selectedPersonProperty();
+    ReadOnlyProperty<Flashcard> selectedFlashcardProperty();
 
     /**
      * Returns the selected flashcard in the filtered flashcard list.
      * null if no flashcard is selected.
      */
-    Flashcard getSelectedPerson();
+    Flashcard getSelectedFlashcard();
 
     /**
      * Sets the selected flashcard in the filtered flashcard list.
      */
-    void setSelectedPerson(Flashcard flashcard);
+    void setSelectedFlashcard(Flashcard flashcard);
 }

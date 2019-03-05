@@ -138,7 +138,7 @@ public abstract class CardCollectionSystemTest {
      */
     protected void showAllPersons() {
         executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getCardCollection().getPersonList().size(), getModel().getFilteredPersonList().size());
+        assertEquals(getModel().getCardCollection().getFlashcardList().size(), getModel().getFilteredFlashcardList().size());
     }
 
     /**
@@ -146,7 +146,7 @@ public abstract class CardCollectionSystemTest {
      */
     protected void showPersonsWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredPersonList().size() < getModel().getCardCollection().getPersonList().size());
+        assertTrue(getModel().getFilteredFlashcardList().size() < getModel().getCardCollection().getFlashcardList().size());
     }
 
     /**
@@ -162,7 +162,7 @@ public abstract class CardCollectionSystemTest {
      */
     protected void deleteAllPersons() {
         executeCommand(ClearCommand.COMMAND_WORD);
-        assertEquals(0, getModel().getCardCollection().getPersonList().size());
+        assertEquals(0, getModel().getCardCollection().getFlashcardList().size());
     }
 
     /**
@@ -175,7 +175,7 @@ public abstract class CardCollectionSystemTest {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new CardCollection(expectedModel.getCardCollection()), testApp.readStorageCardCollection());
-        assertListMatching(getPersonListPanel(), expectedModel.getFilteredPersonList());
+        assertListMatching(getPersonListPanel(), expectedModel.getFilteredFlashcardList());
     }
 
     /**
@@ -274,7 +274,7 @@ public abstract class CardCollectionSystemTest {
     private void assertApplicationStartingStateIsCorrect() {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
-        assertListMatching(getPersonListPanel(), getModel().getFilteredPersonList());
+        assertListMatching(getPersonListPanel(), getModel().getFilteredFlashcardList());
         assertEquals(BrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
             getStatusBarFooter().getSaveLocation());

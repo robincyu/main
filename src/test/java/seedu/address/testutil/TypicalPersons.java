@@ -66,7 +66,7 @@ public class TypicalPersons {
     public static CardCollection getTypicalCardCollection() {
         CardCollection ab = new CardCollection();
         for (Flashcard flashcard : getTypicalPersons()) {
-            ab.addPerson(flashcard);
+            ab.addFlashcard(flashcard);
         }
         return ab;
     }

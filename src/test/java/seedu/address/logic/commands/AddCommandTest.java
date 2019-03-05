@@ -60,7 +60,7 @@ public class AddCommandTest {
         ModelStub modelStub = new ModelStubWithPerson(validFlashcard);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
+        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_FLASHCARD);
         addCommand.execute(modelStub, commandHistory);
     }
 
@@ -123,7 +123,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addPerson(Flashcard flashcard) {
+        public void addFlashcard(Flashcard flashcard) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -138,27 +138,27 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasPerson(Flashcard flashcard) {
+        public boolean hasFlashcard(Flashcard flashcard) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deletePerson(Flashcard target) {
+        public void deleteFlashcard(Flashcard target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setPerson(Flashcard target, Flashcard editedFlashcard) {
+        public void setFlashcard(Flashcard target, Flashcard editedFlashcard) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<Flashcard> getFilteredPersonList() {
+        public ObservableList<Flashcard> getFilteredFlashcardList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<Flashcard> predicate) {
+        public void updateFilteredFlashcardList(Predicate<Flashcard> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -188,17 +188,17 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyProperty<Flashcard> selectedPersonProperty() {
+        public ReadOnlyProperty<Flashcard> selectedFlashcardProperty() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public Flashcard getSelectedPerson() {
+        public Flashcard getSelectedFlashcard() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setSelectedPerson(Flashcard flashcard) {
+        public void setSelectedFlashcard(Flashcard flashcard) {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -215,7 +215,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasPerson(Flashcard flashcard) {
+        public boolean hasFlashcard(Flashcard flashcard) {
             requireNonNull(flashcard);
             return this.flashcard.isSameFlashcard(flashcard);
         }
@@ -228,13 +228,13 @@ public class AddCommandTest {
         final ArrayList<Flashcard> personsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Flashcard flashcard) {
+        public boolean hasFlashcard(Flashcard flashcard) {
             requireNonNull(flashcard);
             return personsAdded.stream().anyMatch(flashcard::isSameFlashcard);
         }
 
         @Override
-        public void addPerson(Flashcard flashcard) {
+        public void addFlashcard(Flashcard flashcard) {
             requireNonNull(flashcard);
             personsAdded.add(flashcard);
         }

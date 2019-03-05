@@ -16,7 +16,7 @@ import seedu.address.model.flashcard.UniqueFlashcardList;
  */
 public class CardCollection implements ReadOnlyCardCollection {
 
-    private final UniqueFlashcardList persons;
+    private final UniqueFlashcardList flashcards;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /*
@@ -27,14 +27,14 @@ public class CardCollection implements ReadOnlyCardCollection {
      *   among constructors.
      */
     {
-        persons = new UniqueFlashcardList();
+        flashcards = new UniqueFlashcardList();
     }
 
     public CardCollection() {
     }
 
     /**
-     * Creates an CardCollection using the Persons in the {@code toBeCopied}
+     * Creates an CardCollection using the Flashcards in the {@code toBeCopied}
      */
     public CardCollection(ReadOnlyCardCollection toBeCopied) {
         this();
@@ -47,8 +47,8 @@ public class CardCollection implements ReadOnlyCardCollection {
      * Replaces the contents of the flashcard list with {@code flashcards}.
      * {@code flashcards} must not contain duplicate flashcards.
      */
-    public void setPersons(List<Flashcard> flashcards) {
-        this.persons.setFlashcards(flashcards);
+    public void setFlashcards(List<Flashcard> flashcards) {
+        this.flashcards.setFlashcards(flashcards);
         indicateModified();
     }
 
@@ -58,7 +58,7 @@ public class CardCollection implements ReadOnlyCardCollection {
     public void resetData(ReadOnlyCardCollection newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
+        setFlashcards(newData.getFlashcardList());
     }
 
     //// flashcard-level operations
@@ -66,17 +66,17 @@ public class CardCollection implements ReadOnlyCardCollection {
     /**
      * Returns true if a flashcard with the same identity as {@code flashcard} exists in the card collection.
      */
-    public boolean hasPerson(Flashcard flashcard) {
+    public boolean hasFlashcard(Flashcard flashcard) {
         requireNonNull(flashcard);
-        return persons.contains(flashcard);
+        return flashcards.contains(flashcard);
     }
 
     /**
      * Adds a flashcard to the card collection.
      * The flashcard must not already exist in the card collection.
      */
-    public void addPerson(Flashcard p) {
-        persons.add(p);
+    public void addFlashcard(Flashcard p) {
+        flashcards.add(p);
         indicateModified();
     }
 
@@ -86,10 +86,10 @@ public class CardCollection implements ReadOnlyCardCollection {
      * The flashcard identity of {@code editedFlashcard} must not be the same as another existing flashcard in the card
      * collection.
      */
-    public void setPerson(Flashcard target, Flashcard editedFlashcard) {
+    public void setFlashcard(Flashcard target, Flashcard editedFlashcard) {
         requireNonNull(editedFlashcard);
 
-        persons.setPerson(target, editedFlashcard);
+        flashcards.setFlashcard(target, editedFlashcard);
         indicateModified();
     }
 
@@ -97,8 +97,8 @@ public class CardCollection implements ReadOnlyCardCollection {
      * Removes {@code key} from this {@code CardCollection}.
      * {@code key} must exist in the card collection.
      */
-    public void removePerson(Flashcard key) {
-        persons.remove(key);
+    public void removeFlashcard(Flashcard key) {
+        flashcards.remove(key);
         indicateModified();
     }
 
@@ -123,24 +123,24 @@ public class CardCollection implements ReadOnlyCardCollection {
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        return flashcards.asUnmodifiableObservableList().size() + " flashcards";
         // TODO: refine later
     }
 
     @Override
-    public ObservableList<Flashcard> getPersonList() {
-        return persons.asUnmodifiableObservableList();
+    public ObservableList<Flashcard> getFlashcardList() {
+        return flashcards.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
             || (other instanceof CardCollection // instanceof handles nulls
-            && persons.equals(((CardCollection) other).persons));
+            && flashcards.equals(((CardCollection) other).flashcards));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return flashcards.hashCode();
     }
 }

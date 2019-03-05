@@ -34,7 +34,7 @@ public class CardCollectionTest {
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), cardCollection.getPersonList());
+        assertEquals(Collections.emptyList(), cardCollection.getFlashcardList());
     }
 
     @Test
@@ -65,32 +65,32 @@ public class CardCollectionTest {
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        cardCollection.hasPerson(null);
+        cardCollection.hasFlashcard(null);
     }
 
     @Test
     public void hasPerson_personNotInCardCollection_returnsFalse() {
-        assertFalse(cardCollection.hasPerson(ALICE));
+        assertFalse(cardCollection.hasFlashcard(ALICE));
     }
 
     @Test
     public void hasPerson_personInCardCollection_returnsTrue() {
-        cardCollection.addPerson(ALICE);
-        assertTrue(cardCollection.hasPerson(ALICE));
+        cardCollection.addFlashcard(ALICE);
+        assertTrue(cardCollection.hasFlashcard(ALICE));
     }
 
     @Test
     public void hasPerson_personWithSameIdentityFieldsInCardCollection_returnsTrue() {
-        cardCollection.addPerson(ALICE);
+        cardCollection.addFlashcard(ALICE);
         Flashcard editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
             .build();
-        assertTrue(cardCollection.hasPerson(editedAlice));
+        assertTrue(cardCollection.hasFlashcard(editedAlice));
     }
 
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        cardCollection.getPersonList().remove(0);
+        cardCollection.getFlashcardList().remove(0);
     }
 
     @Test
@@ -98,7 +98,7 @@ public class CardCollectionTest {
         SimpleIntegerProperty counter = new SimpleIntegerProperty();
         InvalidationListener listener = observable -> counter.set(counter.get() + 1);
         cardCollection.addListener(listener);
-        cardCollection.addPerson(ALICE);
+        cardCollection.addFlashcard(ALICE);
         assertEquals(1, counter.get());
     }
 
@@ -108,7 +108,7 @@ public class CardCollectionTest {
         InvalidationListener listener = observable -> counter.set(counter.get() + 1);
         cardCollection.addListener(listener);
         cardCollection.removeListener(listener);
-        cardCollection.addPerson(ALICE);
+        cardCollection.addFlashcard(ALICE);
         assertEquals(0, counter.get());
     }
 
@@ -123,7 +123,7 @@ public class CardCollectionTest {
         }
 
         @Override
-        public ObservableList<Flashcard> getPersonList() {
+        public ObservableList<Flashcard> getFlashcardList() {
             return flashcards;
         }
 
