@@ -7,16 +7,16 @@ import java.util.List;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.flashcard.Flashcard;
+import seedu.address.model.flashcard.UniqueFlashcardList;
 
 /**
  * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Duplicates are not allowed (by .isSameFlashcard comparison)
  */
 public class CardCollection implements ReadOnlyCardCollection {
 
-    private final UniquePersonList persons;
+    private final UniqueFlashcardList persons;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /*
@@ -27,7 +27,7 @@ public class CardCollection implements ReadOnlyCardCollection {
      *   among constructors.
      */
     {
-        persons = new UniquePersonList();
+        persons = new UniqueFlashcardList();
     }
 
     public CardCollection() {
@@ -44,11 +44,11 @@ public class CardCollection implements ReadOnlyCardCollection {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the flashcard list with {@code flashcards}.
+     * {@code flashcards} must not contain duplicate flashcards.
      */
-    public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
+    public void setPersons(List<Flashcard> flashcards) {
+        this.persons.setFlashcards(flashcards);
         indicateModified();
     }
 
@@ -61,35 +61,35 @@ public class CardCollection implements ReadOnlyCardCollection {
         setPersons(newData.getPersonList());
     }
 
-    //// person-level operations
+    //// flashcard-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the card collection.
+     * Returns true if a flashcard with the same identity as {@code flashcard} exists in the card collection.
      */
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return persons.contains(person);
+    public boolean hasPerson(Flashcard flashcard) {
+        requireNonNull(flashcard);
+        return persons.contains(flashcard);
     }
 
     /**
-     * Adds a person to the card collection.
-     * The person must not already exist in the card collection.
+     * Adds a flashcard to the card collection.
+     * The flashcard must not already exist in the card collection.
      */
-    public void addPerson(Person p) {
+    public void addPerson(Flashcard p) {
         persons.add(p);
         indicateModified();
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * Replaces the given flashcard {@code target} in the list with {@code editedFlashcard}.
      * {@code target} must exist in the card collection.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the card
+     * The flashcard identity of {@code editedFlashcard} must not be the same as another existing flashcard in the card
      * collection.
      */
-    public void setPerson(Person target, Person editedPerson) {
-        requireNonNull(editedPerson);
+    public void setPerson(Flashcard target, Flashcard editedFlashcard) {
+        requireNonNull(editedFlashcard);
 
-        persons.setPerson(target, editedPerson);
+        persons.setPerson(target, editedFlashcard);
         indicateModified();
     }
 
@@ -97,7 +97,7 @@ public class CardCollection implements ReadOnlyCardCollection {
      * Removes {@code key} from this {@code CardCollection}.
      * {@code key} must exist in the card collection.
      */
-    public void removePerson(Person key) {
+    public void removePerson(Flashcard key) {
         persons.remove(key);
         indicateModified();
     }
@@ -128,7 +128,7 @@ public class CardCollection implements ReadOnlyCardCollection {
     }
 
     @Override
-    public ObservableList<Person> getPersonList() {
+    public ObservableList<Flashcard> getPersonList() {
         return persons.asUnmodifiableObservableList();
     }
 

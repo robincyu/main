@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.CardCollection;
 import seedu.address.model.ReadOnlyCardCollection;
-import seedu.address.model.person.Person;
+import seedu.address.model.flashcard.Flashcard;
 
 /**
  * An Immutable CardCollection that is serializable to JSON format.
@@ -19,7 +19,7 @@ import seedu.address.model.person.Person;
 @JsonRootName(value = "cardcollection")
 class JsonSerializableCardCollection {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate flashcard(s).";
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
 
@@ -48,11 +48,11 @@ class JsonSerializableCardCollection {
     public CardCollection toModelType() throws IllegalValueException {
         CardCollection cardCollection = new CardCollection();
         for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
-            Person person = jsonAdaptedPerson.toModelType();
-            if (cardCollection.hasPerson(person)) {
+            Flashcard flashcard = jsonAdaptedPerson.toModelType();
+            if (cardCollection.hasPerson(flashcard)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            cardCollection.addPerson(person);
+            cardCollection.addPerson(flashcard);
         }
         return cardCollection;
     }

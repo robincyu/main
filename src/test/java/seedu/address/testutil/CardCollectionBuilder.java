@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
 import seedu.address.model.CardCollection;
-import seedu.address.model.person.Person;
+import seedu.address.model.flashcard.Flashcard;
 
 /**
  * A utility class to help with building CardCollection objects.
@@ -21,10 +21,10 @@ public class CardCollectionBuilder {
     }
 
     /**
-     * Adds a new {@code Person} to the {@code CardCollection} that we are building.
+     * Adds a new {@code Flashcard} to the {@code CardCollection} that we are building.
      */
-    public CardCollectionBuilder withPerson(Person person) {
-        cardCollection.addPerson(person);
+    public CardCollectionBuilder withPerson(Flashcard flashcard) {
+        cardCollection.addPerson(flashcard);
         return this;
     }
 

@@ -21,8 +21,8 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.flashcard.Flashcard;
+import seedu.address.model.flashcard.exceptions.DuplicateFlashcardException;
 import seedu.address.testutil.PersonBuilder;
 
 public class CardCollectionTest {
@@ -52,13 +52,13 @@ public class CardCollectionTest {
 
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
-        // Two persons with the same identity fields
-        Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        // Two flashcards with the same identity fields
+        Flashcard editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
             .build();
-        List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
-        CardCollectionStub newData = new CardCollectionStub(newPersons);
+        List<Flashcard> newFlashcards = Arrays.asList(ALICE, editedAlice);
+        CardCollectionStub newData = new CardCollectionStub(newFlashcards);
 
-        thrown.expect(DuplicatePersonException.class);
+        thrown.expect(DuplicateFlashcardException.class);
         cardCollection.resetData(newData);
     }
 
@@ -82,7 +82,7 @@ public class CardCollectionTest {
     @Test
     public void hasPerson_personWithSameIdentityFieldsInCardCollection_returnsTrue() {
         cardCollection.addPerson(ALICE);
-        Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Flashcard editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
             .build();
         assertTrue(cardCollection.hasPerson(editedAlice));
     }
@@ -113,18 +113,18 @@ public class CardCollectionTest {
     }
 
     /**
-     * A stub ReadOnlyCardCollection whose persons list can violate interface constraints.
+     * A stub ReadOnlyCardCollection whose flashcards list can violate interface constraints.
      */
     private static class CardCollectionStub implements ReadOnlyCardCollection {
-        private final ObservableList<Person> persons = FXCollections.observableArrayList();
+        private final ObservableList<Flashcard> flashcards = FXCollections.observableArrayList();
 
-        CardCollectionStub(Collection<Person> persons) {
-            this.persons.setAll(persons);
+        CardCollectionStub(Collection<Flashcard> flashcards) {
+            this.flashcards.setAll(flashcards);
         }
 
         @Override
-        public ObservableList<Person> getPersonList() {
-            return persons;
+        public ObservableList<Flashcard> getPersonList() {
+            return flashcards;
         }
 
         @Override

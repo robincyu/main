@@ -10,16 +10,16 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Person;
+import seedu.address.model.flashcard.Flashcard;
 
 /**
- * Adds a person to the card collection.
+ * Adds a flashcard to the card collection.
  */
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the card collection. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a flashcard to the card collection. "
         + "Parameters: "
         + PREFIX_NAME + "NAME "
         + PREFIX_PHONE + "PHONE "
@@ -34,17 +34,17 @@ public class AddCommand extends Command {
         + PREFIX_TAG + "friends "
         + PREFIX_TAG + "owesMoney";
 
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the card collection";
+    public static final String MESSAGE_SUCCESS = "New flashcard added: %1$s";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This flashcard already exists in the card collection";
 
-    private final Person toAdd;
+    private final Flashcard toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an AddCommand to add the specified {@code Flashcard}
      */
-    public AddCommand(Person person) {
-        requireNonNull(person);
-        toAdd = person;
+    public AddCommand(Flashcard flashcard) {
+        requireNonNull(flashcard);
+        toAdd = flashcard;
     }
 
     @Override

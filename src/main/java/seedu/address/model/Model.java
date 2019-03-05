@@ -6,7 +6,7 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.Person;
+import seedu.address.model.flashcard.Flashcard;
 
 /**
  * The API of the Model component.
@@ -15,7 +15,7 @@ public interface Model {
     /**
      * {@code Predicate} that always evaluate to true
      */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Flashcard> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -58,41 +58,41 @@ public interface Model {
     ReadOnlyCardCollection getCardCollection();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the card collection.
+     * Returns true if a flashcard with the same identity as {@code flashcard} exists in the card collection.
      */
-    boolean hasPerson(Person person);
+    boolean hasPerson(Flashcard flashcard);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the card collection.
+     * Deletes the given flashcard.
+     * The flashcard must exist in the card collection.
      */
-    void deletePerson(Person target);
+    void deletePerson(Flashcard target);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the card collection.
+     * Adds the given flashcard.
+     * {@code flashcard} must not already exist in the card collection.
      */
-    void addPerson(Person person);
+    void addPerson(Flashcard flashcard);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
+     * Replaces the given flashcard {@code target} with {@code editedFlashcard}.
      * {@code target} must exist in the card collection.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the card
+     * The flashcard identity of {@code editedFlashcard} must not be the same as another existing flashcard in the card
      * collection.
      */
-    void setPerson(Person target, Person editedPerson);
+    void setPerson(Flashcard target, Flashcard editedFlashcard);
 
     /**
-     * Returns an unmodifiable view of the filtered person list
+     * Returns an unmodifiable view of the filtered flashcard list
      */
-    ObservableList<Person> getFilteredPersonList();
+    ObservableList<Flashcard> getFilteredPersonList();
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered flashcard list to filter by the given {@code predicate}.
      *
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredPersonList(Predicate<Flashcard> predicate);
 
     /**
      * Returns true if the model has previous card collection states to restore.
@@ -120,19 +120,19 @@ public interface Model {
     void commitCardCollection();
 
     /**
-     * Selected person in the filtered person list.
-     * null if no person is selected.
+     * Selected flashcard in the filtered flashcard list.
+     * null if no flashcard is selected.
      */
-    ReadOnlyProperty<Person> selectedPersonProperty();
+    ReadOnlyProperty<Flashcard> selectedPersonProperty();
 
     /**
-     * Returns the selected person in the filtered person list.
-     * null if no person is selected.
+     * Returns the selected flashcard in the filtered flashcard list.
+     * null if no flashcard is selected.
      */
-    Person getSelectedPerson();
+    Flashcard getSelectedPerson();
 
     /**
-     * Sets the selected person in the filtered person list.
+     * Sets the selected flashcard in the filtered flashcard list.
      */
-    void setSelectedPerson(Person person);
+    void setSelectedPerson(Flashcard flashcard);
 }

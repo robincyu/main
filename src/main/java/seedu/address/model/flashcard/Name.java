@@ -1,10 +1,10 @@
-package seedu.address.model.person;
+package seedu.address.model.flashcard;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's name in the card collection.
+ * Represents a Flashcard's name in the card collection.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {
