@@ -29,9 +29,9 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.flashcard.NameContainsKeywordsPredicate;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
-import seedu.address.testutil.PersonBuilder;
-import seedu.address.testutil.PersonUtil;
+import seedu.address.testutil.EditFlashcardDescriptorBuilder;
+import seedu.address.testutil.FlashcardBuilder;
+import seedu.address.testutil.FlashcardUtil;
 
 public class CardCollectionParserTest {
     @Rule
@@ -41,8 +41,8 @@ public class CardCollectionParserTest {
 
     @Test
     public void parseCommand_add() throws Exception {
-        Flashcard flashcard = new PersonBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(flashcard));
+        Flashcard flashcard = new FlashcardBuilder().build();
+        AddCommand command = (AddCommand) parser.parseCommand(FlashcardUtil.getAddCommand(flashcard));
         assertEquals(new AddCommand(flashcard), command);
     }
 
@@ -61,10 +61,10 @@ public class CardCollectionParserTest {
 
     @Test
     public void parseCommand_edit() throws Exception {
-        Flashcard flashcard = new PersonBuilder().build();
-        EditCommand.EditFlashcardDescriptor descriptor = new EditPersonDescriptorBuilder(flashcard).build();
+        Flashcard flashcard = new FlashcardBuilder().build();
+        EditCommand.EditFlashcardDescriptor descriptor = new EditFlashcardDescriptorBuilder(flashcard).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-            + INDEX_FIRST_FLASHCARD.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
+            + INDEX_FIRST_FLASHCARD.getOneBased() + " " + FlashcardUtil.getEditFlashcardDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_FLASHCARD, descriptor), command);
     }
 

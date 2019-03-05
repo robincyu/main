@@ -43,8 +43,8 @@ import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.flashcard.Name;
 import seedu.address.model.flashcard.Phone;
 import seedu.address.model.tag.Tag;
-import seedu.address.testutil.PersonBuilder;
-import seedu.address.testutil.PersonUtil;
+import seedu.address.testutil.FlashcardBuilder;
+import seedu.address.testutil.FlashcardUtil;
 
 public class AddCommandSystemTest extends CardCollectionSystemTest {
 
@@ -75,7 +75,7 @@ public class AddCommandSystemTest extends CardCollectionSystemTest {
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: add a flashcard with all fields same as another flashcard in the card collection except name -> added */
-        toAdd = new PersonBuilder(AMY).withName(VALID_NAME_BOB).build();
+        toAdd = new FlashcardBuilder(AMY).withName(VALID_NAME_BOB).build();
         command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
             + TAG_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
@@ -83,8 +83,8 @@ public class AddCommandSystemTest extends CardCollectionSystemTest {
         /* Case: add a flashcard with all fields same as another flashcard in the card collection except phone and email
          * -> added
          */
-        toAdd = new PersonBuilder(AMY).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
-        command = PersonUtil.getAddCommand(toAdd);
+        toAdd = new FlashcardBuilder(AMY).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
+        command = FlashcardUtil.getAddCommand(toAdd);
         assertCommandSuccess(command, toAdd);
 
         /* Case: add to empty card collection -> added */
@@ -115,26 +115,26 @@ public class AddCommandSystemTest extends CardCollectionSystemTest {
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */
 
         /* Case: add a duplicate flashcard -> rejected */
-        command = PersonUtil.getAddCommand(HOON);
+        command = FlashcardUtil.getAddCommand(HOON);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_FLASHCARD);
 
         /* Case: add a duplicate flashcard except with different phone -> rejected */
-        toAdd = new PersonBuilder(HOON).withPhone(VALID_PHONE_BOB).build();
-        command = PersonUtil.getAddCommand(toAdd);
+        toAdd = new FlashcardBuilder(HOON).withPhone(VALID_PHONE_BOB).build();
+        command = FlashcardUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_FLASHCARD);
 
         /* Case: add a duplicate flashcard except with different email -> rejected */
-        toAdd = new PersonBuilder(HOON).withEmail(VALID_EMAIL_BOB).build();
-        command = PersonUtil.getAddCommand(toAdd);
+        toAdd = new FlashcardBuilder(HOON).withEmail(VALID_EMAIL_BOB).build();
+        command = FlashcardUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_FLASHCARD);
 
         /* Case: add a duplicate flashcard except with different address -> rejected */
-        toAdd = new PersonBuilder(HOON).withAddress(VALID_ADDRESS_BOB).build();
-        command = PersonUtil.getAddCommand(toAdd);
+        toAdd = new FlashcardBuilder(HOON).withAddress(VALID_ADDRESS_BOB).build();
+        command = FlashcardUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_FLASHCARD);
 
         /* Case: add a duplicate flashcard except with different tags -> rejected */
-        command = PersonUtil.getAddCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "friends";
+        command = FlashcardUtil.getAddCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "friends";
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_FLASHCARD);
 
         /* Case: missing name -> rejected */
@@ -154,7 +154,7 @@ public class AddCommandSystemTest extends CardCollectionSystemTest {
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: invalid keyword -> rejected */
-        command = "adds " + PersonUtil.getPersonDetails(toAdd);
+        command = "adds " + FlashcardUtil.getPersonDetails(toAdd);
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: invalid name -> rejected */
@@ -195,7 +195,7 @@ public class AddCommandSystemTest extends CardCollectionSystemTest {
      * @see CardCollectionSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(Flashcard toAdd) {
-        assertCommandSuccess(PersonUtil.getAddCommand(toAdd), toAdd);
+        assertCommandSuccess(FlashcardUtil.getAddCommand(toAdd), toAdd);
     }
 
     /**

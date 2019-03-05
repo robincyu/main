@@ -23,7 +23,7 @@ import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.flashcard.NameContainsKeywordsPredicate;
 import seedu.address.model.flashcard.exceptions.FlashcardNotFoundException;
 import seedu.address.testutil.CardCollectionBuilder;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.FlashcardBuilder;
 
 public class ModelManagerTest {
     @Rule
@@ -86,24 +86,24 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasFlashcard_nullFlashcard_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         modelManager.hasFlashcard(null);
     }
 
     @Test
-    public void hasPerson_personNotInCardCollection_returnsFalse() {
+    public void hasFlashcard_flashcardNotInCardCollection_returnsFalse() {
         assertFalse(modelManager.hasFlashcard(ALICE));
     }
 
     @Test
-    public void hasPerson_personInCardCollection_returnsTrue() {
+    public void hasFlashcard_flashcardInCardCollection_returnsTrue() {
         modelManager.addFlashcard(ALICE);
         assertTrue(modelManager.hasFlashcard(ALICE));
     }
 
     @Test
-    public void deletePerson_personIsSelectedAndFirstPersonInFilteredPersonList_selectionCleared() {
+    public void deleteFlashcard_flashcardIsSelectedAndFirstFlashcardInFilteredFlashcardList_selectionCleared() {
         modelManager.addFlashcard(ALICE);
         modelManager.setSelectedFlashcard(ALICE);
         modelManager.deleteFlashcard(ALICE);
@@ -111,7 +111,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void deletePerson_personIsSelectedAndSecondPersonInFilteredPersonList_firstPersonSelected() {
+    public void deleteFlashcard_flashcardIsSelectedAndSecondFlashcardInFilteredFlashcardList_firstFlashcardSelected() {
         modelManager.addFlashcard(ALICE);
         modelManager.addFlashcard(BOB);
         assertEquals(Arrays.asList(ALICE, BOB), modelManager.getFilteredFlashcardList());
@@ -121,28 +121,28 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setPerson_personIsSelected_selectedPersonUpdated() {
+    public void setFlashcard_flashcardIsSelected_selectedFlashcardUpdated() {
         modelManager.addFlashcard(ALICE);
         modelManager.setSelectedFlashcard(ALICE);
-        Flashcard updatedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
+        Flashcard updatedAlice = new FlashcardBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
         modelManager.setFlashcard(ALICE, updatedAlice);
         assertEquals(updatedAlice, modelManager.getSelectedFlashcard());
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getFilteredFlashcardList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         modelManager.getFilteredFlashcardList().remove(0);
     }
 
     @Test
-    public void setSelectedPerson_personNotInFilteredPersonList_throwsPersonNotFoundException() {
+    public void setSelectedFlashcard_flashcardNotInFilteredFlashcardList_throwsFlashcardNotFoundException() {
         thrown.expect(FlashcardNotFoundException.class);
         modelManager.setSelectedFlashcard(ALICE);
     }
 
     @Test
-    public void setSelectedPerson_personInFilteredPersonList_setsSelectedPerson() {
+    public void setSelectedFlashcard_flashcardInFilteredFlashcardList_setsSelectedFlashcard() {
         modelManager.addFlashcard(ALICE);
         assertEquals(Collections.singletonList(ALICE), modelManager.getFilteredFlashcardList());
         modelManager.setSelectedFlashcard(ALICE);
@@ -151,7 +151,7 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        CardCollection cardCollection = new CardCollectionBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        CardCollection cardCollection = new CardCollectionBuilder().withFlashcard(ALICE).withFlashcard(BENSON).build();
         CardCollection differentCardCollection = new CardCollection();
         UserPrefs userPrefs = new UserPrefs();
 

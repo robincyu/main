@@ -18,7 +18,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.model.flashcard.exceptions.DuplicateFlashcardException;
 import seedu.address.model.flashcard.exceptions.FlashcardNotFoundException;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.FlashcardBuilder;
 
 public class UniqueFlashcardListTest {
     @Rule
@@ -46,7 +46,7 @@ public class UniqueFlashcardListTest {
     @Test
     public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
         uniqueFlashcardList.add(ALICE);
-        Flashcard editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Flashcard editedAlice = new FlashcardBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
             .build();
         assertTrue(uniqueFlashcardList.contains(editedAlice));
     }
@@ -94,7 +94,7 @@ public class UniqueFlashcardListTest {
     @Test
     public void setPerson_editedPersonHasSameIdentity_success() {
         uniqueFlashcardList.add(ALICE);
-        Flashcard editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Flashcard editedAlice = new FlashcardBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
             .build();
         uniqueFlashcardList.setFlashcard(ALICE, editedAlice);
         UniqueFlashcardList expectedUniqueFlashcardList = new UniqueFlashcardList();

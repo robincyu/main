@@ -12,7 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.flashcard.Flashcard;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.FlashcardBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.
@@ -28,8 +28,8 @@ public class AddCommandIntegrationTest {
     }
 
     @Test
-    public void execute_newPerson_success() {
-        Flashcard validFlashcard = new PersonBuilder().build();
+    public void execute_newFlashcard_success() {
+        Flashcard validFlashcard = new FlashcardBuilder().build();
 
         Model expectedModel = new ModelManager(model.getCardCollection(), new UserPrefs());
         expectedModel.addFlashcard(validFlashcard);
@@ -40,7 +40,7 @@ public class AddCommandIntegrationTest {
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
+    public void execute_duplicateFlashcard_throwsCommandException() {
         Flashcard flashcardInList = model.getCardCollection().getFlashcardList().get(0);
         assertCommandFailure(new AddCommand(flashcardInList), model, commandHistory,
             AddCommand.MESSAGE_DUPLICATE_FLASHCARD);

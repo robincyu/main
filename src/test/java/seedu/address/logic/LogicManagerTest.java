@@ -32,7 +32,7 @@ import seedu.address.model.flashcard.Flashcard;
 import seedu.address.storage.JsonCardCollectionStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.FlashcardBuilder;
 
 
 public class LogicManagerTest {
@@ -89,7 +89,7 @@ public class LogicManagerTest {
         // Execute add command
         String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
             + ADDRESS_DESC_AMY;
-        Flashcard expectedFlashcard = new PersonBuilder(AMY).withTags().build();
+        Flashcard expectedFlashcard = new FlashcardBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addFlashcard(expectedFlashcard);
         expectedModel.commitCardCollection();
@@ -99,7 +99,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getFilteredFlashcardList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         logic.getFilteredFlashcardList().remove(0);
     }

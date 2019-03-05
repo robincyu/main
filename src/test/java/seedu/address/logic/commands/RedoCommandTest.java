@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.deleteFirstPerson;
+import static seedu.address.logic.commands.CommandTestUtil.deleteFirstFlashcard;
 import static seedu.address.testutil.TypicalFlashcards.getTypicalCardCollection;
 
 import org.junit.Before;
@@ -22,13 +22,13 @@ public class RedoCommandTest {
     @Before
     public void setUp() {
         // set up of both models' undo/redo history
-        deleteFirstPerson(model);
-        deleteFirstPerson(model);
+        deleteFirstFlashcard(model);
+        deleteFirstFlashcard(model);
         model.undoCardCollection();
         model.undoCardCollection();
 
-        deleteFirstPerson(expectedModel);
-        deleteFirstPerson(expectedModel);
+        deleteFirstFlashcard(expectedModel);
+        deleteFirstFlashcard(expectedModel);
         expectedModel.undoCardCollection();
         expectedModel.undoCardCollection();
     }

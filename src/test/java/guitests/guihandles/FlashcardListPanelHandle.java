@@ -11,25 +11,25 @@ import seedu.address.model.flashcard.Flashcard;
 /**
  * Provides a handle for {@code FlashcardListPanel} containing the list of {@code PersonCard}.
  */
-public class PersonListPanelHandle extends NodeHandle<ListView<Flashcard>> {
+public class FlashcardListPanelHandle extends NodeHandle<ListView<Flashcard>> {
     public static final String PERSON_LIST_VIEW_ID = "#personListView";
 
     private static final String CARD_PANE_ID = "#cardPane";
 
     private Optional<Flashcard> lastRememberedSelectedPersonCard;
 
-    public PersonListPanelHandle(ListView<Flashcard> personListPanelNode) {
+    public FlashcardListPanelHandle(ListView<Flashcard> personListPanelNode) {
         super(personListPanelNode);
     }
 
     /**
-     * Returns a handle to the selected {@code PersonCardHandle}.
+     * Returns a handle to the selected {@code FlashcardCardHandle}.
      * A maximum of 1 item can be selected at any time.
      *
      * @throws AssertionError        if no card is selected, or more than 1 card is selected.
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
-    public PersonCardHandle getHandleToSelectedCard() {
+    public FlashcardCardHandle getHandleToSelectedCard() {
         List<Flashcard> selectedFlashcardList = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedFlashcardList.size() != 1) {
@@ -37,7 +37,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Flashcard>> {
         }
 
         return getAllCardNodes().stream()
-            .map(PersonCardHandle::new)
+            .map(FlashcardCardHandle::new)
             .filter(handle -> handle.equals(selectedFlashcardList.get(0)))
             .findFirst()
             .orElseThrow(IllegalStateException::new);
@@ -103,9 +103,9 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Flashcard>> {
      *
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
-    public PersonCardHandle getPersonCardHandle(int index) {
+    public FlashcardCardHandle getFlashcardCardHandle(int index) {
         return getAllCardNodes().stream()
-            .map(PersonCardHandle::new)
+            .map(FlashcardCardHandle::new)
             .filter(handle -> handle.equals(getPerson(index)))
             .findFirst()
             .orElseThrow(IllegalStateException::new);

@@ -16,7 +16,7 @@ import seedu.address.model.tag.Tag;
 /**
  * A utility class for Flashcard.
  */
-public class PersonUtil {
+public class FlashcardUtil {
 
     /**
      * Returns an add command string for adding the {@code flashcard}.
@@ -43,7 +43,7 @@ public class PersonUtil {
     /**
      * Returns the part of command string for the given {@code EditFlashcardDescriptor}'s details.
      */
-    public static String getEditPersonDescriptorDetails(EditFlashcardDescriptor descriptor) {
+    public static String getEditFlashcardDescriptorDetails(EditFlashcardDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));

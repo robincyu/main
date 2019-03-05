@@ -26,8 +26,8 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.flashcard.Flashcard;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.EditFlashcardDescriptorBuilder;
+import seedu.address.testutil.FlashcardBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
@@ -39,8 +39,8 @@ public class EditCommandTest {
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        Flashcard editedFlashcard = new PersonBuilder().build();
-        EditCommand.EditFlashcardDescriptor descriptor = new EditPersonDescriptorBuilder(editedFlashcard).build();
+        Flashcard editedFlashcard = new FlashcardBuilder().build();
+        EditCommand.EditFlashcardDescriptor descriptor = new EditFlashcardDescriptorBuilder(editedFlashcard).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_FLASHCARD, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_FLASHCARD_SUCCESS, editedFlashcard);
@@ -54,16 +54,16 @@ public class EditCommandTest {
 
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
-        Index indexLastPerson = Index.fromOneBased(model.getFilteredFlashcardList().size());
-        Flashcard lastFlashcard = model.getFilteredFlashcardList().get(indexLastPerson.getZeroBased());
+        Index indexLastFlashcard = Index.fromOneBased(model.getFilteredFlashcardList().size());
+        Flashcard lastFlashcard = model.getFilteredFlashcardList().get(indexLastFlashcard.getZeroBased());
 
-        PersonBuilder personInList = new PersonBuilder(lastFlashcard);
-        Flashcard editedFlashcard = personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
+        FlashcardBuilder flashcardInList = new FlashcardBuilder(lastFlashcard);
+        Flashcard editedFlashcard = flashcardInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
             .withTags(VALID_TAG_HUSBAND).build();
 
-        EditCommand.EditFlashcardDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
+        EditCommand.EditFlashcardDescriptor descriptor = new EditFlashcardDescriptorBuilder().withName(VALID_NAME_BOB)
             .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
-        EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
+        EditCommand editCommand = new EditCommand(indexLastFlashcard, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_FLASHCARD_SUCCESS, editedFlashcard);
 
@@ -92,9 +92,9 @@ public class EditCommandTest {
         showFlashcardAtIndex(model, INDEX_FIRST_FLASHCARD);
 
         Flashcard flashcardInFilteredList = model.getFilteredFlashcardList().get(INDEX_FIRST_FLASHCARD.getZeroBased());
-        Flashcard editedFlashcard = new PersonBuilder(flashcardInFilteredList).withName(VALID_NAME_BOB).build();
+        Flashcard editedFlashcard = new FlashcardBuilder(flashcardInFilteredList).withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_FLASHCARD,
-            new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
+            new EditFlashcardDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_FLASHCARD_SUCCESS, editedFlashcard);
 
@@ -106,30 +106,30 @@ public class EditCommandTest {
     }
 
     @Test
-    public void execute_duplicatePersonUnfilteredList_failure() {
+    public void execute_duplicateFlashcardUnfilteredList_failure() {
         Flashcard firstFlashcard = model.getFilteredFlashcardList().get(INDEX_FIRST_FLASHCARD.getZeroBased());
-        EditCommand.EditFlashcardDescriptor descriptor = new EditPersonDescriptorBuilder(firstFlashcard).build();
+        EditCommand.EditFlashcardDescriptor descriptor = new EditFlashcardDescriptorBuilder(firstFlashcard).build();
         EditCommand editCommand = new EditCommand(INDEX_SECOND_FLASHCARD, descriptor);
 
         assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_FLASHCARD);
     }
 
     @Test
-    public void execute_duplicatePersonFilteredList_failure() {
+    public void execute_duplicateFlashcardFilteredList_failure() {
         showFlashcardAtIndex(model, INDEX_FIRST_FLASHCARD);
 
         // edit flashcard in filtered list into a duplicate in card collection
         Flashcard flashcardInList = model.getCardCollection().getFlashcardList().get(INDEX_SECOND_FLASHCARD.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_FLASHCARD,
-            new EditPersonDescriptorBuilder(flashcardInList).build());
+            new EditFlashcardDescriptorBuilder(flashcardInList).build());
 
         assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_FLASHCARD);
     }
 
     @Test
-    public void execute_invalidPersonIndexUnfilteredList_failure() {
+    public void execute_invalidFlashcardIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredFlashcardList().size() + 1);
-        EditCommand.EditFlashcardDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
+        EditCommand.EditFlashcardDescriptor descriptor = new EditFlashcardDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_FLASHCARD_DISPLAYED_INDEX);
@@ -140,23 +140,23 @@ public class EditCommandTest {
      * but smaller than size of card collection
      */
     @Test
-    public void execute_invalidPersonIndexFilteredList_failure() {
+    public void execute_invalidFlashcardIndexFilteredList_failure() {
         showFlashcardAtIndex(model, INDEX_FIRST_FLASHCARD);
         Index outOfBoundIndex = INDEX_SECOND_FLASHCARD;
         // ensures that outOfBoundIndex is still in bounds of card collection list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getCardCollection().getFlashcardList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
-            new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
+            new EditFlashcardDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
         assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_FLASHCARD_DISPLAYED_INDEX);
     }
 
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
-        Flashcard editedFlashcard = new PersonBuilder().build();
+        Flashcard editedFlashcard = new FlashcardBuilder().build();
         Flashcard flashcardToEdit = model.getFilteredFlashcardList().get(INDEX_FIRST_FLASHCARD.getZeroBased());
-        EditCommand.EditFlashcardDescriptor descriptor = new EditPersonDescriptorBuilder(editedFlashcard).build();
+        EditCommand.EditFlashcardDescriptor descriptor = new EditFlashcardDescriptorBuilder(editedFlashcard).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_FLASHCARD, descriptor);
         Model expectedModel = new ModelManager(new CardCollection(model.getCardCollection()), new UserPrefs());
         expectedModel.setFlashcard(flashcardToEdit, editedFlashcard);
@@ -165,7 +165,7 @@ public class EditCommandTest {
         // edit -> first flashcard edited
         editCommand.execute(model, commandHistory);
 
-        // undo -> reverts cardCollection back to previous state and filtered flashcard list to show all persons
+        // undo -> reverts cardCollection back to previous state and filtered flashcard list to show all flashcards
         expectedModel.undoCardCollection();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
@@ -177,7 +177,7 @@ public class EditCommandTest {
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredFlashcardList().size() + 1);
-        EditCommand.EditFlashcardDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
+        EditCommand.EditFlashcardDescriptor descriptor = new EditFlashcardDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         // execution failed -> card collection state not added into model
@@ -196,9 +196,9 @@ public class EditCommandTest {
      * 4. Redo the edit. This ensures {@code RedoCommand} edits the flashcard object regardless of indexing.
      */
     @Test
-    public void executeUndoRedo_validIndexFilteredList_samePersonEdited() throws Exception {
-        Flashcard editedFlashcard = new PersonBuilder().build();
-        EditFlashcardDescriptor descriptor = new EditPersonDescriptorBuilder(editedFlashcard).build();
+    public void executeUndoRedo_validIndexFilteredList_sameFlashcardEdited() throws Exception {
+        Flashcard editedFlashcard = new FlashcardBuilder().build();
+        EditFlashcardDescriptor descriptor = new EditFlashcardDescriptorBuilder(editedFlashcard).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_FLASHCARD, descriptor);
         Model expectedModel = new ModelManager(new CardCollection(model.getCardCollection()), new UserPrefs());
 
@@ -210,7 +210,7 @@ public class EditCommandTest {
         // edit -> edits second flashcard in unfiltered flashcard list / first flashcard in filtered flashcard list
         editCommand.execute(model, commandHistory);
 
-        // undo -> reverts cardCollection back to previous state and filtered flashcard list to show all persons
+        // undo -> reverts cardCollection back to previous state and filtered flashcard list to show all flashcards
         expectedModel.undoCardCollection();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 

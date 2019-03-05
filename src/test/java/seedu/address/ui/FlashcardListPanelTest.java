@@ -5,15 +5,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_FLASHCARD;
 import static seedu.address.testutil.TypicalFlashcards.getTypicalPersons;
-import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
+import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysFlashcard;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
 import java.util.Collections;
 
 import org.junit.Test;
 
-import guitests.guihandles.PersonCardHandle;
-import guitests.guihandles.PersonListPanelHandle;
+import guitests.guihandles.FlashcardCardHandle;
+import guitests.guihandles.FlashcardListPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -30,18 +30,18 @@ public class FlashcardListPanelTest extends GuiUnitTest {
     private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 2500;
 
     private final SimpleObjectProperty<Flashcard> selectedPerson = new SimpleObjectProperty<>();
-    private PersonListPanelHandle personListPanelHandle;
+    private FlashcardListPanelHandle flashcardListPanelHandle;
 
     @Test
     public void display() {
         initUi(TYPICAL_FLASHCARDS);
 
         for (int i = 0; i < TYPICAL_FLASHCARDS.size(); i++) {
-            personListPanelHandle.navigateToCard(TYPICAL_FLASHCARDS.get(i));
+            flashcardListPanelHandle.navigateToCard(TYPICAL_FLASHCARDS.get(i));
             Flashcard expectedFlashcard = TYPICAL_FLASHCARDS.get(i);
-            PersonCardHandle actualCard = personListPanelHandle.getPersonCardHandle(i);
+            FlashcardCardHandle actualCard = flashcardListPanelHandle.getFlashcardCardHandle(i);
 
-            assertCardDisplaysPerson(expectedFlashcard, actualCard);
+            assertCardDisplaysFlashcard(expectedFlashcard, actualCard);
             assertEquals((i + 1) + ". ", actualCard.getId());
         }
     }
@@ -53,8 +53,8 @@ public class FlashcardListPanelTest extends GuiUnitTest {
         guiRobot.interact(() -> selectedPerson.set(secondFlashcard));
         guiRobot.pauseForHuman();
 
-        PersonCardHandle expectedPerson = personListPanelHandle.getPersonCardHandle(INDEX_SECOND_FLASHCARD.getZeroBased());
-        PersonCardHandle selectedPerson = personListPanelHandle.getHandleToSelectedCard();
+        FlashcardCardHandle expectedPerson = flashcardListPanelHandle.getFlashcardCardHandle(INDEX_SECOND_FLASHCARD.getZeroBased());
+        FlashcardCardHandle selectedPerson = flashcardListPanelHandle.getHandleToSelectedCard();
         assertCardEquals(expectedPerson, selectedPerson);
     }
 
@@ -90,7 +90,7 @@ public class FlashcardListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Initializes {@code personListPanelHandle} with a {@code FlashcardListPanel} backed by {@code backingList}.
+     * Initializes {@code flashcardListPanelHandle} with a {@code FlashcardListPanel} backed by {@code backingList}.
      * Also shows the {@code Stage} that displays only {@code FlashcardListPanel}.
      */
     private void initUi(ObservableList<Flashcard> backingList) {
@@ -98,7 +98,7 @@ public class FlashcardListPanelTest extends GuiUnitTest {
             new FlashcardListPanel(backingList, selectedPerson, selectedPerson::set);
         uiPartRule.setUiPart(flashcardListPanel);
 
-        personListPanelHandle = new PersonListPanelHandle(getChildNode(flashcardListPanel.getRoot(),
-            PersonListPanelHandle.PERSON_LIST_VIEW_ID));
+        flashcardListPanelHandle = new FlashcardListPanelHandle(getChildNode(flashcardListPanel.getRoot(),
+            FlashcardListPanelHandle.PERSON_LIST_VIEW_ID));
     }
 }

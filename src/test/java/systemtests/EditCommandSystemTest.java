@@ -45,8 +45,8 @@ import seedu.address.model.flashcard.Name;
 import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.flashcard.Phone;
 import seedu.address.model.tag.Tag;
-import seedu.address.testutil.PersonBuilder;
-import seedu.address.testutil.PersonUtil;
+import seedu.address.testutil.FlashcardBuilder;
+import seedu.address.testutil.FlashcardUtil;
 
 public class EditCommandSystemTest extends CardCollectionSystemTest {
 
@@ -62,7 +62,7 @@ public class EditCommandSystemTest extends CardCollectionSystemTest {
         Index index = INDEX_FIRST_FLASHCARD;
         String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
             + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + ADDRESS_DESC_BOB + " " + TAG_DESC_HUSBAND + " ";
-        Flashcard editedFlashcard = new PersonBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
+        Flashcard editedFlashcard = new FlashcardBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
         assertCommandSuccess(command, index, editedFlashcard);
 
         /* Case: undo editing the last flashcard in the list -> last flashcard restored */
@@ -87,7 +87,7 @@ public class EditCommandSystemTest extends CardCollectionSystemTest {
         assertNotEquals(getModel().getFilteredFlashcardList().get(index.getZeroBased()), BOB);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
             + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        editedFlashcard = new PersonBuilder(BOB).withName(VALID_NAME_AMY).build();
+        editedFlashcard = new FlashcardBuilder(BOB).withName(VALID_NAME_AMY).build();
         assertCommandSuccess(command, index, editedFlashcard);
 
         /* Case: edit a flashcard with new values same as another flashcard's values but with different phone and email
@@ -96,14 +96,14 @@ public class EditCommandSystemTest extends CardCollectionSystemTest {
         index = INDEX_SECOND_FLASHCARD;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY
             + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        editedFlashcard = new PersonBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).build();
+        editedFlashcard = new FlashcardBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).build();
         assertCommandSuccess(command, index, editedFlashcard);
 
         /* Case: clear tags -> cleared */
         index = INDEX_FIRST_FLASHCARD;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_TAG.getPrefix();
         Flashcard flashcardToEdit = getModel().getFilteredFlashcardList().get(index.getZeroBased());
-        editedFlashcard = new PersonBuilder(flashcardToEdit).withTags().build();
+        editedFlashcard = new FlashcardBuilder(flashcardToEdit).withTags().build();
         assertCommandSuccess(command, index, editedFlashcard);
 
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
@@ -114,7 +114,7 @@ public class EditCommandSystemTest extends CardCollectionSystemTest {
         assertTrue(index.getZeroBased() < getModel().getFilteredFlashcardList().size());
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_BOB;
         flashcardToEdit = getModel().getFilteredFlashcardList().get(index.getZeroBased());
-        editedFlashcard = new PersonBuilder(flashcardToEdit).withName(VALID_NAME_BOB).build();
+        editedFlashcard = new FlashcardBuilder(flashcardToEdit).withName(VALID_NAME_BOB).build();
         assertCommandSuccess(command, index, editedFlashcard);
 
         /* Case: filtered flashcard list, edit index within bounds of card collection but out of bounds of flashcard list
@@ -183,7 +183,7 @@ public class EditCommandSystemTest extends CardCollectionSystemTest {
             Tag.MESSAGE_CONSTRAINTS);
 
         /* Case: edit a flashcard with new values same as another flashcard's values -> rejected */
-        executeCommand(PersonUtil.getAddCommand(BOB));
+        executeCommand(FlashcardUtil.getAddCommand(BOB));
         assertTrue(getModel().getCardCollection().getFlashcardList().contains(BOB));
         index = INDEX_FIRST_FLASHCARD;
         assertFalse(getModel().getFilteredFlashcardList().get(index.getZeroBased()).equals(BOB));

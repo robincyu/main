@@ -6,7 +6,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_FLASHCARD_SUCCESS;
 import static seedu.address.testutil.TestUtil.getLastIndex;
 import static seedu.address.testutil.TestUtil.getMidIndex;
-import static seedu.address.testutil.TestUtil.getPerson;
+import static seedu.address.testutil.TestUtil.getFlashcard;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_FLASHCARD;
 import static seedu.address.testutil.TypicalFlashcards.KEYWORD_MATCHING_MEIER;
 
@@ -117,7 +117,7 @@ public class DeleteCommandSystemTest extends CardCollectionSystemTest {
      * @return the removed flashcard
      */
     private Flashcard removePerson(Model model, Index index) {
-        Flashcard targetFlashcard = getPerson(model, index);
+        Flashcard targetFlashcard = getFlashcard(model, index);
         model.deleteFlashcard(targetFlashcard);
         return targetFlashcard;
     }

@@ -23,7 +23,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.flashcard.exceptions.DuplicateFlashcardException;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.FlashcardBuilder;
 
 public class CardCollectionTest {
 
@@ -51,9 +51,9 @@ public class CardCollectionTest {
     }
 
     @Test
-    public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
+    public void resetData_withDuplicateFlashcards_throwsDuplicateFlashcardException() {
         // Two flashcards with the same identity fields
-        Flashcard editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Flashcard editedAlice = new FlashcardBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
             .build();
         List<Flashcard> newFlashcards = Arrays.asList(ALICE, editedAlice);
         CardCollectionStub newData = new CardCollectionStub(newFlashcards);
@@ -63,32 +63,32 @@ public class CardCollectionTest {
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasFlashcard_nullFlashcard_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         cardCollection.hasFlashcard(null);
     }
 
     @Test
-    public void hasPerson_personNotInCardCollection_returnsFalse() {
+    public void hasFlashcard_flashcardNotInCardCollection_returnsFalse() {
         assertFalse(cardCollection.hasFlashcard(ALICE));
     }
 
     @Test
-    public void hasPerson_personInCardCollection_returnsTrue() {
+    public void hasFlashcard_flashcardInCardCollection_returnsTrue() {
         cardCollection.addFlashcard(ALICE);
         assertTrue(cardCollection.hasFlashcard(ALICE));
     }
 
     @Test
-    public void hasPerson_personWithSameIdentityFieldsInCardCollection_returnsTrue() {
+    public void hasFlashcard_flashcardWithSameIdentityFieldsInCardCollection_returnsTrue() {
         cardCollection.addFlashcard(ALICE);
-        Flashcard editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Flashcard editedAlice = new FlashcardBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
             .build();
         assertTrue(cardCollection.hasFlashcard(editedAlice));
     }
 
     @Test
-    public void getPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getFlashcardList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         cardCollection.getFlashcardList().remove(0);
     }

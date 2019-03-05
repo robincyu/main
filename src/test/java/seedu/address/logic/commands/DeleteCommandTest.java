@@ -63,7 +63,7 @@ public class DeleteCommandTest {
         Model expectedModel = new ModelManager(model.getCardCollection(), new UserPrefs());
         expectedModel.deleteFlashcard(flashcardToDelete);
         expectedModel.commitCardCollection();
-        showNoPerson(expectedModel);
+        showNoFlashcard(expectedModel);
 
         assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -92,7 +92,7 @@ public class DeleteCommandTest {
         // delete -> first flashcard deleted
         deleteCommand.execute(model, commandHistory);
 
-        // undo -> reverts cardCollection back to previous state and filtered flashcard list to show all persons
+        // undo -> reverts cardCollection back to previous state and filtered flashcard list to show all flashcards
         expectedModel.undoCardCollection();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
@@ -122,7 +122,7 @@ public class DeleteCommandTest {
      * 4. Redo the deletion. This ensures {@code RedoCommand} deletes the flashcard object regardless of indexing.
      */
     @Test
-    public void executeUndoRedo_validIndexFilteredList_samePersonDeleted() throws Exception {
+    public void executeUndoRedo_validIndexFilteredList_sameFlashcardDeleted() throws Exception {
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_FLASHCARD);
         Model expectedModel = new ModelManager(model.getCardCollection(), new UserPrefs());
 
@@ -134,7 +134,7 @@ public class DeleteCommandTest {
         // delete -> deletes second flashcard in unfiltered flashcard list / first flashcard in filtered flashcard list
         deleteCommand.execute(model, commandHistory);
 
-        // undo -> reverts cardCollection back to previous state and filtered flashcard list to show all persons
+        // undo -> reverts cardCollection back to previous state and filtered flashcard list to show all flashcards
         expectedModel.undoCardCollection();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
@@ -169,7 +169,7 @@ public class DeleteCommandTest {
     /**
      * Updates {@code model}'s filtered list to show no one.
      */
-    private void showNoPerson(Model model) {
+    private void showNoFlashcard(Model model) {
         model.updateFilteredFlashcardList(p -> false);
 
         assertTrue(model.getFilteredFlashcardList().isEmpty());

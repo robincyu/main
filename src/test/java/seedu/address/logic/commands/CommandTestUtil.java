@@ -19,7 +19,7 @@ import seedu.address.model.CardCollection;
 import seedu.address.model.Model;
 import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.flashcard.NameContainsKeywordsPredicate;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.EditFlashcardDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -61,10 +61,10 @@ public class CommandTestUtil {
     public static final EditCommand.EditFlashcardDescriptor DESC_BOB;
 
     static {
-        DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
+        DESC_AMY = new EditFlashcardDescriptorBuilder().withName(VALID_NAME_AMY)
             .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
             .withTags(VALID_TAG_FRIEND).build();
-        DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
+        DESC_BOB = new EditFlashcardDescriptorBuilder().withName(VALID_NAME_BOB)
             .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
     }
@@ -144,7 +144,7 @@ public class CommandTestUtil {
     /**
      * Deletes the first flashcard in {@code model}'s filtered list from {@code model}'s card collection.
      */
-    public static void deleteFirstPerson(Model model) {
+    public static void deleteFirstFlashcard(Model model) {
         Flashcard firstFlashcard = model.getFilteredFlashcardList().get(0);
         model.deleteFlashcard(firstFlashcard);
         model.commitCardCollection();
