@@ -61,17 +61,17 @@ public class TypicalFlashcards {
     } // prevents instantiation
 
     /**
-     * Returns an {@code CardCollection} with all the typical persons.
+     * Returns an {@code CardCollection} with all the typical flashcards.
      */
     public static CardCollection getTypicalCardCollection() {
         CardCollection ab = new CardCollection();
-        for (Flashcard flashcard : getTypicalPersons()) {
+        for (Flashcard flashcard : getTypicalFlashcards()) {
             ab.addFlashcard(flashcard);
         }
         return ab;
     }
 
-    public static List<Flashcard> getTypicalPersons() {
+    public static List<Flashcard> getTypicalFlashcards() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
 }

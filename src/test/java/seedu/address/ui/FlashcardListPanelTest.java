@@ -4,7 +4,7 @@ import static java.time.Duration.ofMillis;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_FLASHCARD;
-import static seedu.address.testutil.TypicalFlashcards.getTypicalPersons;
+import static seedu.address.testutil.TypicalFlashcards.getTypicalFlashcards;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysFlashcard;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
@@ -25,11 +25,11 @@ import seedu.address.model.flashcard.Phone;
 
 public class FlashcardListPanelTest extends GuiUnitTest {
     private static final ObservableList<Flashcard> TYPICAL_FLASHCARDS =
-        FXCollections.observableList(getTypicalPersons());
+        FXCollections.observableList(getTypicalFlashcards());
 
     private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 2500;
 
-    private final SimpleObjectProperty<Flashcard> selectedPerson = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<Flashcard> selectedFlashcard = new SimpleObjectProperty<>();
     private FlashcardListPanelHandle flashcardListPanelHandle;
 
     @Test
@@ -47,19 +47,19 @@ public class FlashcardListPanelTest extends GuiUnitTest {
     }
 
     @Test
-    public void selection_modelSelectedPersonChanged_selectionChanges() {
+    public void selection_modelSelectedFlashcardChanged_selectionChanges() {
         initUi(TYPICAL_FLASHCARDS);
         Flashcard secondFlashcard = TYPICAL_FLASHCARDS.get(INDEX_SECOND_FLASHCARD.getZeroBased());
-        guiRobot.interact(() -> selectedPerson.set(secondFlashcard));
+        guiRobot.interact(() -> selectedFlashcard.set(secondFlashcard));
         guiRobot.pauseForHuman();
 
-        FlashcardCardHandle expectedPerson = flashcardListPanelHandle.getFlashcardCardHandle(INDEX_SECOND_FLASHCARD.getZeroBased());
-        FlashcardCardHandle selectedPerson = flashcardListPanelHandle.getHandleToSelectedCard();
-        assertCardEquals(expectedPerson, selectedPerson);
+        FlashcardCardHandle expectedFlashcard = flashcardListPanelHandle.getFlashcardCardHandle(INDEX_SECOND_FLASHCARD.getZeroBased());
+        FlashcardCardHandle selectedFlashcard = flashcardListPanelHandle.getHandleToSelectedCard();
+        assertCardEquals(expectedFlashcard, selectedFlashcard);
     }
 
     /**
-     * Verifies that creating and deleting large number of persons in {@code FlashcardListPanel} requires lesser than
+     * Verifies that creating and deleting large number of flashcards in {@code FlashcardListPanel} requires lesser than
      * {@code CARD_CREATION_AND_DELETION_TIMEOUT} milliseconds to execute.
      */
     @Test
@@ -73,12 +73,12 @@ public class FlashcardListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Returns a list of persons containing {@code personCount} persons that is used to populate the
+     * Returns a list of flashcards containing {@code flashcardCount} flashcards that is used to populate the
      * {@code FlashcardListPanel}.
      */
-    private ObservableList<Flashcard> createBackingList(int personCount) {
+    private ObservableList<Flashcard> createBackingList(int flashcardCount) {
         ObservableList<Flashcard> backingList = FXCollections.observableArrayList();
-        for (int i = 0; i < personCount; i++) {
+        for (int i = 0; i < flashcardCount; i++) {
             Name name = new Name(i + "a");
             Phone phone = new Phone("000");
             Email email = new Email("a@aa");
@@ -95,10 +95,10 @@ public class FlashcardListPanelTest extends GuiUnitTest {
      */
     private void initUi(ObservableList<Flashcard> backingList) {
         FlashcardListPanel flashcardListPanel =
-            new FlashcardListPanel(backingList, selectedPerson, selectedPerson::set);
+            new FlashcardListPanel(backingList, selectedFlashcard, selectedFlashcard::set);
         uiPartRule.setUiPart(flashcardListPanel);
 
         flashcardListPanelHandle = new FlashcardListPanelHandle(getChildNode(flashcardListPanel.getRoot(),
-            FlashcardListPanelHandle.PERSON_LIST_VIEW_ID));
+            FlashcardListPanelHandle.FLASHCARD_LIST_VIEW_ID));
     }
 }

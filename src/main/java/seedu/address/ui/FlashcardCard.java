@@ -10,7 +10,7 @@ import seedu.address.model.flashcard.Flashcard;
 /**
  * An UI component that displays information of a {@code Flashcard}.
  */
-public class PersonCard extends UiPart<Region> {
+public class FlashcardCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
 
@@ -39,7 +39,7 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public PersonCard(Flashcard flashcard, int displayedIndex) {
+    public FlashcardCard(Flashcard flashcard, int displayedIndex) {
         super(FXML);
         this.flashcard = flashcard;
         id.setText(displayedIndex + ". ");
@@ -58,12 +58,12 @@ public class PersonCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
+        if (!(other instanceof FlashcardCard)) {
             return false;
         }
 
         // state check
-        PersonCard card = (PersonCard) other;
+        FlashcardCard card = (FlashcardCard) other;
         return id.getText().equals(card.id.getText())
             && flashcard.equals(card.flashcard);
     }

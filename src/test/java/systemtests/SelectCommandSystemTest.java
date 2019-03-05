@@ -30,9 +30,9 @@ public class SelectCommandSystemTest extends CardCollectionSystemTest {
         assertCommandSuccess(command, INDEX_FIRST_FLASHCARD);
 
         /* Case: select the last card in the flashcard list -> selected */
-        Index personCount = getLastIndex(getModel());
-        command = SelectCommand.COMMAND_WORD + " " + personCount.getOneBased();
-        assertCommandSuccess(command, personCount);
+        Index flashcardCount = getLastIndex(getModel());
+        command = SelectCommand.COMMAND_WORD + " " + flashcardCount.getOneBased();
+        assertCommandSuccess(command, flashcardCount);
 
         /* Case: undo previous selection -> rejected */
         command = UndoCommand.COMMAND_WORD;
@@ -57,7 +57,7 @@ public class SelectCommandSystemTest extends CardCollectionSystemTest {
         /* Case: filtered flashcard list, select index within bounds of card collection but out of bounds of flashcard list
          * -> rejected
          */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showFlashcardsWithName(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getCardCollection().getFlashcardList().size();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_FLASHCARD_DISPLAYED_INDEX);
 
@@ -93,7 +93,7 @@ public class SelectCommandSystemTest extends CardCollectionSystemTest {
         assertCommandFailure("SeLeCt 1", MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: select from empty card collection -> rejected */
-        deleteAllPersons();
+        deleteAllFlashcards();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_FLASHCARD.getOneBased(),
             MESSAGE_INVALID_FLASHCARD_DISPLAYED_INDEX);
     }
@@ -117,7 +117,7 @@ public class SelectCommandSystemTest extends CardCollectionSystemTest {
         Model expectedModel = getModel();
         String expectedResultMessage = String.format(
             MESSAGE_SELECT_FLASHCARD_SUCCESS, expectedSelectedCardIndex.getOneBased());
-        int preExecutionSelectedCardIndex = getPersonListPanel().getSelectedCardIndex();
+        int preExecutionSelectedCardIndex = getFlashcardListPanel().getSelectedCardIndex();
 
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);

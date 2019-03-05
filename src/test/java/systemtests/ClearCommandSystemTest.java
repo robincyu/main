@@ -38,13 +38,13 @@ public class ClearCommandSystemTest extends CardCollectionSystemTest {
 
         /* Case: selects first card in flashcard list and clears card collection -> cleared and no card selected */
         executeCommand(UndoCommand.COMMAND_WORD); // restores the original card collection
-        selectPerson(Index.fromOneBased(1));
+        selectFlashcard(Index.fromOneBased(1));
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardDeselected();
 
         /* Case: filters the flashcard list before clearing -> entire card collection cleared */
         executeCommand(UndoCommand.COMMAND_WORD); // restores the original card collection
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showFlashcardsWithName(KEYWORD_MATCHING_MEIER);
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardUnchanged();
 

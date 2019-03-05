@@ -12,7 +12,7 @@ import seedu.address.model.flashcard.Flashcard;
  * Contains helper methods to set up {@code Model} for testing.
  */
 public class ModelHelper {
-    private static final Predicate<Flashcard> PREDICATE_MATCHING_NO_PERSONS = unused -> false;
+    private static final Predicate<Flashcard> PREDICATE_MATCHING_NO_FLASHCARDS = unused -> false;
 
     /**
      * Updates {@code model}'s filtered list to display only {@code toDisplay}.
@@ -20,7 +20,7 @@ public class ModelHelper {
     public static void setFilteredList(Model model, List<Flashcard> toDisplay) {
         Optional<Predicate<Flashcard>> predicate =
             toDisplay.stream().map(ModelHelper::getPredicateMatching).reduce(Predicate::or);
-        model.updateFilteredFlashcardList(predicate.orElse(PREDICATE_MATCHING_NO_PERSONS));
+        model.updateFilteredFlashcardList(predicate.orElse(PREDICATE_MATCHING_NO_FLASHCARDS));
     }
 
     /**
@@ -34,6 +34,6 @@ public class ModelHelper {
      * Returns a predicate that evaluates to true if this {@code Flashcard} equals to {@code other}.
      */
     private static Predicate<Flashcard> getPredicateMatching(Flashcard other) {
-        return person -> person.equals(other);
+        return flashcard -> flashcard.equals(other);
     }
 }

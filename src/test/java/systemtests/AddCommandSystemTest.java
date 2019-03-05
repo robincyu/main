@@ -88,7 +88,7 @@ public class AddCommandSystemTest extends CardCollectionSystemTest {
         assertCommandSuccess(command, toAdd);
 
         /* Case: add to empty card collection -> added */
-        deleteAllPersons();
+        deleteAllFlashcards();
         assertCommandSuccess(ALICE);
 
         /* Case: add a flashcard with tags, command with parameters in random order -> added */
@@ -103,13 +103,13 @@ public class AddCommandSystemTest extends CardCollectionSystemTest {
         /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
 
         /* Case: filters the flashcard list before adding -> added */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showFlashcardsWithName(KEYWORD_MATCHING_MEIER);
         assertCommandSuccess(IDA);
 
         /* ------------------------ Perform add operation while a flashcard card is selected --------------------------- */
 
         /* Case: selects first card in the flashcard list, add a flashcard -> added, card selection remains unchanged */
-        selectPerson(Index.fromOneBased(1));
+        selectFlashcard(Index.fromOneBased(1));
         assertCommandSuccess(CARL);
 
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */
@@ -154,7 +154,7 @@ public class AddCommandSystemTest extends CardCollectionSystemTest {
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: invalid keyword -> rejected */
-        command = "adds " + FlashcardUtil.getPersonDetails(toAdd);
+        command = "adds " + FlashcardUtil.getFlashcardDetails(toAdd);
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: invalid name -> rejected */

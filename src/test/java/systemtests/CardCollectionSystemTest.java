@@ -98,8 +98,8 @@ public abstract class CardCollectionSystemTest {
         return mainWindowHandle.getCommandBox();
     }
 
-    public FlashcardListPanelHandle getPersonListPanel() {
-        return mainWindowHandle.getPersonListPanel();
+    public FlashcardListPanelHandle getFlashcardListPanel() {
+        return mainWindowHandle.getFlashcardListPanel();
     }
 
     public MainMenuHandle getMainMenu() {
@@ -134,17 +134,17 @@ public abstract class CardCollectionSystemTest {
     }
 
     /**
-     * Displays all persons in the card collection.
+     * Displays all flashcards in the card collection.
      */
-    protected void showAllPersons() {
+    protected void showAllFlashcards() {
         executeCommand(ListCommand.COMMAND_WORD);
         assertEquals(getModel().getCardCollection().getFlashcardList().size(), getModel().getFilteredFlashcardList().size());
     }
 
     /**
-     * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
+     * Displays all flashcards with any parts of their names matching {@code keyword} (case-insensitive).
      */
-    protected void showPersonsWithName(String keyword) {
+    protected void showFlashcardsWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
         assertTrue(getModel().getFilteredFlashcardList().size() < getModel().getCardCollection().getFlashcardList().size());
     }
@@ -152,15 +152,15 @@ public abstract class CardCollectionSystemTest {
     /**
      * Selects the flashcard at {@code index} of the displayed list.
      */
-    protected void selectPerson(Index index) {
+    protected void selectFlashcard(Index index) {
         executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
-        assertEquals(index.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
+        assertEquals(index.getZeroBased(), getFlashcardListPanel().getSelectedCardIndex());
     }
 
     /**
-     * Deletes all persons in the card collection.
+     * Deletes all flashcards in the card collection.
      */
-    protected void deleteAllPersons() {
+    protected void deleteAllFlashcards() {
         executeCommand(ClearCommand.COMMAND_WORD);
         assertEquals(0, getModel().getCardCollection().getFlashcardList().size());
     }
@@ -168,14 +168,14 @@ public abstract class CardCollectionSystemTest {
     /**
      * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
      * {@code expectedResultMessage}, the storage contains the same flashcard objects as {@code expectedModel}
-     * and the flashcard list panel displays the persons in the model correctly.
+     * and the flashcard list panel displays the flashcards in the model correctly.
      */
     protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
                                                      Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new CardCollection(expectedModel.getCardCollection()), testApp.readStorageCardCollection());
-        assertListMatching(getPersonListPanel(), expectedModel.getFilteredFlashcardList());
+        assertListMatching(getFlashcardListPanel(), expectedModel.getFilteredFlashcardList());
     }
 
     /**
@@ -187,7 +187,7 @@ public abstract class CardCollectionSystemTest {
         getBrowserPanel().rememberUrl();
         statusBarFooterHandle.rememberSaveLocation();
         statusBarFooterHandle.rememberSyncStatus();
-        getPersonListPanel().rememberSelectedPersonCard();
+        getFlashcardListPanel().rememberSelectedFlashcardCard();
     }
 
     /**
@@ -198,7 +198,7 @@ public abstract class CardCollectionSystemTest {
      */
     protected void assertSelectedCardDeselected() {
         assertEquals(BrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
-        assertFalse(getPersonListPanel().isAnyCardSelected());
+        assertFalse(getFlashcardListPanel().isAnyCardSelected());
     }
 
     /**
@@ -206,11 +206,11 @@ public abstract class CardCollectionSystemTest {
      * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
      *
      * @see BrowserPanelHandle#isUrlChanged()
-     * @see FlashcardListPanelHandle#isSelectedPersonCardChanged()
+     * @see FlashcardListPanelHandle#isSelectedFlashcardCardChanged()
      */
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
-        getPersonListPanel().navigateToCard(getPersonListPanel().getSelectedCardIndex());
-        String selectedCardName = getPersonListPanel().getHandleToSelectedCard().getName();
+        getFlashcardListPanel().navigateToCard(getFlashcardListPanel().getSelectedCardIndex());
+        String selectedCardName = getFlashcardListPanel().getHandleToSelectedCard().getName();
         URL expectedUrl;
         try {
             expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
@@ -219,18 +219,18 @@ public abstract class CardCollectionSystemTest {
         }
         assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
 
-        assertEquals(expectedSelectedCardIndex.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
+        assertEquals(expectedSelectedCardIndex.getZeroBased(), getFlashcardListPanel().getSelectedCardIndex());
     }
 
     /**
      * Asserts that the browser's url and the selected card in the flashcard list panel remain unchanged.
      *
      * @see BrowserPanelHandle#isUrlChanged()
-     * @see FlashcardListPanelHandle#isSelectedPersonCardChanged()
+     * @see FlashcardListPanelHandle#isSelectedFlashcardCardChanged()
      */
     protected void assertSelectedCardUnchanged() {
         assertFalse(getBrowserPanel().isUrlChanged());
-        assertFalse(getPersonListPanel().isSelectedPersonCardChanged());
+        assertFalse(getFlashcardListPanel().isSelectedFlashcardCardChanged());
     }
 
     /**
@@ -274,7 +274,7 @@ public abstract class CardCollectionSystemTest {
     private void assertApplicationStartingStateIsCorrect() {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
-        assertListMatching(getPersonListPanel(), getModel().getFilteredFlashcardList());
+        assertListMatching(getFlashcardListPanel(), getModel().getFilteredFlashcardList());
         assertEquals(BrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
             getStatusBarFooter().getSaveLocation());

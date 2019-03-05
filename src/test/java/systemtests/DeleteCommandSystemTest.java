@@ -32,14 +32,14 @@ public class DeleteCommandSystemTest extends CardCollectionSystemTest {
         /* Case: delete the first flashcard in the list, command with leading spaces and trailing spaces -> deleted */
         Model expectedModel = getModel();
         String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_FLASHCARD.getOneBased() + "       ";
-        Flashcard deletedFlashcard = removePerson(expectedModel, INDEX_FIRST_FLASHCARD);
+        Flashcard deletedFlashcard = removeFlashcard(expectedModel, INDEX_FIRST_FLASHCARD);
         String expectedResultMessage = String.format(MESSAGE_DELETE_FLASHCARD_SUCCESS, deletedFlashcard);
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
 
         /* Case: delete the last flashcard in the list -> deleted */
         Model modelBeforeDeletingLast = getModel();
-        Index lastPersonIndex = getLastIndex(modelBeforeDeletingLast);
-        assertCommandSuccess(lastPersonIndex);
+        Index lastFlashcardIndex = getLastIndex(modelBeforeDeletingLast);
+        assertCommandSuccess(lastFlashcardIndex);
 
         /* Case: undo deleting the last flashcard in the list -> last flashcard restored */
         command = UndoCommand.COMMAND_WORD;
@@ -48,18 +48,18 @@ public class DeleteCommandSystemTest extends CardCollectionSystemTest {
 
         /* Case: redo deleting the last flashcard in the list -> last flashcard deleted again */
         command = RedoCommand.COMMAND_WORD;
-        removePerson(modelBeforeDeletingLast, lastPersonIndex);
+        removeFlashcard(modelBeforeDeletingLast, lastFlashcardIndex);
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, modelBeforeDeletingLast, expectedResultMessage);
 
         /* Case: delete the middle flashcard in the list -> deleted */
-        Index middlePersonIndex = getMidIndex(getModel());
-        assertCommandSuccess(middlePersonIndex);
+        Index middleFlashcardIndex = getMidIndex(getModel());
+        assertCommandSuccess(middleFlashcardIndex);
 
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
         /* Case: filtered flashcard list, delete index within bounds of card collection and flashcard list -> deleted */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showFlashcardsWithName(KEYWORD_MATCHING_MEIER);
         Index index = INDEX_FIRST_FLASHCARD;
         assertTrue(index.getZeroBased() < getModel().getFilteredFlashcardList().size());
         assertCommandSuccess(index);
@@ -67,7 +67,7 @@ public class DeleteCommandSystemTest extends CardCollectionSystemTest {
         /* Case: filtered flashcard list, delete index within bounds of card collection but out of bounds of flashcard list
          * -> rejected
          */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showFlashcardsWithName(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getCardCollection().getFlashcardList().size();
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_FLASHCARD_DISPLAYED_INDEX);
@@ -75,13 +75,13 @@ public class DeleteCommandSystemTest extends CardCollectionSystemTest {
         /* --------------------- Performing delete operation while a flashcard card is selected ------------------------ */
 
         /* Case: delete the selected flashcard -> flashcard list panel selects the flashcard before the deleted flashcard */
-        showAllPersons();
+        showAllFlashcards();
         expectedModel = getModel();
         Index selectedIndex = getLastIndex(expectedModel);
         Index expectedIndex = Index.fromZeroBased(selectedIndex.getZeroBased() - 1);
-        selectPerson(selectedIndex);
+        selectFlashcard(selectedIndex);
         command = DeleteCommand.COMMAND_WORD + " " + selectedIndex.getOneBased();
-        deletedFlashcard = removePerson(expectedModel, selectedIndex);
+        deletedFlashcard = removeFlashcard(expectedModel, selectedIndex);
         expectedResultMessage = String.format(MESSAGE_DELETE_FLASHCARD_SUCCESS, deletedFlashcard);
         assertCommandSuccess(command, expectedModel, expectedResultMessage, expectedIndex);
 
@@ -116,7 +116,7 @@ public class DeleteCommandSystemTest extends CardCollectionSystemTest {
      *
      * @return the removed flashcard
      */
-    private Flashcard removePerson(Model model, Index index) {
+    private Flashcard removeFlashcard(Model model, Index index) {
         Flashcard targetFlashcard = getFlashcard(model, index);
         model.deleteFlashcard(targetFlashcard);
         return targetFlashcard;
@@ -130,7 +130,7 @@ public class DeleteCommandSystemTest extends CardCollectionSystemTest {
      */
     private void assertCommandSuccess(Index toDelete) {
         Model expectedModel = getModel();
-        Flashcard deletedFlashcard = removePerson(expectedModel, toDelete);
+        Flashcard deletedFlashcard = removeFlashcard(expectedModel, toDelete);
         String expectedResultMessage = String.format(MESSAGE_DELETE_FLASHCARD_SUCCESS, deletedFlashcard);
 
         assertCommandSuccess(

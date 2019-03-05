@@ -22,13 +22,13 @@ public class FlashcardUtil {
      * Returns an add command string for adding the {@code flashcard}.
      */
     public static String getAddCommand(Flashcard flashcard) {
-        return AddCommand.COMMAND_WORD + " " + getPersonDetails(flashcard);
+        return AddCommand.COMMAND_WORD + " " + getFlashcardDetails(flashcard);
     }
 
     /**
      * Returns the part of command string for the given {@code flashcard}'s details.
      */
-    public static String getPersonDetails(Flashcard flashcard) {
+    public static String getFlashcardDetails(Flashcard flashcard) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + flashcard.getName().fullName + " ");
         sb.append(PREFIX_PHONE + flashcard.getPhone().value + " ");

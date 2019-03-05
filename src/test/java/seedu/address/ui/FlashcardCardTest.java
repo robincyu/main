@@ -17,51 +17,51 @@ public class FlashcardCardTest extends GuiUnitTest {
     public void display() {
         // no tags
         Flashcard flashcardWithNoTags = new FlashcardBuilder().withTags().build();
-        PersonCard personCard = new PersonCard(flashcardWithNoTags, 1);
-        uiPartRule.setUiPart(personCard);
-        assertCardDisplay(personCard, flashcardWithNoTags, 1);
+        FlashcardCard flashcardCard = new FlashcardCard(flashcardWithNoTags, 1);
+        uiPartRule.setUiPart(flashcardCard);
+        assertCardDisplay(flashcardCard, flashcardWithNoTags, 1);
 
         // with tags
         Flashcard flashcardWithTags = new FlashcardBuilder().build();
-        personCard = new PersonCard(flashcardWithTags, 2);
-        uiPartRule.setUiPart(personCard);
-        assertCardDisplay(personCard, flashcardWithTags, 2);
+        flashcardCard = new FlashcardCard(flashcardWithTags, 2);
+        uiPartRule.setUiPart(flashcardCard);
+        assertCardDisplay(flashcardCard, flashcardWithTags, 2);
     }
 
     @Test
     public void equals() {
         Flashcard flashcard = new FlashcardBuilder().build();
-        PersonCard personCard = new PersonCard(flashcard, 0);
+        FlashcardCard flashcardCard = new FlashcardCard(flashcard, 0);
 
         // same flashcard, same index -> returns true
-        PersonCard copy = new PersonCard(flashcard, 0);
-        assertTrue(personCard.equals(copy));
+        FlashcardCard copy = new FlashcardCard(flashcard, 0);
+        assertTrue(flashcardCard.equals(copy));
 
         // same object -> returns true
-        assertTrue(personCard.equals(personCard));
+        assertTrue(flashcardCard.equals(flashcardCard));
 
         // null -> returns false
-        assertFalse(personCard.equals(null));
+        assertFalse(flashcardCard.equals(null));
 
         // different types -> returns false
-        assertFalse(personCard.equals(0));
+        assertFalse(flashcardCard.equals(0));
 
         // different flashcard, same index -> returns false
         Flashcard differentFlashcard = new FlashcardBuilder().withName("differentName").build();
-        assertFalse(personCard.equals(new PersonCard(differentFlashcard, 0)));
+        assertFalse(flashcardCard.equals(new FlashcardCard(differentFlashcard, 0)));
 
         // same flashcard, different index -> returns false
-        assertFalse(personCard.equals(new PersonCard(flashcard, 1)));
+        assertFalse(flashcardCard.equals(new FlashcardCard(flashcard, 1)));
     }
 
     /**
-     * Asserts that {@code personCard} displays the details of {@code expectedFlashcard} correctly and matches
+     * Asserts that {@code flashcardCard} displays the details of {@code expectedFlashcard} correctly and matches
      * {@code expectedId}.
      */
-    private void assertCardDisplay(PersonCard personCard, Flashcard expectedFlashcard, int expectedId) {
+    private void assertCardDisplay(FlashcardCard flashcardCard, Flashcard expectedFlashcard, int expectedId) {
         guiRobot.pauseForHuman();
 
-        FlashcardCardHandle flashcardCardHandle = new FlashcardCardHandle(personCard.getRoot());
+        FlashcardCardHandle flashcardCardHandle = new FlashcardCardHandle(flashcardCard.getRoot());
 
         // verify id is displayed correctly
         assertEquals(expectedId + ". ", flashcardCardHandle.getId());

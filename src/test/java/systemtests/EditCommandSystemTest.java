@@ -109,7 +109,7 @@ public class EditCommandSystemTest extends CardCollectionSystemTest {
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
         /* Case: filtered flashcard list, edit index within bounds of card collection and flashcard list -> edited */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showFlashcardsWithName(KEYWORD_MATCHING_MEIER);
         index = INDEX_FIRST_FLASHCARD;
         assertTrue(index.getZeroBased() < getModel().getFilteredFlashcardList().size());
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_BOB;
@@ -120,7 +120,7 @@ public class EditCommandSystemTest extends CardCollectionSystemTest {
         /* Case: filtered flashcard list, edit index within bounds of card collection but out of bounds of flashcard list
          * -> rejected
          */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showFlashcardsWithName(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getCardCollection().getFlashcardList().size();
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
             Messages.MESSAGE_INVALID_FLASHCARD_DISPLAYED_INDEX);
@@ -130,9 +130,9 @@ public class EditCommandSystemTest extends CardCollectionSystemTest {
         /* Case: selects first card in the flashcard list, edit a flashcard -> edited, card selection remains unchanged but
          * browser url changes
          */
-        showAllPersons();
+        showAllFlashcards();
         index = INDEX_FIRST_FLASHCARD;
-        selectPerson(index);
+        selectFlashcard(index);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
             + ADDRESS_DESC_AMY + TAG_DESC_FRIEND;
         // this can be misleading: card selection actually remains unchanged but the

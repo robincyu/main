@@ -25,8 +25,8 @@ public class FindCommandSystemTest extends CardCollectionSystemTest {
 
     @Test
     public void find() {
-        /* Case: find multiple persons in card collection, command with leading spaces and trailing spaces
-         * -> 2 persons found
+        /* Case: find multiple flashcards in card collection, command with leading spaces and trailing spaces
+         * -> 2 flashcards found
          */
         String command = "   " + FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER + "   ";
         Model expectedModel = getModel();
@@ -34,8 +34,8 @@ public class FindCommandSystemTest extends CardCollectionSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: repeat previous find command where flashcard list is displaying the persons we are finding
-         * -> 2 persons found
+        /* Case: repeat previous find command where flashcard list is displaying the flashcards we are finding
+         * -> 2 flashcards found
          */
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
         assertCommandSuccess(command, expectedModel);
@@ -47,24 +47,24 @@ public class FindCommandSystemTest extends CardCollectionSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find multiple persons in card collection, 2 keywords -> 2 persons found */
+        /* Case: find multiple flashcards in card collection, 2 keywords -> 2 flashcards found */
         command = FindCommand.COMMAND_WORD + " Benson Daniel";
         ModelHelper.setFilteredList(expectedModel, BENSON, DANIEL);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find multiple persons in card collection, 2 keywords in reversed order -> 2 persons found */
+        /* Case: find multiple flashcards in card collection, 2 keywords in reversed order -> 2 flashcards found */
         command = FindCommand.COMMAND_WORD + " Daniel Benson";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find multiple persons in card collection, 2 keywords with 1 repeat -> 2 persons found */
+        /* Case: find multiple flashcards in card collection, 2 keywords with 1 repeat -> 2 flashcards found */
         command = FindCommand.COMMAND_WORD + " Daniel Benson Daniel";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find multiple persons in card collection, 2 matching keywords and 1 non-matching keyword
-         * -> 2 persons found
+        /* Case: find multiple flashcards in card collection, 2 matching keywords and 1 non-matching keyword
+         * -> 2 flashcards found
          */
         command = FindCommand.COMMAND_WORD + " Daniel Benson NonMatchingKeyWord";
         assertCommandSuccess(command, expectedModel);
@@ -80,7 +80,7 @@ public class FindCommandSystemTest extends CardCollectionSystemTest {
         expectedResultMessage = RedoCommand.MESSAGE_FAILURE;
         assertCommandFailure(command, expectedResultMessage);
 
-        /* Case: find same persons in card collection after deleting 1 of them -> 1 flashcard found */
+        /* Case: find same flashcards in card collection after deleting 1 of them -> 1 flashcard found */
         executeCommand(DeleteCommand.COMMAND_WORD + " 1");
         assertFalse(getModel().getCardCollection().getFlashcardList().contains(BENSON));
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
@@ -94,55 +94,55 @@ public class FindCommandSystemTest extends CardCollectionSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find flashcard in card collection, keyword is substring of name -> 0 persons found */
+        /* Case: find flashcard in card collection, keyword is substring of name -> 0 flashcards found */
         command = FindCommand.COMMAND_WORD + " Mei";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find flashcard in card collection, name is substring of keyword -> 0 persons found */
+        /* Case: find flashcard in card collection, name is substring of keyword -> 0 flashcards found */
         command = FindCommand.COMMAND_WORD + " Meiers";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find flashcard not in card collection -> 0 persons found */
+        /* Case: find flashcard not in card collection -> 0 flashcards found */
         command = FindCommand.COMMAND_WORD + " Mark";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find phone number of flashcard in card collection -> 0 persons found */
+        /* Case: find phone number of flashcard in card collection -> 0 flashcards found */
         command = FindCommand.COMMAND_WORD + " " + DANIEL.getPhone().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find address of flashcard in card collection -> 0 persons found */
+        /* Case: find address of flashcard in card collection -> 0 flashcards found */
         command = FindCommand.COMMAND_WORD + " " + DANIEL.getAddress().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find email of flashcard in card collection -> 0 persons found */
+        /* Case: find email of flashcard in card collection -> 0 flashcards found */
         command = FindCommand.COMMAND_WORD + " " + DANIEL.getEmail().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find tags of flashcard in card collection -> 0 persons found */
+        /* Case: find tags of flashcard in card collection -> 0 flashcards found */
         List<Tag> tags = new ArrayList<>(DANIEL.getTags());
         command = FindCommand.COMMAND_WORD + " " + tags.get(0).tagName;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find while a flashcard is selected -> selected card deselected */
-        showAllPersons();
-        selectPerson(Index.fromOneBased(1));
-        assertFalse(getPersonListPanel().getHandleToSelectedCard().getName().equals(DANIEL.getName().fullName));
+        showAllFlashcards();
+        selectFlashcard(Index.fromOneBased(1));
+        assertFalse(getFlashcardListPanel().getHandleToSelectedCard().getName().equals(DANIEL.getName().fullName));
         command = FindCommand.COMMAND_WORD + " Daniel";
         ModelHelper.setFilteredList(expectedModel, DANIEL);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardDeselected();
 
-        /* Case: find flashcard in empty card collection -> 0 persons found */
-        deleteAllPersons();
+        /* Case: find flashcard in empty card collection -> 0 flashcards found */
+        deleteAllFlashcards();
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
         expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, DANIEL);
