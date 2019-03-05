@@ -41,7 +41,8 @@ public class FindCommandSystemTest extends CardCollectionSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find flashcard where flashcard list is not displaying the flashcard we are finding -> 1 flashcard found */
+        /* Case: find flashcard where flashcard list is not displaying the flashcard we are finding -> 1 flashcard
+        found */
         command = FindCommand.COMMAND_WORD + " Carl";
         ModelHelper.setFilteredList(expectedModel, CARL);
         assertCommandSuccess(command, expectedModel);
@@ -89,7 +90,8 @@ public class FindCommandSystemTest extends CardCollectionSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find flashcard in card collection, keyword is same as name but of different case -> 1 flashcard found */
+        /* Case: find flashcard in card collection, keyword is same as name but of different case -> 1 flashcard
+        found */
         command = FindCommand.COMMAND_WORD + " MeIeR";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();

@@ -4,11 +4,11 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_FLASHCARD_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_FLASHCARD_SUCCESS;
+import static seedu.address.testutil.TestUtil.getFlashcard;
 import static seedu.address.testutil.TestUtil.getLastIndex;
 import static seedu.address.testutil.TestUtil.getMidIndex;
-import static seedu.address.testutil.TestUtil.getFlashcard;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_FLASHCARD;
 import static seedu.address.testutil.TypicalFlashcards.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_FLASHCARD;
 
 import org.junit.Test;
 
@@ -31,7 +31,8 @@ public class DeleteCommandSystemTest extends CardCollectionSystemTest {
 
         /* Case: delete the first flashcard in the list, command with leading spaces and trailing spaces -> deleted */
         Model expectedModel = getModel();
-        String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_FLASHCARD.getOneBased() + "       ";
+        String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_FLASHCARD.getOneBased() + "   "
+            + "    ";
         Flashcard deletedFlashcard = removeFlashcard(expectedModel, INDEX_FIRST_FLASHCARD);
         String expectedResultMessage = String.format(MESSAGE_DELETE_FLASHCARD_SUCCESS, deletedFlashcard);
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
@@ -64,7 +65,8 @@ public class DeleteCommandSystemTest extends CardCollectionSystemTest {
         assertTrue(index.getZeroBased() < getModel().getFilteredFlashcardList().size());
         assertCommandSuccess(index);
 
-        /* Case: filtered flashcard list, delete index within bounds of card collection but out of bounds of flashcard list
+        /* Case: filtered flashcard list, delete index within bounds of card collection but out of bounds of
+        flashcard list
          * -> rejected
          */
         showFlashcardsWithName(KEYWORD_MATCHING_MEIER);
@@ -72,9 +74,11 @@ public class DeleteCommandSystemTest extends CardCollectionSystemTest {
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_FLASHCARD_DISPLAYED_INDEX);
 
-        /* --------------------- Performing delete operation while a flashcard card is selected ------------------------ */
+        /* --------------------- Performing delete operation while a flashcard card is selected
+        ------------------------ */
 
-        /* Case: delete the selected flashcard -> flashcard list panel selects the flashcard before the deleted flashcard */
+        /* Case: delete the selected flashcard -> flashcard list panel selects the flashcard before the deleted
+        flashcard */
         showAllFlashcards();
         expectedModel = getModel();
         Index selectedIndex = getLastIndex(expectedModel);

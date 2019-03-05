@@ -20,7 +20,8 @@ public class VersionedCardCollectionTest {
 
     private final ReadOnlyCardCollection cardCollectionWithAmy = new CardCollectionBuilder().withFlashcard(AMY).build();
     private final ReadOnlyCardCollection cardCollectionWithBob = new CardCollectionBuilder().withFlashcard(BOB).build();
-    private final ReadOnlyCardCollection cardCollectionWithCarl = new CardCollectionBuilder().withFlashcard(CARL).build();
+    private final ReadOnlyCardCollection cardCollectionWithCarl =
+        new CardCollectionBuilder().withFlashcard(CARL).build();
     private final ReadOnlyCardCollection emptyCardCollection = new CardCollectionBuilder().build();
 
     @Test

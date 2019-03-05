@@ -39,7 +39,8 @@ public class GuiTestAssert {
     }
 
     /**
-     * Asserts that the list in {@code flashcardListPanelHandle} displays the details of {@code flashcards} correctly and
+     * Asserts that the list in {@code flashcardListPanelHandle} displays the details of {@code flashcards} correctly
+     * and
      * in the correct order.
      */
     public static void assertListMatching(FlashcardListPanelHandle flashcardListPanelHandle, Flashcard... flashcards) {
@@ -50,10 +51,12 @@ public class GuiTestAssert {
     }
 
     /**
-     * Asserts that the list in {@code flashcardListPanelHandle} displays the details of {@code flashcards} correctly and
+     * Asserts that the list in {@code flashcardListPanelHandle} displays the details of {@code flashcards} correctly
+     * and
      * in the correct order.
      */
-    public static void assertListMatching(FlashcardListPanelHandle flashcardListPanelHandle, List<Flashcard> flashcards) {
+    public static void assertListMatching(FlashcardListPanelHandle flashcardListPanelHandle,
+                                          List<Flashcard> flashcards) {
         assertListMatching(flashcardListPanelHandle, flashcards.toArray(new Flashcard[0]));
     }
 

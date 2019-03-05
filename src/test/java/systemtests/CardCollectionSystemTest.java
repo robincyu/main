@@ -23,9 +23,9 @@ import org.junit.ClassRule;
 
 import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
+import guitests.guihandles.FlashcardListPanelHandle;
 import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
-import guitests.guihandles.FlashcardListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.TestApp;
@@ -138,7 +138,8 @@ public abstract class CardCollectionSystemTest {
      */
     protected void showAllFlashcards() {
         executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getCardCollection().getFlashcardList().size(), getModel().getFilteredFlashcardList().size());
+        assertEquals(getModel().getCardCollection().getFlashcardList().size(),
+            getModel().getFilteredFlashcardList().size());
     }
 
     /**
@@ -146,7 +147,8 @@ public abstract class CardCollectionSystemTest {
      */
     protected void showFlashcardsWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredFlashcardList().size() < getModel().getCardCollection().getFlashcardList().size());
+        assertTrue(getModel().getFilteredFlashcardList().size() < getModel().getCardCollection()
+            .getFlashcardList().size());
     }
 
     /**

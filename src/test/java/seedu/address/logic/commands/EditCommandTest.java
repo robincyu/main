@@ -11,9 +11,9 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showFlashcardAtIndex;
+import static seedu.address.testutil.TypicalFlashcards.getTypicalCardCollection;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_FLASHCARD;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_FLASHCARD;
-import static seedu.address.testutil.TypicalFlashcards.getTypicalCardCollection;
 
 import org.junit.Test;
 
@@ -119,7 +119,8 @@ public class EditCommandTest {
         showFlashcardAtIndex(model, INDEX_FIRST_FLASHCARD);
 
         // edit flashcard in filtered list into a duplicate in card collection
-        Flashcard flashcardInList = model.getCardCollection().getFlashcardList().get(INDEX_SECOND_FLASHCARD.getZeroBased());
+        Flashcard flashcardInList =
+            model.getCardCollection().getFlashcardList().get(INDEX_SECOND_FLASHCARD.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_FLASHCARD,
             new EditFlashcardDescriptorBuilder(flashcardInList).build());
 
@@ -129,7 +130,8 @@ public class EditCommandTest {
     @Test
     public void execute_invalidFlashcardIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredFlashcardList().size() + 1);
-        EditCommand.EditFlashcardDescriptor descriptor = new EditFlashcardDescriptorBuilder().withName(VALID_NAME_BOB).build();
+        EditCommand.EditFlashcardDescriptor descriptor =
+            new EditFlashcardDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_FLASHCARD_DISPLAYED_INDEX);
@@ -177,7 +179,8 @@ public class EditCommandTest {
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredFlashcardList().size() + 1);
-        EditCommand.EditFlashcardDescriptor descriptor = new EditFlashcardDescriptorBuilder().withName(VALID_NAME_BOB).build();
+        EditCommand.EditFlashcardDescriptor descriptor =
+            new EditFlashcardDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         // execution failed -> card collection state not added into model

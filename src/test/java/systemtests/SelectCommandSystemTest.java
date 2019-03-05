@@ -7,8 +7,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.SelectCommand.MESSAGE_SELECT_FLASHCARD_SUCCESS;
 import static seedu.address.testutil.TestUtil.getLastIndex;
 import static seedu.address.testutil.TestUtil.getMidIndex;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_FLASHCARD;
 import static seedu.address.testutil.TypicalFlashcards.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_FLASHCARD;
 
 import org.junit.Test;
 
@@ -54,14 +54,17 @@ public class SelectCommandSystemTest extends CardCollectionSystemTest {
 
         /* ------------------------ Perform select operations on the shown filtered list ---------------------------- */
 
-        /* Case: filtered flashcard list, select index within bounds of card collection but out of bounds of flashcard list
+        /* Case: filtered flashcard list, select index within bounds of card collection but out of bounds of
+        flashcard list
          * -> rejected
          */
         showFlashcardsWithName(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getCardCollection().getFlashcardList().size();
-        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_FLASHCARD_DISPLAYED_INDEX);
+        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex,
+            MESSAGE_INVALID_FLASHCARD_DISPLAYED_INDEX);
 
-        /* Case: filtered flashcard list, select index within bounds of card collection and flashcard list -> selected */
+        /* Case: filtered flashcard list, select index within bounds of card collection and flashcard list ->
+        selected */
         Index validIndex = Index.fromOneBased(1);
         assertTrue(validIndex.getZeroBased() < getModel().getFilteredFlashcardList().size());
         command = SelectCommand.COMMAND_WORD + " " + validIndex.getOneBased();
@@ -79,7 +82,8 @@ public class SelectCommandSystemTest extends CardCollectionSystemTest {
 
         /* Case: invalid index (size + 1) -> rejected */
         invalidIndex = getModel().getFilteredFlashcardList().size() + 1;
-        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_FLASHCARD_DISPLAYED_INDEX);
+        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex,
+            MESSAGE_INVALID_FLASHCARD_DISPLAYED_INDEX);
 
         /* Case: invalid arguments (alphabets) -> rejected */
         assertCommandFailure(SelectCommand.COMMAND_WORD + " abc",

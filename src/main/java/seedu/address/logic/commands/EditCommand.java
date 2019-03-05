@@ -55,7 +55,7 @@ public class EditCommand extends Command {
     private final EditFlashcardDescriptor editFlashcardDescriptor;
 
     /**
-     * @param index                of the flashcard in the filtered flashcard list to edit
+     * @param index                   of the flashcard in the filtered flashcard list to edit
      * @param editFlashcardDescriptor details to edit the flashcard with
      */
     public EditCommand(Index index, EditFlashcardDescriptor editFlashcardDescriptor) {
@@ -92,7 +92,8 @@ public class EditCommand extends Command {
      * Creates and returns a {@code Flashcard} with the details of {@code flashcardToEdit}
      * edited with {@code editFlashcardDescriptor}.
      */
-    private static Flashcard createEditedFlashcard(Flashcard flashcardToEdit, EditFlashcardDescriptor editFlashcardDescriptor) {
+    private static Flashcard createEditedFlashcard(Flashcard flashcardToEdit,
+                                                   EditFlashcardDescriptor editFlashcardDescriptor) {
         assert flashcardToEdit != null;
 
         Name updatedName = editFlashcardDescriptor.getName().orElse(flashcardToEdit.getName());

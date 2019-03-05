@@ -74,7 +74,8 @@ public class AddCommandSystemTest extends CardCollectionSystemTest {
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, model, expectedResultMessage);
 
-        /* Case: add a flashcard with all fields same as another flashcard in the card collection except name -> added */
+        /* Case: add a flashcard with all fields same as another flashcard in the card collection except name ->
+        added */
         toAdd = new FlashcardBuilder(AMY).withName(VALID_NAME_BOB).build();
         command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
             + TAG_DESC_FRIEND;
@@ -106,7 +107,8 @@ public class AddCommandSystemTest extends CardCollectionSystemTest {
         showFlashcardsWithName(KEYWORD_MATCHING_MEIER);
         assertCommandSuccess(IDA);
 
-        /* ------------------------ Perform add operation while a flashcard card is selected --------------------------- */
+        /* ------------------------ Perform add operation while a flashcard card is selected
+        --------------------------- */
 
         /* Case: selects first card in the flashcard list, add a flashcard -> added, card selection remains unchanged */
         selectFlashcard(Index.fromOneBased(1));

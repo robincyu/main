@@ -193,7 +193,8 @@ public class ModelManager implements Model {
                 return;
             }
 
-            boolean wasSelectedFlashcardReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+            boolean wasSelectedFlashcardReplaced =
+                change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
                 && change.getRemoved().contains(selectedFlashcard.getValue());
             if (wasSelectedFlashcardReplaced) {
                 // Update selectedFlashcard to its new value.

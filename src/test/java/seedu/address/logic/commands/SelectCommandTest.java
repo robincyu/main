@@ -5,10 +5,10 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showFlashcardAtIndex;
+import static seedu.address.testutil.TypicalFlashcards.getTypicalCardCollection;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_FLASHCARD;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_FLASHCARD;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_FLASHCARD;
-import static seedu.address.testutil.TypicalFlashcards.getTypicalCardCollection;
 
 import org.junit.Test;
 
@@ -87,7 +87,8 @@ public class SelectCommandTest {
 
     /**
      * Executes a {@code SelectCommand} with the given {@code index},
-     * and checks that the model's selected flashcard is set to the flashcard at {@code index} in the filtered flashcard list.
+     * and checks that the model's selected flashcard is set to the flashcard at {@code index} in the filtered
+     * flashcard list.
      */
     private void assertExecutionSuccess(Index index) {
         SelectCommand selectCommand = new SelectCommand(index);

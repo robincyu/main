@@ -25,11 +25,11 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_FLASHCARDS;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_FLASHCARD;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_FLASHCARD;
 import static seedu.address.testutil.TypicalFlashcards.AMY;
 import static seedu.address.testutil.TypicalFlashcards.BOB;
 import static seedu.address.testutil.TypicalFlashcards.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_FLASHCARD;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_FLASHCARD;
 
 import org.junit.Test;
 
@@ -41,8 +41,8 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.flashcard.Address;
 import seedu.address.model.flashcard.Email;
-import seedu.address.model.flashcard.Name;
 import seedu.address.model.flashcard.Flashcard;
+import seedu.address.model.flashcard.Name;
 import seedu.address.model.flashcard.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.FlashcardBuilder;
@@ -73,7 +73,8 @@ public class EditCommandSystemTest extends CardCollectionSystemTest {
         /* Case: redo editing the last flashcard in the list -> last flashcard edited again */
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
-        model.setFlashcard(getModel().getFilteredFlashcardList().get(INDEX_FIRST_FLASHCARD.getZeroBased()), editedFlashcard);
+        model.setFlashcard(getModel().getFilteredFlashcardList().get(INDEX_FIRST_FLASHCARD.getZeroBased()),
+            editedFlashcard);
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: edit a flashcard with new values same as existing values -> edited */
@@ -81,7 +82,8 @@ public class EditCommandSystemTest extends CardCollectionSystemTest {
             + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandSuccess(command, index, BOB);
 
-        /* Case: edit a flashcard with new values same as another flashcard's values but with different name -> edited */
+        /* Case: edit a flashcard with new values same as another flashcard's values but with different name ->
+        edited */
         assertTrue(getModel().getCardCollection().getFlashcardList().contains(BOB));
         index = INDEX_SECOND_FLASHCARD;
         assertNotEquals(getModel().getFilteredFlashcardList().get(index.getZeroBased()), BOB);
@@ -117,7 +119,8 @@ public class EditCommandSystemTest extends CardCollectionSystemTest {
         editedFlashcard = new FlashcardBuilder(flashcardToEdit).withName(VALID_NAME_BOB).build();
         assertCommandSuccess(command, index, editedFlashcard);
 
-        /* Case: filtered flashcard list, edit index within bounds of card collection but out of bounds of flashcard list
+        /* Case: filtered flashcard list, edit index within bounds of card collection but out of bounds of flashcard
+        list
          * -> rejected
          */
         showFlashcardsWithName(KEYWORD_MATCHING_MEIER);
@@ -125,9 +128,11 @@ public class EditCommandSystemTest extends CardCollectionSystemTest {
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
             Messages.MESSAGE_INVALID_FLASHCARD_DISPLAYED_INDEX);
 
-        /* --------------------- Performing edit operation while a flashcard card is selected -------------------------- */
+        /* --------------------- Performing edit operation while a flashcard card is selected
+        -------------------------- */
 
-        /* Case: selects first card in the flashcard list, edit a flashcard -> edited, card selection remains unchanged but
+        /* Case: selects first card in the flashcard list, edit a flashcard -> edited, card selection remains
+        unchanged but
          * browser url changes
          */
         showAllFlashcards();
@@ -175,7 +180,8 @@ public class EditCommandSystemTest extends CardCollectionSystemTest {
             Email.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid address -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_FLASHCARD.getOneBased() + INVALID_ADDRESS_DESC,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_FLASHCARD.getOneBased()
+                + INVALID_ADDRESS_DESC,
             Address.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
@@ -191,22 +197,26 @@ public class EditCommandSystemTest extends CardCollectionSystemTest {
             + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_FLASHCARD);
 
-        /* Case: edit a flashcard with new values same as another flashcard's values but with different tags -> rejected */
+        /* Case: edit a flashcard with new values same as another flashcard's values but with different tags ->
+        rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
             + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_FLASHCARD);
 
-        /* Case: edit a flashcard with new values same as another flashcard's values but with different address -> rejected */
+        /* Case: edit a flashcard with new values same as another flashcard's values but with different address ->
+        rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
             + ADDRESS_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_FLASHCARD);
 
-        /* Case: edit a flashcard with new values same as another flashcard's values but with different phone -> rejected */
+        /* Case: edit a flashcard with new values same as another flashcard's values but with different phone ->
+        rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_BOB
             + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_FLASHCARD);
 
-        /* Case: edit a flashcard with new values same as another flashcard's values but with different email -> rejected */
+        /* Case: edit a flashcard with new values same as another flashcard's values but with different email ->
+        rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY
             + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_FLASHCARD);
@@ -235,7 +245,8 @@ public class EditCommandSystemTest extends CardCollectionSystemTest {
     private void assertCommandSuccess(String command, Index toEdit, Flashcard editedFlashcard,
                                       Index expectedSelectedCardIndex) {
         Model expectedModel = getModel();
-        expectedModel.setFlashcard(expectedModel.getFilteredFlashcardList().get(toEdit.getZeroBased()), editedFlashcard);
+        expectedModel.setFlashcard(expectedModel.getFilteredFlashcardList().get(toEdit.getZeroBased()),
+            editedFlashcard);
         expectedModel.updateFilteredFlashcardList(PREDICATE_SHOW_ALL_FLASHCARDS);
 
         assertCommandSuccess(command, expectedModel,

@@ -3,8 +3,8 @@ package seedu.address.ui;
 import static java.time.Duration.ofMillis;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_FLASHCARD;
 import static seedu.address.testutil.TypicalFlashcards.getTypicalFlashcards;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_FLASHCARD;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysFlashcard;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
@@ -53,7 +53,8 @@ public class FlashcardListPanelTest extends GuiUnitTest {
         guiRobot.interact(() -> selectedFlashcard.set(secondFlashcard));
         guiRobot.pauseForHuman();
 
-        FlashcardCardHandle expectedFlashcard = flashcardListPanelHandle.getFlashcardCardHandle(INDEX_SECOND_FLASHCARD.getZeroBased());
+        FlashcardCardHandle expectedFlashcard =
+            flashcardListPanelHandle.getFlashcardCardHandle(INDEX_SECOND_FLASHCARD.getZeroBased());
         FlashcardCardHandle selectedFlashcard = flashcardListPanelHandle.getHandleToSelectedCard();
         assertCardEquals(expectedFlashcard, selectedFlashcard);
     }

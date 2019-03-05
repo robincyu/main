@@ -8,8 +8,8 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditFlashcardDescriptor;
 import seedu.address.model.flashcard.Address;
 import seedu.address.model.flashcard.Email;
-import seedu.address.model.flashcard.Name;
 import seedu.address.model.flashcard.Flashcard;
+import seedu.address.model.flashcard.Name;
 import seedu.address.model.flashcard.Phone;
 import seedu.address.model.tag.Tag;
 
