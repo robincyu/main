@@ -845,17 +845,18 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Acquizition` and the *Actor* is
+the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Delete card
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list cards
+2.  Acquizition shows a list of cards
+3.  User requests to delete a specific card in the list
+4.  Acquizition deletes the card
 +
 Use case ends.
 
@@ -869,11 +870,51 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. Acquizition shows an error message.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+[discrete]
+=== Use case: Add card
+
+*MSS*
+
+1.  User requests to add a card
+2.  User specify the content the front side of the card
+3.  User specify the content the back side of the card
+4.  User specify the tag of the card
+5.  Acquizition add the card to the list
+
++
+Use case ends.
+
+
+[discrete]
+=== Use case: Edit card
+
+*MSS*
+
+1.  User requests to list cards
+2.  Acquizition shows a list of cards
+3.  User requests to edit a specific card in the list
+4.  Acquizition deletes the card
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. Acquizition shows an error message.
++
+Use case resumes at step 2.
+
 
 [appendix]
 == Non Functional Requirements
