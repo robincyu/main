@@ -915,6 +915,29 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+[discrete]
+=== Use case: Enter quiz mode
+
+*MSS*
+
+1.  User requests to enter quiz mode with some tags specified
+2.  Acquizition shows a random card based on user's past performance
+3.  User try to guess the content of the other side of the card
+4.  User provide a feedback to Acquizition
+5.  Acquizition updates the user's performance
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. There is no card with the tags specified
+
+[none]
+** 2a1. Acquizition shows an error message.
++
+Use case ends.
+
 
 [appendix]
 == Non Functional Requirements
