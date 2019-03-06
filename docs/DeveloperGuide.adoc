@@ -938,6 +938,16 @@ Use case ends.
 +
 Use case ends.
 
+[discrete]
+=== Use case: Find card
+
+*MSS*
+
+1.  User requests to find a card with some keywords and tags.
+2.  Acquizition shows a list of cards that contain all of the keyword and tags
++
+Use case ends.
+
 
 [appendix]
 == Non Functional Requirements
