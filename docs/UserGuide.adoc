@@ -28,7 +28,10 @@ User Interface (GUI) to create and edit flashcards. It also
 provides a Command-Line Interface (CLI) to streamline the
 experience for more experienced users.
 
-Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+This user guide provides in-depth documentation on the _Acquizition_
+installation process, command format and Frequently
+Asked Questions (FAQs). Jump to <<Quick Start>>
+to get started. Enjoy!
 
 == Quick Start
 
@@ -185,7 +188,7 @@ Examples:
 Show statistics for the cards with the given tag, or all cards if tag is not specified, including
 accuracy, number of tries, etc.
 
-Format: ​stats [t/TAG]
+Format: `​stats [t/TAG]`
 
 ****
 * Shows the statistics of the cards with the given tag. If no tags are given, statistics of all cards will be shown.
@@ -194,6 +197,20 @@ Format: ​stats [t/TAG]
 Examples:
 
 * `stats t/physics`
+
+=== Upload flashcards : `upload`
+Uploads a set of Flashcards from a text file
+
+Format: `upload PATH`
+
+****
+* Adds a set of Flashcards from a text file specified by PATH to the existing collection of Flashcards
+* The format of the file for upload should correspond to the file created by the share command `[coming in v2.0]`
+****
+
+Examples:
+
+* `upload C:\Users\Alice\Downloads\spanishCards.txt`
 
 === Clearing all entries : `clear`
 
@@ -210,6 +227,9 @@ Format: `exit`
 _Acquizition_ data are saved in the hard disk automatically after any command
 that changes the data. +
 There is no need to save manually.
+
+=== Share flashcards `[coming in v2.0]`
+Share a collection of flashcards specified by tags through email
 
 
 // tag::undoredo[]
