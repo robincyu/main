@@ -932,7 +932,7 @@ Use case ends.
 
 [none]
 * 2a. There is no card with the tags specified
-
++
 [none]
 ** 2a1. Acquizition shows an error message.
 +
@@ -945,6 +945,65 @@ Use case ends.
 
 1.  User requests to find a card with some keywords and tags.
 2.  Acquizition shows a list of cards that contain all of the keyword and tags
++
+Use case ends.
+
+[discrete]
+=== Use case: Export a collection of cards
+
+*MSS*
+
+1.  User requests to export a collection of cards
+2.  User specify some tags
+3.  Acquizition finds the cards with the given tags
+4.  User specify a file path and a file name
+5.  Acquizition writes the information about the cards to the file specified
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. There is no card with the tags specified
++
+[none]
+** 3a1. Acquizition shows an error message.
++
+Use case ends.
+
+[none]
+* 5a. Acquizition has no permission to edit the file
++
+[none]
+** 5a1. Acquizition shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: Import a collection of cards
+
+*MSS*
+
+1.  User requests to export a collection of cards
+2.  User specify a file path
+3.  Acquizition builds the cards from the given file.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. Acquizition cannot read the file
++
+[none]
+** 3a1. Acquizition shows an error message.
++
+Use case ends.
+
+* 3b. Acquizition doesn't recognize the file format
++
+[none]
+** 3b1. Acquizition shows an error message.
 +
 Use case ends.
 
