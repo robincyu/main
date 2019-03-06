@@ -1,7 +1,8 @@
-= Address Book (Level 4)
+= Acquizition
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/cs2103-ay1819s2-t12-2/main[image:https://travis-ci.org/cs2103-ay1819s2-t12-2/main.svg?branch=master[Build Status]]
+https://ci.appveyor.com/project/sergiovieri/main[image:https://ci.appveyor.com/api/projects/status/ukgcotxvrf021ksr/branch/master?svg=true[Build Status]]
 https://coveralls.io/github/cs2103-ay1819s2-t12-2/main?branch=master[image:https://coveralls.io/repos/github/cs2103-ay1819s2-t12-2/main/badge.svg?branch=master[Coverage Status]]
 https://www.codacy.com/app/sergiovieri/main?utm_source=github.com&utm_medium=referral&utm_content=cs2103-ay1819s2-t12-2/main&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/caf9760ff67c48b498d39589c74ac45a[Codacy Badge]]
 
@@ -13,26 +14,28 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
-* What's different from https://github.com/se-edu/addressbook-level3[level 3]:
-** A more sophisticated GUI that includes a list  panel and an in-built Browser.
-** More test cases, including automated GUI testing.
-** Support for _Build Automation_ using Gradle and for _Continuous Integration_ using Travis CI.
+* _Acquizition_ is a desktop flashcard application for subject revision and language acquisition.
+* Using a scientifically-grounded SRS (Spaced Repetition System), _Acquizition_ maximizes
+memory retention by testing the terms most likely to be forgotten soon.
+* _Acquizition_ has a sleek and intuitive GUI (Graphical User Interface) to streamline the experience
+for new users, but also sports a CLI (Command Line Interface) to maximize the efficiency of
+power users. It's the best of both worlds!
+
+== Interested?
+
+* Get started with _Acquizition_ by immediately heading over to our <<UserGuide#, User Guide>>!
+* _Acquizition_ is an open-source project. If you want to help contribute, please check out our <<DeveloperGuide#, Developer Guide>>!
 
 == Site Map
 
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
-* <<LearningOutcomes#, Learning Outcomes>>
 * <<AboutUs#, About Us>>
 * <<ContactUs#, Contact Us>>
 
 == Acknowledgements
 
-* Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
-_Marco Jakob_.
-* Libraries used: https://github.com/TestFX/TestFX[TextFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/google/guava[Guava], https://github.com/junit-team/junit5[JUnit5]
+* _Acquizition_ is adapted from the https://github.com/se-edu/addressbook-level4[addressbook-level4] project created by the https://github.com/se-edu[se-edu initiative].
+* Libraries used: https://github.com/TestFX/TestFX[TestFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/google/guava[Guava], https://github.com/junit-team/junit5[JUnit5]
 
 == Licence : link:LICENSE[MIT]
