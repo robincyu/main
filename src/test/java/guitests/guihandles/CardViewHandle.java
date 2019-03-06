@@ -1,13 +1,10 @@
 package guitests.guihandles;
 
-import guitests.GuiRobot;
-import javafx.concurrent.Worker;
 import javafx.scene.Node;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
 
-import java.net.URL;
-
+/**
+ * A handler for the {@code CardView} of the UI.
+ */
 public class CardViewHandle extends NodeHandle<Node> {
 
     public static final String CARD_VIEW_ID = "#cardPlaceholder";

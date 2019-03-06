@@ -1,20 +1,14 @@
 package seedu.address.ui;
 
-import static java.util.Objects.requireNonNull;
-
-import java.net.URL;
 import java.util.logging.Logger;
 
-import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
-import javafx.scene.web.WebView;
-import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
+
 
 /**
  * The Browser Panel of the App.
@@ -47,9 +41,15 @@ public class CardViewPanel extends UiPart<Region> {
         loadPage(new PersonCard(person, 0));
     }
 
+    /**
+     * Loads page given uiPart
+     * @param uiPart the uiPart to show
+     */
     public void loadPage(UiPart<Region> uiPart) {
         cardPlaceholder.getChildren().clear();
-        if (uiPart != null) cardPlaceholder.getChildren().add(uiPart.getRoot());
+        if (uiPart != null) {
+            cardPlaceholder.getChildren().add(uiPart.getRoot());
+        }
     }
 
     /**
